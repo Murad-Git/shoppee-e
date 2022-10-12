@@ -12,15 +12,17 @@ export default function TopProducts() {
           tables, chairs, and bookshelves.
         </p>
       </div>
-      <div className="grid grid-cols-1">
-        <a className="relative cursor-pointer mb-8">
+      <div className="grid grid-flow-row-dense grid-cols-1 mx-auto md:grid-cols-3 lg:grid-cols-4">
+        <a className="relative cursor-pointer mb-8 md:m-1 md:col-span-2 md:row-span-2">
           <div className="w-full">
             <Image
+              className="w-full"
               src="/images/top/top1.jpg"
               height={500}
-              width={500}
+              width={600}
               objectFit="cover"
               alt="product"
+              layout="responsive"
             />
           </div>
           <div className="absolute h-full top-8 left-[7%] flex flex-col justify-start items-start">
@@ -30,59 +32,63 @@ export default function TopProducts() {
             <h6 className="text-[#555] mt-6">Save up to 30%</h6>
           </div>
         </a>
-        <a className="relative cursor-pointer mb-8">
+        <a className="relative cursor-pointer mb-8 md:m-1">
           <div className="w-full">
             <Image
               src="/images/top/top2.jpg"
               height={500}
-              width={500}
+              width={600}
               objectFit="cover"
               alt="product"
+              layout="responsive"
             />
           </div>
-          <div className="absolute h-full top-8 left-[65%] flex flex-col justify-start items-end">
+          <div className="absolute h-full top-8 flex translate-x-[35%] flex-col justify-start items-end">
             <h6 className="text-primary whitespace-nowrap">Online Exclusive</h6>
             <p className="text-right underline">shop now</p>
           </div>
         </a>
-        <a className="relative cursor-pointer mb-8">
+        <a className="relative cursor-pointer mb-8 md:m-1">
           <div className="w-full">
             <Image
               src="/images/top/top3.jpg"
               height={500}
-              width={500}
+              width={600}
               objectFit="cover"
               alt="product"
+              layout="responsive"
             />
           </div>
-          <div className="absolute h-14 bottom-[2rem] left-[64%] flex flex-col justify-center items-center label">
+          {/* <div className="absolute h-14 bottom-[2rem] flex flex-col justify-center items-center label">
             <h6 className="font-bold whitespace-nowrap uppercase mb-0 text-white">
               spring sale
             </h6>
-          </div>
+          </div> */}
         </a>
-        <a className="relative cursor-pointer mb-8">
+        <a className="relative cursor-pointer mb-8 md:m-1">
           <div className="w-full">
             <Image
               src="/images/top/top4.jpg"
               height={500}
-              width={500}
+              width={600}
               objectFit="cover"
               alt="product"
+              layout="responsive"
             />
           </div>
-          <div className="absolute h-14 bottom-[2rem] left-[71%] flex flex-col justify-center items-center label">
+          {/* <div className="absolute h-14 bottom-[2rem] flex flex-col justify-center items-center label">
             <h6 className="font-bold whitespace-nowrap uppercase mb-0 text-white">
               70% sale
             </h6>
-          </div>
+          </div> */}
         </a>
-        <a className="relative cursor-pointer mb-8">
+        <a className="relative cursor-pointer mb-8 md:m-1">
           <div className="w-full">
             <Image
               src="/images/top/top5.jpg"
               height={500}
-              width={500}
+              width={600}
+              layout="responsive"
               objectFit="cover"
               alt="product"
             />

@@ -12,7 +12,7 @@ interface Props {
 
 export default function ShopItem({ title, type, price, id }: Props) {
   return (
-    <>
+    <div className="flex flex-col justify-center items-start">
       <div className="relative">
         <a>
           <div>
@@ -26,7 +26,7 @@ export default function ShopItem({ title, type, price, id }: Props) {
             />
           </div>
         </a>
-        <div className="absolute h-full top-0 right-4 left-[60%] max-w-[245px] w-full mx-auto translate-x-[35%] flex flex-col justify-center text-[#555]">
+        <div className="absolute h-full top-0 right-4 translate-x-[35%] flex flex-col justify-center text-[#555]">
           <a className="mb-3 cursor-pointer">
             <FontAwesomeIcon className="text-xl" icon={faHeart} />
           </a>
@@ -55,7 +55,7 @@ export default function ShopItem({ title, type, price, id }: Props) {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

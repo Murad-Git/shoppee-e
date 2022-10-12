@@ -49,6 +49,15 @@
   .footer {
     @apply h-full bg-[#262626] pt-6 block;
   }
+  .form-control {
+    @apply block w-full text-base font-light leading-[1.5] text-[#495057] bg-white transition-all duration-150 ease-in-out py-[14px] px-6 h-full;
+  }
+  .header_nav {
+    @apply hidden md:inline-block;
+    span {
+      @apply text-[#3c484f] flex items-center py-0 px-4 cursor-pointer leading-[inherit];
+    }
+  }
 }
 
 html,
@@ -111,6 +120,10 @@ hr {
   margin-bottom: 1rem;
   box-sizing: content-box;
   height: 0;
+  overflow: visible;
+}
+button,
+input {
   overflow: visible;
 }
 

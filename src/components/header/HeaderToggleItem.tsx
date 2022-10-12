@@ -7,7 +7,7 @@ interface Props {
   }[];
 }
 
-export default function NavToggleItem({ itemInfo }: Props) {
+export default function HeaderToggleItem({ itemInfo }: Props) {
   return (
     <ul className="p-4">
       {itemInfo.map((item) => (

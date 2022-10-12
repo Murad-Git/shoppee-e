@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import NavToggleItem from './NavToggleItem';
+import HeaderToggleItem from './HeaderToggleItem';
 
 interface Props {
   title: string;
@@ -9,19 +9,19 @@ interface Props {
   }[];
 }
 
-export default function NavItem({ title, subMenu }: Props) {
-  const [toggleNavItem, setToggleNavItem] = useState(false);
+export default function HeaderItem({ title, subMenu }: Props) {
+  const [toggleHeaderItem, setToggleHeaderItem] = useState(false);
   return (
     <li
       className="nav-hamb-items"
-      onClick={() => setToggleNavItem((prev) => !prev)}
+      onClick={() => setToggleHeaderItem((prev) => !prev)}
     >
       <a>
         <span>{title}</span>
       </a>
       {subMenu && (
         <div className="block border-none">
-          {toggleNavItem && <NavToggleItem itemInfo={subMenu} />}
+          {toggleHeaderItem && <HeaderToggleItem itemInfo={subMenu} />}
         </div>
       )}
     </li>

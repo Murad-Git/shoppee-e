@@ -1,13 +1,14 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHouse } from '@fortawesome/free-solid-svg-icons';
 import React from 'react';
+import Button from '../ui/Button';
 
 export default function Footer() {
   return (
     <div className="footer">
       <div className="container">
-        <div className="flex justify-between">
-          <div>
+        <div className="flex justify-between flex-wrap">
+          <div className="mb-4">
             <h5 className="text-white font-bold">Many desktop publishing</h5>
             <p className="text-[#555] mt-4">
               Do you want to receive exclusive email offers? Subscribe to our
@@ -15,12 +16,23 @@ export default function Footer() {
               20% discount on all our products in 10 minutes.
             </p>
           </div>
+          <div className="flex items-center">
+            <label htmlFor="email"></label>
+            <input
+              className="form-control mr-4 h-full placeholder:text-[#747373]"
+              type="email"
+              name="email"
+              id="email"
+              placeholder="Enter your email"
+            />
+            <Button className="btn btn-primary font-bold">Subscribe</Button>
+          </div>
         </div>
         <hr />
-        <div className="my-12 flex flex-col justify-between">
+        <div className="my-10 flex flex-col justify-between">
           <div className="flex justify-between flex-col">
             <div>
-              <h2>
+              <h2 className="text-white mb-4">
                 Shoppee-<i>e</i>
               </h2>
               <p className="text-white font-light mb-0">
@@ -28,26 +40,27 @@ export default function Footer() {
                 ever since the 1500s,
               </p>
             </div>
-            <div className="socials mt-5">
+            <div className="socials mt-5 flex items-center ">
               <FontAwesomeIcon
                 icon={faHouse}
-                className="text-2xl mr-2 text-white"
+                className="h-10 text-xl mr-2 text-white"
               />
               <FontAwesomeIcon
                 icon={faHouse}
-                className="text-2xl mr-2 text-white"
+                className="h-10 text-xl mr-2 text-white"
               />
               <FontAwesomeIcon
                 icon={faHouse}
-                className="text-2xl mr-2 text-white"
+                className="h-10 text-xl mr-2 text-white"
               />
               <FontAwesomeIcon
                 icon={faHouse}
-                className="text-2xl mr-2 text-white"
+                className="h-10 text-xl mr-2 text-white"
               />
             </div>
           </div>
-          <div className="mt-8 flex flex-col">
+          <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4 md:grid-cols-3">
+            {/* <div className="mt-8 flex flex-col"> */}
             <div>
               <h5 className="uppercase font-bold text-white mb-6">company</h5>
               <ul>

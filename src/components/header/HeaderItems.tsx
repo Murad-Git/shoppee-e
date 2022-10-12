@@ -1,5 +1,5 @@
 import React from 'react';
-import NavItem from './NavItem';
+import HeaderItem from './HeaderItem';
 const hamMenuItems = [
   {
     title: `Home`,
@@ -43,11 +43,11 @@ const hamMenuItems = [
     ],
   },
 ];
-export default function NavItems() {
+export default function HeaderItems() {
   return (
     <ul className="pt-8 pb-3 px-0 overflow-y-auto overflow-x-hidden">
       {hamMenuItems.map((item, index) => (
-        <NavItem key={index} {...item} />
+        <HeaderItem key={index} {...item} />
       ))}
     </ul>
   );

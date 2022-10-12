@@ -4,14 +4,14 @@ import FromBlog from '@/components/fromBlog/FromBlog';
 import HeroCarousel from '@/components/hero/HeroCarousel';
 import InfoBlock from '@/components/infoBlock/InfoBlock';
 import InstagramFollow from '@/components/InstagramFollow/InstagramFollow';
-import Nav from '@/components/nav/Nav';
+import Header from '@/components/header/Header';
 import ShopSection from '@/components/shopSection/ShopSection';
 import TopProducts from '@/components/topProducts/TopProducts';
 
 export default function Home() {
   return (
     <div>
-      <Nav />
+      <Header />
       <HeroCarousel />
       <ShopSection />
       <DiscountSection />

@@ -20,8 +20,8 @@ export default function InstagramFollow() {
   images();
   return (
     <section className="section">
-      <h3 className="font-bold text-center mb-6">Follow us on Instagram 111</h3>
-      <div className="m-0 grid grid-cols-2">
+      <h3 className="font-bold text-center mb-6">Follow us on Instagram</h3>
+      <div className="m-0 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6">
         {imgList}
         {/* <div className="p-0">
             <Image
