@@ -1,4 +1,3 @@
-import { productsValue } from '@/store/productsSlice';
 import { useAppSelector } from '@/types/hooks';
 import React from 'react';
 import CarouselItems from './CarouselItems';

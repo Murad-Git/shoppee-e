@@ -4,8 +4,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import { Backdrop } from './Overlay';
-import InputRange from 'react-input-range';
-import { Input } from '@vechaiui/react';
 import InputCheck from './InputCheck';
 
 interface Props {

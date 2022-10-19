@@ -1,4 +1,4 @@
-import { sanityClient, urlFor } from '../../sanity';
+import { sanityClient } from '../../sanity';
 import DiscountSection from '@/components/discountSection/DiscountSection';
 import FromBlog from '@/components/fromBlog/FromBlog';
 import HeroCarousel from '@/components/hero/HeroCarousel';
@@ -6,11 +6,11 @@ import InfoBlock from '@/components/infoBlock/InfoBlock';
 import InstagramFollow from '@/components/InstagramFollow/InstagramFollow';
 import ShopSection from '@/components/shopSection/ShopSection';
 import TopProducts from '@/components/topProducts/TopProducts';
-import { State, wrapper } from '@/store/store';
+import { wrapper } from '@/store/store';
 import { Product } from '@/types/main';
 
 // import { addProduct } from '@/store/productsSlice';
-import { GetStaticProps, GetStaticPropsResult, NextPage } from 'next';
+import { GetStaticProps, NextPage } from 'next';
 import { addProduct } from '@/store/productsSlice';
 // import { useAppSelector } from '@/types/hooks';
 // import { RootState } from '@/store/store';

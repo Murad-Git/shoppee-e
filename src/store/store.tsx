@@ -1,12 +1,7 @@
-import {
-  configureStore,
-  combineReducers,
-  AnyAction,
-  EnhancedStore,
-} from '@reduxjs/toolkit';
+import { configureStore, combineReducers, AnyAction } from '@reduxjs/toolkit';
 // import products from '@/store/productsSlice';
 import productsSlice from '@/store/productsSlice';
-import { createWrapper, HYDRATE, MakeStore } from 'next-redux-wrapper';
+import { createWrapper, HYDRATE } from 'next-redux-wrapper';
 
 const combinedReducer = combineReducers({
   [productsSlice.name]: productsSlice,
