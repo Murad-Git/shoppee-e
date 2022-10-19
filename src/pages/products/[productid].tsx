@@ -1,0 +1,223 @@
+import ShopItem from '@/components/shopSection/ShopItem';
+import Button from '@/components/ui/Button';
+import { faStar } from '@fortawesome/free-regular-svg-icons';
+import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Image from 'next/image';
+import React from 'react';
+import { SwiperSlide } from 'swiper/react';
+import Slider from '@/components/ui/Slider';
+import InfoBlock from '@/components/infoBlock/InfoBlock';
+import InstagramFollow from '@/components/InstagramFollow/InstagramFollow';
+
+const productItems = [
+  {
+    title: `Loft Lamp`,
+    type: `Lighting`,
+    price: `$25`,
+    id: 1,
+  },
+  {
+    title: `Cool Flower`,
+    type: `Decoration`,
+    price: `$20`,
+    id: 2,
+  },
+  {
+    title: `Cozy Sofa`,
+    type: `Furniture`,
+    price: `$150`,
+    id: 3,
+  },
+  {
+    title: `Awesome Candle`,
+    type: `Lighting`,
+    price: `$25`,
+    id: 4,
+  },
+  {
+    title: `Fancy Chair`,
+    type: `Furniture`,
+    price: `$70`,
+    id: 5,
+  },
+  {
+    title: `Chinese Teapot`,
+    type: `Decoration`,
+    price: `$50`,
+    id: 6,
+  },
+  {
+    title: `Soft Pillow`,
+    type: `Bedding`,
+    price: `$30`,
+    id: 7,
+  },
+  {
+    title: `Wooden Basket`,
+    type: `Decoration`,
+    price: `$20`,
+    id: 8,
+  },
+  {
+    title: `Awesome Armchair`,
+    type: `Furniture`,
+    price: `$90`,
+    id: 9,
+  },
+];
+
+export default function Product() {
+  return (
+    <div className="container mt-20">
+      <div className="product  md:px-8 lg:px-12">
+        <div className="product_main my-12 grid grid-cols-1 md:grid-cols-2 md:gap-4">
+          <div className="mx-auto md:w-[20rem]">
+            <Image
+              src={`/images/products/1.png`}
+              height={500}
+              width={500}
+              objectFit="cover"
+              alt="product"
+              layout="responsive"
+            />
+          </div>
+          <div className="flex flex-col justify-between ">
+            <div className="flex flex-col justify-between h-80">
+              <h6 className="text-[#555] mt-5 md:mt-0">Furniture</h6>
+              <h4 className=" font-bold">Cozy Sofa</h4>
+              <div className="reviews flex items-center">
+                <FontAwesomeIcon icon={faStar} className="h-4" />
+                <FontAwesomeIcon icon={faStar} className="h-4" />
+                <FontAwesomeIcon icon={faStar} className="h-4" />
+                <FontAwesomeIcon icon={faStar} className="h-4" />
+              </div>
+              <p className="my-4">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ut
+                ullamcorper leo, eget euismod orci. Cum sociis natoque penatibus
+                et magnis dis parturient montes, nascetur ridiculus mus.
+                Vestibulum ultricies aliquam.
+              </p>
+              <div className="quantity flex">
+                <div className="flex flex-col mr-12 justify-between">
+                  <h6 className="font-bold text-[#555] uppercase">Quantity</h6>
+                  <div className="flex items-center">
+                    <button className="flex cursor-pointer p-1 mr-4 border-0">
+                      <FontAwesomeIcon icon={faMinus} className="h-2" />
+                    </button>
+                    <p className="font-bold mb-0">1</p>
+                    <button className="flex cursor-pointer p-1 ml-4 border-0">
+                      <FontAwesomeIcon icon={faPlus} className="h-2" />
+                    </button>
+                  </div>
+                </div>
+                <div className="flex flex-col justify-between">
+                  <h6 className="font-bold text-[#555] uppercase">price</h6>
+                  <h6 className="font-bold">150$</h6>
+                </div>
+              </div>
+            </div>
+            <div className="mt-6 flex md:justify-center">
+              <Button className="btn btn-outline-primary mr-4 w-1/2 md:w-[40%] md:p-3">
+                buy now
+              </Button>
+              <Button className="btn btn-primary  w-1/2 md:w-[40%] md:p-3">
+                add to cart
+              </Button>
+            </div>
+          </div>
+        </div>
+        <hr className="lg:mt-20" />
+        <div className="reviews my-10">
+          <div className="flex justify-between items-center">
+            <h4 className="font-bold">Reviews:</h4>
+            <button className="cursor-pointer text-accent-color font-bold text-sm leading-[1.5] text-center relative transition-all duration-300 ease-linear  uppercase p-1">
+              Leave Feedback
+            </button>
+          </div>
+          <div className="review mt-8">
+            {/* userImage */}
+            <div className="flex flex-col justify-between items-start">
+              <div className="flex justify-between w-full ">
+                <h6 className="font-bold mb-0">Bill Harrison</h6>
+                <p className="text-[#555] mb-0">2021-12-30</p>
+              </div>
+              <div className="flex items-start justify-start">
+                <button className="flex cursor-pointer border-0">
+                  <FontAwesomeIcon icon={faStar} className="h-2" />
+                </button>
+                <button className="flex cursor-pointer border-0">
+                  <FontAwesomeIcon icon={faStar} className="h-2" />
+                </button>
+                <button className="flex cursor-pointer border-0">
+                  <FontAwesomeIcon icon={faStar} className="h-2" />
+                </button>
+                <button className="flex cursor-pointer border-0">
+                  <FontAwesomeIcon icon={faStar} className="h-2" />
+                </button>
+                <button className="flex cursor-pointer border-0">
+                  <FontAwesomeIcon icon={faStar} className="h-2" />
+                </button>
+              </div>
+              <p className="mb-0 mt-4">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ut
+                ullamcorper leo, eget euismod orci. Cum sociis natoque penatibus
+                et magnis dis parturient montes, nascetur ridiculus mus.
+                Vestibulum ultricies aliquam.
+              </p>
+            </div>
+          </div>
+          <div className="review mt-8">
+            {/* userImage */}
+            <div className="flex flex-col justify-between items-start">
+              <div className="flex justify-between w-full ">
+                <h6 className="font-bold mb-0">Bill Harrison</h6>
+                <p className="text-[#555] mb-0">2021-12-30</p>
+              </div>
+              <div className="flex items-start justify-start">
+                <button className="flex cursor-pointer border-0">
+                  <FontAwesomeIcon icon={faStar} className="h-2" />
+                </button>
+                <button className="flex cursor-pointer border-0">
+                  <FontAwesomeIcon icon={faStar} className="h-2" />
+                </button>
+                <button className="flex cursor-pointer border-0">
+                  <FontAwesomeIcon icon={faStar} className="h-2" />
+                </button>
+                <button className="flex cursor-pointer border-0">
+                  <FontAwesomeIcon icon={faStar} className="h-2" />
+                </button>
+                <button className="flex cursor-pointer border-0">
+                  <FontAwesomeIcon icon={faStar} className="h-2" />
+                </button>
+              </div>
+              <p className="mb-0 mt-4">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ut
+                ullamcorper leo, eget euismod orci. Cum sociis natoque penatibus
+                et magnis dis parturient montes, nascetur ridiculus mus.
+                Vestibulum ultricies aliquam.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr />
+      <div className="my-10">
+        <p className="font-bold">You may also like:</p>
+      </div>
+      <div className="h-[40rem] md:h-[35rem] my-12 mx-auto flex">
+        <Slider>
+          {productItems.map((item) => (
+            <SwiperSlide key={item.id}>
+              <ShopItem {...item} />
+            </SwiperSlide>
+          ))}
+        </Slider>
+      </div>
+      <hr />
+      <InfoBlock />
+      <hr />
+      <InstagramFollow />
+    </div>
+  );
+}
