@@ -12,6 +12,7 @@ import { Product } from '@/types/main';
 // import { addProduct } from '@/store/productsSlice';
 import { GetStaticProps, NextPage } from 'next';
 import { addProduct } from '@/store/productsSlice';
+import { sanityRequest } from '@/utils/requests';
 // import { useAppSelector } from '@/types/hooks';
 // import { RootState } from '@/store/store';
 
@@ -33,19 +34,7 @@ export default Home;
 
 export const getStaticProps: GetStaticProps = async () => {
   try {
-    const query = `*[_type== 'product']{
-  "id":_id,
-  name,
-  description,
-  "onstock":availability,
-  category,
-  price,
-  currency,
-  "image":image.asset->url,
-  "slug":slug.current
-}`;
-
-    const products = await sanityClient.fetch(query);
+    const products = await sanityRequest();
 
     if (!products)
       return {

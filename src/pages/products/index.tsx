@@ -39,7 +39,6 @@ export default function Products({ products }: Props) {
 
   const filterCategory = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    console.log(name);
     // name === 'onstock' || name === 'outofstock' && setProductsList((prevState) => {
     //   return {
     //     ...prevState,
@@ -75,8 +74,6 @@ export default function Products({ products }: Props) {
     const onStock = Object.keys(productsList.stock).map(
       (key) => productsList.stock[key] && key,
     );
-    console.log(checkedProducts);
-    console.log(onStock);
     return productsList.initial.filter(({ category }) =>
       checkedProducts.includes(category),
     );
@@ -120,15 +117,19 @@ export default function Products({ products }: Props) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const products = await sanityRequest();
-  if (!products)
+  try {
+    const products = await sanityRequest();
+    if (!products)
+      return {
+        notFound: true,
+        redirect: `/`,
+      };
     return {
-      notFound: true,
-      redirect: `/`,
+      props: {
+        products,
+      },
     };
-  return {
-    props: {
-      products,
-    },
-  };
+  } catch (error) {
+    throw new Error(error as string);
+  }
 };

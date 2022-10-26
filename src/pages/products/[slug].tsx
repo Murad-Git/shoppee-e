@@ -13,49 +13,49 @@ import { sanityClient } from 'sanity';
 import { Product } from '@/types/main';
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import { sanityRequest } from '@/utils/requests';
+import { useAppDispatch, useAppSelector } from '@/types/hooks';
+import { addProduct, productsValue } from '@/store/productsSlice';
 
 interface Props {
   product: Product;
 }
 
 const Product: NextPage<Props> = ({ product }) => {
+  const dispatch = useAppDispatch();
+  const productsList = useAppSelector(productsValue);
   const [quantity, setQuantity] = useState(1);
-  console.log(quantity);
-  // const handleQuantity = (desc: string) => {
-  //   if (desc === `descrease`) {
-  //     setQuantity((prevState) => {
-  //       return prevState === 1 ? 1 : prevState--;
-  //     });
-  //   }
-  //   return setQuantity((prevState) => prevState++);
-  // };
+  const { image, category, name, description, price } = product;
+  const addToBasket = () => {
+    dispatch(addProduct(product));
+  };
   return (
     <div className="container mt-20">
       <div className="product  md:px-8 lg:px-12">
         <div className="product_main my-12 grid grid-cols-1 md:grid-cols-2 md:gap-4">
           <div className="mx-auto w-[20rem]">
             <Image
-              src={product.image}
+              src={image}
               height={500}
               width={500}
               objectFit="cover"
               alt="product"
               layout="responsive"
+              priority
             />
           </div>
           <div className="flex flex-col justify-between ">
             <div className="flex flex-col justify-between">
               <h6 className="text-[#555] mt-5 md:mt-0 capitalize">
-                {product.category}
+                {category}
               </h6>
-              <h4 className=" font-bold">{product.name}</h4>
+              <h4 className=" font-bold">{name}</h4>
               <div className="reviews flex items-center">
                 <FontAwesomeIcon icon={faStar} className="h-4" />
                 <FontAwesomeIcon icon={faStar} className="h-4" />
                 <FontAwesomeIcon icon={faStar} className="h-4" />
                 <FontAwesomeIcon icon={faStar} className="h-4" />
               </div>
-              <p className="my-4">{product.description}</p>
+              <p className="my-4">{description}</p>
               <div className="quantity flex">
                 <div className="flex flex-col mr-12 justify-between">
                   <h6 className="font-bold text-[#555] uppercase">Quantity</h6>
@@ -79,7 +79,7 @@ const Product: NextPage<Props> = ({ product }) => {
                 </div>
                 <div className="flex flex-col justify-between">
                   <h6 className="font-bold text-[#555] uppercase">price</h6>
-                  <h6 className="font-bold">{product.price}$</h6>
+                  <h6 className="font-bold">{price}$</h6>
                 </div>
               </div>
             </div>
@@ -87,7 +87,10 @@ const Product: NextPage<Props> = ({ product }) => {
               <Button className="btn btn-outline-primary mr-4 w-1/2 md:w-[40%] md:p-3">
                 buy now
               </Button>
-              <Button className="btn btn-primary  w-1/2 md:w-[40%] md:p-3">
+              <Button
+                onClick={addToBasket}
+                className="btn btn-primary  w-1/2 md:w-[40%] md:p-3"
+              >
                 add to cart
               </Button>
             </div>
@@ -190,44 +193,24 @@ const Product: NextPage<Props> = ({ product }) => {
 
 export default Product;
 export const getStaticPaths: GetStaticPaths = async () => {
-  const query = `*[_type== 'product']{
-  "id":_id,
-  name,
-  description,
-  "onstock":availability,
-  category,
-  price,
-  currency,
-  "image":image.asset->url,
-  "slug":slug.current
-}`;
-  const products: [Product] = await sanityClient.fetch(query);
-  const paths = products.map((product) => ({
-    params: {
-      slug: product.slug,
-    },
-  }));
-  return {
-    paths,
-    fallback: `blocking`,
-  };
+  try {
+    const products = await sanityRequest();
+
+    const paths = products.map((product) => ({
+      params: {
+        slug: product.slug,
+      },
+    }));
+    return {
+      paths,
+      fallback: `blocking`,
+    };
+  } catch (error) {
+    throw new Error(error as string);
+  }
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  //   const query = `*[_type== 'product' && slug.current == "${params?.slug}"]{
-  //   "id":_id,
-  //   name,
-  //   description,
-  //   "onstock":availability,
-  //   category,
-  //   price,
-  //   currency,
-  //   "image":image.asset->url,
-  //   "slug":slug.current
-  // }`;
-  //   const product = await sanityClient.fetch(query, {
-  //     slug: params?.slug,
-  //   });
   const product = await sanityRequest(params?.slug as string);
   if (!product) {
     return {

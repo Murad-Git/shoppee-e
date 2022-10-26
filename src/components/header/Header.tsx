@@ -1,17 +1,23 @@
+import { productsValue } from '@/store/productsSlice';
+import { useAppSelector } from '@/types/hooks';
 import { faUser } from '@fortawesome/free-regular-svg-icons';
 import {
   faCartShopping,
   faMagnifyingGlass,
+  faArrowRightFromBracket,
+  faArrowsLeftRightToLine,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Link from 'next/link';
 import React, { useState } from 'react';
 import Overlay from '../ui/Overlay';
 import NavItems from './HeaderItems';
+import { useSession, signIn, signOut } from 'next-auth/react';
 
 export default function Header() {
+  const { data: session } = useSession();
   const [hamMenuToggle, setHamMenuToggle] = useState<boolean>(false);
-
+  const productsList = useAppSelector(productsValue);
   return (
     <>
       {hamMenuToggle && (
@@ -37,7 +43,7 @@ export default function Header() {
           </button>
           <Link
             href="/"
-            className="navbar-brand inline-block whitespace-nowrap"
+            className="navbar-brand inline-block whitespace-nowrap cursor-pointer"
           >
             <span className="font-bold">
               Shoppee-<i>e</i>
@@ -61,30 +67,47 @@ export default function Header() {
               </li>
             </ul>
           </nav>
-          <ul className="h-full flex flex-wrap space-x-6">
-            <li className="hidden md:inline-block ">
-              <a href="/cart">
-                <FontAwesomeIcon
-                  className="h-4 text-[#262626] hover:text-accent-color"
-                  icon={faMagnifyingGlass}
-                />
-              </a>
+          <ul className="h-full flex flex-wrap space-x-12 items-center">
+            <li className="hidden md:block ">
+              <Link href="/cart">
+                <a className="box-border p-4">
+                  <FontAwesomeIcon
+                    className="h-4 text-[#262626] hover:text-accent-color"
+                    icon={faMagnifyingGlass}
+                  />
+                </a>
+              </Link>
             </li>
-            <li className="hidden md:inline-block">
-              <a href="/cart">
-                <FontAwesomeIcon
-                  className="h-4 text-[#262626] hover:text-accent-color"
-                  icon={faUser}
-                />
-              </a>
+            <li
+              className="hidden md:block"
+              onClick={!session ? signIn : signOut}
+            >
+              <Link href="/cart">
+                <a className="box-border p-4">
+                  <FontAwesomeIcon
+                    className="h-4 text-[#262626] hover:text-accent-color"
+                    icon={
+                      !session
+                        ? faArrowRightFromBracket
+                        : faArrowsLeftRightToLine
+                    }
+                  />
+                  <p>{!session ? `SignIn` : `hello` + session?.user.name}</p>
+                </a>
+              </Link>
             </li>
             <li>
-              <a href="/cart">
-                <FontAwesomeIcon
-                  className="h-4 text-[#262626] hover:text-accent-color"
-                  icon={faCartShopping}
-                />
-              </a>
+              <Link href="/cart">
+                <a className="box-border p-4 relative">
+                  <p className="absolute text-[9px] inline-block font-bold text-[#3c484f] mb-0 ml-2 top-6">
+                    {productsList.length > 0 ? productsList.length : ``}
+                  </p>
+                  <FontAwesomeIcon
+                    className="h-4 text-[#262626] hover:text-accent-color"
+                    icon={faCartShopping}
+                  />
+                </a>
+              </Link>
             </li>
           </ul>
         </div>

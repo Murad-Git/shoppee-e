@@ -13,6 +13,8 @@ module.exports = {
       },
       colors: {
         'accent-color': '#bd744c',
+        'unlogged-color': '#cdbdb5',
+        dark: '#3c484f',
       },
     },
   },
