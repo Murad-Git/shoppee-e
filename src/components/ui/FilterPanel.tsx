@@ -1,4 +1,3 @@
-import { Product } from '@/types/main';
 import { faClose } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
@@ -7,25 +6,29 @@ import { Backdrop } from './Overlay';
 import InputCheck from './InputCheck';
 
 interface Props {
-  // onConfirm: React.SetStateAction<boolean> => void;
   onConfirm: (value: React.SetStateAction<boolean>) => void;
-  products: Product[];
+  onFilter: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  categories: string[];
+  className?: string;
 }
 
-const Filter = ({ onConfirm, products }: Props) => {
+export const Filter: React.FC<Props> = ({
+  onConfirm,
+  onFilter,
+  categories,
+  className,
+}) => {
   const [priceValue, setPriceValue] = useState(`0`);
-  const uniqueItems = (value: string, index: number, self: string[]) =>
-    self.indexOf(value) === index;
-  const uniqueCategories = products
-    .map((item) => item.category)
-    .filter(uniqueItems);
 
   return (
-    <div className="fixed z-20 bg-white rounded-lg shadow-lg p-5 py-7 w-[90%] left-1/2 transform translate-x-[-50%] max-w-[500px] ">
+    <div className={className}>
       <div className="filter_categories mb-8">
-        <div className="filter_title flex justify-between items-center mb-4">
-          <h5 className="uppercase font-bold">categories</h5>
-          <button onClick={() => onConfirm((prev) => !prev)}>
+        <div className="filter_title flex justify-between items-center mb-4 md:mb-12">
+          <h5 className="uppercase font-bold md:text-2xl">categories</h5>
+          <button
+            className="md:hidden"
+            onClick={() => onConfirm((prev) => !prev)}
+          >
             <FontAwesomeIcon
               className="h-6 hover:text-accent-color"
               icon={faClose}
@@ -33,20 +36,24 @@ const Filter = ({ onConfirm, products }: Props) => {
           </button>
         </div>
         <div className="categories">
-          {uniqueCategories.map((item, index) => (
+          {categories.map((item, index) => (
             <div key={index} className="flex items-center mb-3">
-              <InputCheck item={item} />
+              <InputCheck item={item} onFilter={onFilter} />
             </div>
           ))}
         </div>
       </div>
-      <div className="filter_price mb-4">
+      <div className="filter_price mb-4 md:my-12">
         <div className="filter_title flex flex-col">
-          <h5 className="uppercase font-bold mb-4">price</h5>
-          <p>Price Range: $0 - $1500</p>
+          <h5 className="uppercase font-bold mb-4 md:mb-10 md:text-2xl">
+            price
+          </h5>
+          <p className="text-[#555] text-lg">
+            Price Range: <span className="block my-1">$0 - $1500</span>
+          </p>
           <label
             htmlFor="default-range"
-            className="form-label text-gray-900 block mb-2 text-sm font-medium  dark:text-gray-300"
+            className="form-label text-gray-900 block mb-2 text-sm font-medium  dark:text-gray-300 md:text-base"
           >
             {priceValue}
           </label>
@@ -57,21 +64,22 @@ const Filter = ({ onConfirm, products }: Props) => {
             value={priceValue}
             type="range"
             onChange={(value) => setPriceValue(value.target.value)}
+            onInput={(value) => console.log(value)}
             className="form-range mb-6 w-full text-accent-color h-1 bg-gray-200 rounded-lg appearance-none cursor-pointer range-sm dark:bg-gray-700"
             id="default-range"
           />
         </div>
       </div>
-      <div className="filter_availabity">
+      <div className="filter_availabity md:my-12">
         <div className="filter_title flex justify-between">
-          <h5 className="uppercase font-bold mb-4">categories</h5>
+          <h5 className="uppercase font-bold mb-4 md:text-2xl">categories</h5>
         </div>
         <div className="mt-3">
           <div className="mb-3">
-            <InputCheck item="On Stock" />
+            <InputCheck item="onstock" />
           </div>
           <div>
-            <InputCheck item="Out of Stock" />
+            <InputCheck item="outofstock" />
           </div>
         </div>
       </div>
@@ -79,7 +87,12 @@ const Filter = ({ onConfirm, products }: Props) => {
   );
 };
 
-export default function FiltersMob({ onConfirm, products }: Props) {
+export function FilterPanel({
+  onConfirm,
+  onFilter,
+  categories,
+  className,
+}: Props) {
   return (
     <>
       {ReactDOM.createPortal(
@@ -87,7 +100,13 @@ export default function FiltersMob({ onConfirm, products }: Props) {
         document.getElementById(`overlays`) as Element,
       )}
       {ReactDOM.createPortal(
-        <Filter onConfirm={onConfirm} products={products} />,
+        <Filter
+          className={className}
+          categories={categories}
+          onFilter={onFilter}
+          onConfirm={onConfirm}
+          // products={products}
+        />,
         document.getElementById(`overlays`) as Element,
       )}
     </>

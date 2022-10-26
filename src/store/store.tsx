@@ -25,20 +25,20 @@ const masterReducer = (state, action: AnyAction) => {
   }
 };
 
-const store = () => {
-  return configureStore({
-    reducer: masterReducer,
-  });
-};
+// const store = () => {
+//   return configureStore({
+//     reducer: masterReducer,
+//   });
+// };
 // export const store = configureStore({
 //   reducer: {
 //     products: productsSlice,
 //   },
 // });
 
-export type State = ReturnType<typeof productsSlice>;
-export type AppStore = ReturnType<typeof store>;
-export type AppState = ReturnType<AppStore['getState']>;
+// export type State = ReturnType<typeof productsSlice>;
+// export type AppStore = ReturnType<typeof store>;
+// export type AppState = ReturnType<AppStore['getState']>;
 // export type AppThunk<ReturnType = void> = ThunkAction<
 //   ReturnType,
 //   AppState,
@@ -50,5 +50,5 @@ export type AppState = ReturnType<AppStore['getState']>;
 // export type AppDispatch = typeof store.dispatch;
 
 // assigning store to next wrapper
-export const wrapper = createWrapper<AppState>(store);
-export default store;
+// export const wrapper = createWrapper<AppState>(store);
+// export default store;

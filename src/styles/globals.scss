@@ -57,7 +57,7 @@
   }
   .header_nav {
     @apply hidden md:inline-block;
-    span {
+    a {
       @apply text-[#3c484f] flex items-center py-0 px-4 cursor-pointer leading-[inherit];
     }
   }
@@ -66,6 +66,13 @@
   }
   .quantity-buttons {
     @apply cursor-pointer p-1 mr-4 border-0;
+  }
+  .filters-mob {
+    @apply fixed z-20 bg-white rounded-lg shadow-lg p-5 py-7 w-[90%] left-1/2 transform translate-x-[-50%] max-w-[500px] md:hidden;
+  }
+  .filters-desktop {
+    all: unset;
+    @apply col-span-1 hidden md:block;
   }
 }
 

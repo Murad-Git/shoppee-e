@@ -5,7 +5,7 @@ interface Props {
   onConfirm: (prev: boolean) => void;
 }
 
-export const Backdrop = ({ onConfirm }: Props) => {
+export const Backdrop: React.FC<Props> = ({ onConfirm }) => {
   return (
     <div
       className="fixed top-0 left-0 w-full h-screen z-10 bg-[rgba(0,0,0,0.1)]"

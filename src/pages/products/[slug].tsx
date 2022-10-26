@@ -4,77 +4,38 @@ import { faStar } from '@fortawesome/free-regular-svg-icons';
 import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Image from 'next/image';
-import React from 'react';
+import React, { useState } from 'react';
 import { SwiperSlide } from 'swiper/react';
 import Slider from '@/components/ui/Slider';
 import InfoBlock from '@/components/infoBlock/InfoBlock';
 import InstagramFollow from '@/components/InstagramFollow/InstagramFollow';
+import { sanityClient } from 'sanity';
+import { Product } from '@/types/main';
+import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
+import { sanityRequest } from '@/utils/requests';
 
-const productItems = [
-  {
-    title: `Loft Lamp`,
-    type: `Lighting`,
-    price: `$25`,
-    id: 1,
-  },
-  {
-    title: `Cool Flower`,
-    type: `Decoration`,
-    price: `$20`,
-    id: 2,
-  },
-  {
-    title: `Cozy Sofa`,
-    type: `Furniture`,
-    price: `$150`,
-    id: 3,
-  },
-  {
-    title: `Awesome Candle`,
-    type: `Lighting`,
-    price: `$25`,
-    id: 4,
-  },
-  {
-    title: `Fancy Chair`,
-    type: `Furniture`,
-    price: `$70`,
-    id: 5,
-  },
-  {
-    title: `Chinese Teapot`,
-    type: `Decoration`,
-    price: `$50`,
-    id: 6,
-  },
-  {
-    title: `Soft Pillow`,
-    type: `Bedding`,
-    price: `$30`,
-    id: 7,
-  },
-  {
-    title: `Wooden Basket`,
-    type: `Decoration`,
-    price: `$20`,
-    id: 8,
-  },
-  {
-    title: `Awesome Armchair`,
-    type: `Furniture`,
-    price: `$90`,
-    id: 9,
-  },
-];
+interface Props {
+  product: Product;
+}
 
-export default function Product() {
+const Product: NextPage<Props> = ({ product }) => {
+  const [quantity, setQuantity] = useState(1);
+  console.log(quantity);
+  // const handleQuantity = (desc: string) => {
+  //   if (desc === `descrease`) {
+  //     setQuantity((prevState) => {
+  //       return prevState === 1 ? 1 : prevState--;
+  //     });
+  //   }
+  //   return setQuantity((prevState) => prevState++);
+  // };
   return (
     <div className="container mt-20">
       <div className="product  md:px-8 lg:px-12">
         <div className="product_main my-12 grid grid-cols-1 md:grid-cols-2 md:gap-4">
-          <div className="mx-auto md:w-[20rem]">
+          <div className="mx-auto w-[20rem]">
             <Image
-              src={`/images/products/1.png`}
+              src={product.image}
               height={500}
               width={500}
               objectFit="cover"
@@ -83,37 +44,42 @@ export default function Product() {
             />
           </div>
           <div className="flex flex-col justify-between ">
-            <div className="flex flex-col justify-between h-80">
-              <h6 className="text-[#555] mt-5 md:mt-0">Furniture</h6>
-              <h4 className=" font-bold">Cozy Sofa</h4>
+            <div className="flex flex-col justify-between">
+              <h6 className="text-[#555] mt-5 md:mt-0 capitalize">
+                {product.category}
+              </h6>
+              <h4 className=" font-bold">{product.name}</h4>
               <div className="reviews flex items-center">
                 <FontAwesomeIcon icon={faStar} className="h-4" />
                 <FontAwesomeIcon icon={faStar} className="h-4" />
                 <FontAwesomeIcon icon={faStar} className="h-4" />
                 <FontAwesomeIcon icon={faStar} className="h-4" />
               </div>
-              <p className="my-4">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ut
-                ullamcorper leo, eget euismod orci. Cum sociis natoque penatibus
-                et magnis dis parturient montes, nascetur ridiculus mus.
-                Vestibulum ultricies aliquam.
-              </p>
+              <p className="my-4">{product.description}</p>
               <div className="quantity flex">
                 <div className="flex flex-col mr-12 justify-between">
                   <h6 className="font-bold text-[#555] uppercase">Quantity</h6>
                   <div className="flex items-center">
-                    <button className="flex cursor-pointer p-1 mr-4 border-0">
+                    <button
+                      onClick={() =>
+                        setQuantity((prev) => (prev <= 1 ? 1 : prev - 1))
+                      }
+                      className="flex cursor-pointer p-1 mr-4 border-0"
+                    >
                       <FontAwesomeIcon icon={faMinus} className="h-2" />
                     </button>
-                    <p className="font-bold mb-0">1</p>
-                    <button className="flex cursor-pointer p-1 ml-4 border-0">
+                    <p className="font-bold mb-0">{quantity}</p>
+                    <button
+                      onClick={() => setQuantity((prev) => prev + 1)}
+                      className="flex cursor-pointer p-1 ml-4 border-0"
+                    >
                       <FontAwesomeIcon icon={faPlus} className="h-2" />
                     </button>
                   </div>
                 </div>
                 <div className="flex flex-col justify-between">
                   <h6 className="font-bold text-[#555] uppercase">price</h6>
-                  <h6 className="font-bold">150$</h6>
+                  <h6 className="font-bold">{product.price}$</h6>
                 </div>
               </div>
             </div>
@@ -205,7 +171,7 @@ export default function Product() {
       <div className="my-10">
         <p className="font-bold">You may also like:</p>
       </div>
-      <div className="h-[40rem] md:h-[35rem] my-12 mx-auto flex">
+      {/* <div className="h-[40rem] md:h-[35rem] my-12 mx-auto flex">
         <Slider>
           {productItems.map((item) => (
             <SwiperSlide key={item.id}>
@@ -213,11 +179,120 @@ export default function Product() {
             </SwiperSlide>
           ))}
         </Slider>
-      </div>
+      </div> */}
       <hr />
       <InfoBlock />
       <hr />
       <InstagramFollow />
     </div>
   );
-}
+};
+
+export default Product;
+export const getStaticPaths: GetStaticPaths = async () => {
+  const query = `*[_type== 'product']{
+  "id":_id,
+  name,
+  description,
+  "onstock":availability,
+  category,
+  price,
+  currency,
+  "image":image.asset->url,
+  "slug":slug.current
+}`;
+  const products: [Product] = await sanityClient.fetch(query);
+  const paths = products.map((product) => ({
+    params: {
+      slug: product.slug,
+    },
+  }));
+  return {
+    paths,
+    fallback: `blocking`,
+  };
+};
+
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  //   const query = `*[_type== 'product' && slug.current == "${params?.slug}"]{
+  //   "id":_id,
+  //   name,
+  //   description,
+  //   "onstock":availability,
+  //   category,
+  //   price,
+  //   currency,
+  //   "image":image.asset->url,
+  //   "slug":slug.current
+  // }`;
+  //   const product = await sanityClient.fetch(query, {
+  //     slug: params?.slug,
+  //   });
+  const product = await sanityRequest(params?.slug as string);
+  if (!product) {
+    return {
+      notFound: true,
+    };
+  }
+  return {
+    props: {
+      product: product[0],
+    },
+  };
+};
+// const productItems = [
+//   {
+//     title: `Loft Lamp`,
+//     type: `Lighting`,
+//     price: `$25`,
+//     id: 1,
+//   },
+//   {
+//     title: `Cool Flower`,
+//     type: `Decoration`,
+//     price: `$20`,
+//     id: 2,
+//   },
+//   {
+//     title: `Cozy Sofa`,
+//     type: `Furniture`,
+//     price: `$150`,
+//     id: 3,
+//   },
+//   {
+//     title: `Awesome Candle`,
+//     type: `Lighting`,
+//     price: `$25`,
+//     id: 4,
+//   },
+//   {
+//     title: `Fancy Chair`,
+//     type: `Furniture`,
+//     price: `$70`,
+//     id: 5,
+//   },
+//   {
+//     title: `Chinese Teapot`,
+//     type: `Decoration`,
+//     price: `$50`,
+//     id: 6,
+//   },
+//   {
+//     title: `Soft Pillow`,
+//     type: `Bedding`,
+//     price: `$30`,
+//     id: 7,
+//   },
+//   {
+//     title: `Wooden Basket`,
+//     type: `Decoration`,
+//     price: `$20`,
+//     id: 8,
+//   },
+//   {
+//     title: `Awesome Armchair`,
+//     type: `Furniture`,
+//     price: `$90`,
+//     id: 9,
+//   },
+// ];

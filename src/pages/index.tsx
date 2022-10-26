@@ -6,7 +6,7 @@ import InfoBlock from '@/components/infoBlock/InfoBlock';
 import InstagramFollow from '@/components/InstagramFollow/InstagramFollow';
 import ShopSection from '@/components/shopSection/ShopSection';
 import TopProducts from '@/components/topProducts/TopProducts';
-import { wrapper } from '@/store/store';
+// import { wrapper } from '@/store/store';
 import { Product } from '@/types/main';
 
 // import { addProduct } from '@/store/productsSlice';
@@ -21,24 +21,18 @@ interface Props {
 
 const Home: NextPage<Props> = ({ products }) => {
   return (
-    <div>
+    <>
       <HeroCarousel />
-      <ShopSection />
+      <ShopSection products={products} />
       <DiscountSection />
       <TopProducts />
-      <hr />
-      <InfoBlock />
-      <hr />
-      <FromBlog />
-      <InstagramFollow />
-    </div>
+    </>
   );
 };
 export default Home;
 
-// Home.getStaticProps = wrapper.getStaticProps()
-export const getStaticProps: GetStaticProps = wrapper.getStaticProps(
-  (store) => async () => {
+export const getStaticProps: GetStaticProps = async () => {
+  try {
     const query = `*[_type== 'product']{
   "id":_id,
   name,
@@ -51,20 +45,51 @@ export const getStaticProps: GetStaticProps = wrapper.getStaticProps(
   "slug":slug.current
 }`;
 
-    const products: [Product] = await sanityClient.fetch(query);
+    const products = await sanityClient.fetch(query);
 
     if (!products)
       return {
         notFound: true,
         redirect: `/`,
       };
-    products.forEach((product) => store.dispatch(addProduct(product)));
-    console.log(store.getState().reducer.products);
     return {
       props: {
         products,
       },
-      revalidate: 10000,
     };
-  },
-);
+  } catch (error) {
+    throw new Error(error as string);
+  }
+};
+
+// export const getStaticProps: GetStaticProps = wrapper.getStaticProps(
+//   (store) => async () => {
+//     const query = `*[_type== 'product']{
+//   "id":_id,
+//   name,
+//   description,
+//   "onstock":availability,
+//   category,
+//   price,
+//   currency,
+//   "image":image.asset->url,
+//   "slug":slug.current
+// }`;
+
+//     const products: [Product] = await sanityClient.fetch(query);
+
+//     if (!products)
+//       return {
+//         notFound: true,
+//         redirect: `/`,
+//       };
+//     products.forEach((product) => store.dispatch(addProduct(product)));
+//     console.log(store.getState().reducer.products);
+//     return {
+//       props: {
+//         products,
+//       },
+//       revalidate: 10000,
+//     };
+//   },
+// );

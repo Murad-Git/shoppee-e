@@ -1,8 +1,14 @@
+import { Product } from '@/types/main';
 import React from 'react';
 import Button from '../ui/Button';
 import ShopItems from './ShopItems';
 
-export default function ShopSection() {
+export interface Props {
+  products: Product[];
+  props?: any;
+}
+
+export default function ShopSection({ products }: Props) {
   return (
     <div className="my-20 container">
       <h3 className="font-bold text-center mb-6">New Arrivals</h3>
@@ -15,7 +21,7 @@ export default function ShopSection() {
           </p>
         </div>
       </div>
-      <ShopItems />
+      <ShopItems products={products} />
       <div className="flex justify-center">
         <Button className="btn btn-outline-primary">view more</Button>
       </div>
