@@ -77,7 +77,7 @@
   }
 
   .header {
-    @apply bg-white shadow-sm fixed w-full z-40 top-0 flex justify-start flex-wrap items-center text-xl h-[60px] border-none font-medium;
+    @apply bg-white shadow-lg fixed w-full z-40 top-0 flex justify-start flex-wrap items-center text-xl h-[80px] border-none font-medium;
   }
 
   .quantity-buttons {

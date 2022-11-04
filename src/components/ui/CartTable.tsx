@@ -12,7 +12,7 @@ export default function CartTable() {
   const removeFromCart = (id: string) => {
     dispatch(removeProduct(id));
   };
-  console.log(products);
+
   return (
     <table>
       <thead>

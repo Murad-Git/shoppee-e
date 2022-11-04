@@ -34,8 +34,8 @@ export const productsSlice = createSlice({
 
 export const { addProduct, removeProduct } = productsSlice.actions;
 
-export const productsValue = (state: RootState) => state.products.productsList;
+export const productsValue = (state: RootState) => state.productsList;
 export const selectTotal = (state: RootState) =>
-  state.products.productsList.reduce((acc, cur) => (acc += cur.price), 0);
+  state.productsList.reduce((acc, cur) => (acc += cur.price), 0);
 
 export default productsSlice.reducer;

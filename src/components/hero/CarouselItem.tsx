@@ -10,7 +10,7 @@ interface Props {
 export default function CarouselItem({ item, index }: Props) {
   return (
     <div className="flex w-full h-full items-center justify-center bg-gray-400 dark:bg-gray-700 dark:text-white relative">
-      <div className="w-full">
+      <div className="w-full h-full relative">
         <Image
           src={`/images/hero-carus-${index}.png`}
           objectFit="cover"

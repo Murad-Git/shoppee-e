@@ -18,6 +18,7 @@ export default function Header() {
   const { data: session } = useSession();
   const [hamMenuToggle, setHamMenuToggle] = useState<boolean>(false);
   const productsList = useAppSelector(productsValue);
+  console.log(session);
   return (
     <>
       {hamMenuToggle && (
@@ -80,7 +81,7 @@ export default function Header() {
             </li>
             <li
               className="hidden md:block"
-              onClick={!session ? signIn : signOut}
+              onClick={session ? signOut : signIn}
             >
               <Link href="/cart">
                 <a className="box-border p-4">
@@ -92,7 +93,7 @@ export default function Header() {
                         : faArrowsLeftRightToLine
                     }
                   />
-                  <p>{!session ? `SignIn` : `hello` + session?.user.name}</p>
+                  <p>{!session ? `SignIn` : `hello ` + session?.user.name}</p>
                 </a>
               </Link>
             </li>

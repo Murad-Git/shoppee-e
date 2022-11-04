@@ -1,15 +1,35 @@
-import { selectTotal } from '@/store/productsSlice';
+import { productsValue, selectTotal } from '@/store/productsSlice';
 import { useAppSelector } from '@/types/hooks';
 import React from 'react';
 import Button from './Button';
 import { useSession, signIn, signOut } from 'next-auth/react';
+import { loadStripe } from '@stripe/stripe-js';
+import axios from 'axios';
+const stripePromise = loadStripe(process.env.stripe_public_key as string);
 
 export default function CartTotal() {
   const { data: session } = useSession();
   const totalPrice = useAppSelector(selectTotal);
+  const products = useAppSelector(productsValue);
 
+  const createCheckoutSession = async () => {
+    const stripe = await stripePromise;
+
+    // Call the backend to create checkout session
+    const checkoutSession = await axios.post(`/api/create-checkout-session`, {
+      products,
+      email: session?.user?.email,
+    });
+
+    // Redirect to Stripe Checkout
+    const result = await stripe?.redirectToCheckout({
+      sessionId: checkoutSession.data.id,
+    });
+
+    if (result?.error) alert(result.error.message);
+  };
   return (
-    <div className="lg:col-span-1 mt-auto lg:my-auto">
+    <div className="lg:col-span-1 mt-auto lg:mt-6">
       <section className="bg-[#f5f5f5] flex flex-col">
         <div className="p-8">
           <h2 className="font-bold mb-12">Cart Total</h2>
@@ -34,6 +54,9 @@ export default function CartTotal() {
           </div>
         </div>
         <Button
+          onClick={createCheckoutSession}
+          aria-disabled={!session}
+          role="link"
           className={`btn btn-primary w-full ${
             !session && `!bg-unlogged-color`
           }`}

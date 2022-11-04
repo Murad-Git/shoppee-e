@@ -5,7 +5,7 @@ import { Filter } from '@/components/ui/FilterPanel';
 import { Product } from '@/types/main';
 import { sanityRequest } from '@/utils/requests';
 import { GetStaticProps } from 'next';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 interface State {
   initial: Product[];
@@ -36,9 +36,15 @@ export default function Products({ products }: Props) {
       outofstock: false,
     },
   });
-
+  const [counter, setCounter] = useState(0);
+  useEffect(() => {
+    console.log(`hello`);
+    setCounter(1);
+  }, [productsList]);
+  console.log(counter);
   const filterCategory = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
+
     // name === 'onstock' || name === 'outofstock' && setProductsList((prevState) => {
     //   return {
     //     ...prevState,

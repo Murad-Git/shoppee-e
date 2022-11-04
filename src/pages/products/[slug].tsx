@@ -9,7 +9,6 @@ import { SwiperSlide } from 'swiper/react';
 import Slider from '@/components/ui/Slider';
 import InfoBlock from '@/components/infoBlock/InfoBlock';
 import InstagramFollow from '@/components/InstagramFollow/InstagramFollow';
-import { sanityClient } from 'sanity';
 import { Product } from '@/types/main';
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import { sanityRequest } from '@/utils/requests';
@@ -28,6 +27,7 @@ const Product: NextPage<Props> = ({ product }) => {
   const addToBasket = () => {
     dispatch(addProduct(product));
   };
+  console.log(productsList);
   return (
     <div className="container mt-20">
       <div className="product  md:px-8 lg:px-12">
