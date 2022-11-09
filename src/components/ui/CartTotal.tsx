@@ -2,7 +2,7 @@ import { productsValue, selectTotalPrice } from '@/store/productsSlice';
 import { useAppSelector } from '@/types/hooks';
 import React from 'react';
 import Button from './Button';
-import { useSession, signIn, signOut } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 import { loadStripe } from '@stripe/stripe-js';
 import axios from 'axios';
 const stripePromise = loadStripe(process.env.stripe_public_key as string);
