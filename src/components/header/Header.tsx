@@ -79,9 +79,9 @@ export default function Header() {
             </li>
             <li
               className="hidden md:block"
-              onClick={() => (session ? signOut : signIn)}
+              onClick={() => (session ? signOut() : signIn())}
             >
-              <Link href="/cart">
+              <button>
                 <a className="box-border p-4">
                   <FontAwesomeIcon
                     className="h-4 text-[#262626] hover:text-accent-color"
@@ -95,7 +95,7 @@ export default function Header() {
                     session ? `hello ` + session.user?.name : `SignIn`
                   }`}</p>
                 </a>
-              </Link>
+              </button>
             </li>
             <li>
               <Link href="/cart">

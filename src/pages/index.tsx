@@ -3,8 +3,8 @@ import HeroCarousel from '@/components/hero/HeroCarousel';
 import ShopSection from '@/components/shopSection/ShopSection';
 import TopProducts from '@/components/topProducts/TopProducts';
 import { Product } from '@/types/main';
-import { GetStaticProps, NextPage } from 'next';
 import { sanityRequest } from '@/utils/requests';
+import { GetStaticProps, NextPage } from 'next';
 interface Props {
   products: [Product];
 }
@@ -24,7 +24,6 @@ export default Home;
 export const getStaticProps: GetStaticProps = async () => {
   try {
     const products = await sanityRequest();
-
     if (!products)
       return {
         notFound: true,
