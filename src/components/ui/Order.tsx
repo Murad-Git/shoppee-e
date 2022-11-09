@@ -1,5 +1,6 @@
 import { Orders } from '@/types/main';
 import moment from 'moment';
+import Image from 'next/dist/client/image';
 import React from 'react';
 import Currency from 'react-currency-formatter';
 
@@ -9,9 +10,14 @@ interface Props {
 
 export default function Order({ order }: Props) {
   const { id, amount, amountShipping, items, timestamp, images } = order;
+
   const deliveryText =
     amountShipping === 0 ? ` - Free Shipping ` : ` - Next Day Delivery `;
-  console.log(images);
+  const totalItems2 = items.reduce((acc, item) => (acc += item.quantity), 0);
+  const orderedItems = items.map(function (x, i) {
+    return { amount: x.quantity, image: images[i] };
+  });
+
   return (
     <div className="relative border rounded-md">
       <div className="flex items-center space-x-10 p-5 bg-gray-100 text-sm text-gray-600">
@@ -28,7 +34,7 @@ export default function Order({ order }: Props) {
           </p>
         </div>
         <p className="text-sm whitespace-nowrap sm:text-xl self-end flex-1 text-right text-blue-500">
-          {items.length} items
+          {totalItems2} items
         </p>
         <p className="uppercase absolute top-2 right-2 w-40 lg:w-96 truncate text-xs whitespace-nowrap">
           order #{id}
@@ -36,13 +42,20 @@ export default function Order({ order }: Props) {
       </div>
       <div className="p-5 sm:p-10">
         <div className="flex space-x-6 overflow-x-auto">
-          {images.map((image, index) => (
-            <img
-              key={index}
-              src={image}
-              alt="product"
-              className="h-20 object-contain sm:h-44"
-            />
+          {orderedItems.map((item, index) => (
+            <div key={index} className="w-20 object-contain sm:w-44 relative">
+              <p className="absolute top-2 left-4 z-20 font-bold">
+                {item.amount}x
+              </p>
+              <Image
+                height={500}
+                width={500}
+                objectFit="cover"
+                key={index}
+                src={item.image}
+                alt="product"
+              />
+            </div>
           ))}
         </div>
       </div>

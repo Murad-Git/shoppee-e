@@ -13,11 +13,5 @@ const firebaseApp = initializeApp({
 });
 
 // Init FB
-// const app = initializeApp(firebaseConfig);
 const db = getFirestore(firebaseApp);
-
-// const app = !firebase.apps.length
-//   ? firebase.initializeApp(firebaseConfig)
-//   : firebase.app();
-// const db = app.firestore();
 export default db;

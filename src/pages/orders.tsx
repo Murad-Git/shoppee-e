@@ -54,7 +54,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const ordersCol = collection(
     db,
     `users/` +
-      encodeURIComponent(session.user?.email).replace(/\./g, `%2E`) +
+      encodeURIComponent(session.user?.email as string).replace(/\./g, `%2E`) +
       `/orders/`,
   );
   const ordersSnapshot = await getDocs(ordersCol);

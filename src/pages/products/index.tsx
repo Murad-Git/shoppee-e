@@ -87,7 +87,7 @@ export default function Products({ products }: Props) {
 
   return (
     <>
-      <div className="container mt-20 mb-12">
+      <div className="container mt-32 mb-12">
         <div className="md:grid md:grid-cols-4 lg:grid-cols-4 2xl:grid-cols-5">
           <div className="filters_mob flex justify-between md:hidden">
             <button onClick={() => setShowFilter((prev) => !prev)}>F</button>

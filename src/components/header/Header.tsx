@@ -18,7 +18,6 @@ export default function Header() {
   const { data: session } = useSession();
   const [hamMenuToggle, setHamMenuToggle] = useState<boolean>(false);
   const productsList = useAppSelector(productsValue);
-  console.log(session);
   return (
     <>
       {hamMenuToggle && (

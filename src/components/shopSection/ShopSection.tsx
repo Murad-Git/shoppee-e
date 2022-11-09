@@ -6,6 +6,7 @@ import ShopItems from './ShopItems';
 export interface Props {
   products: Product[];
   props?: any;
+  [key: string]: any;
 }
 
 export default function ShopSection({ products }: Props) {

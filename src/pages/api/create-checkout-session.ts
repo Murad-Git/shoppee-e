@@ -14,7 +14,7 @@ const checkoutSession = async (req: NextApiRequest, res: NextApiResponse) => {
       const { products, email }: Props = req.body;
 
       const transformedProducts = products.map((product) => ({
-        quantity: 1,
+        quantity: product.quantity,
         price_data: {
           currency: `usd`,
           unit_amount: product.price * 100,
@@ -65,7 +65,7 @@ const checkoutSession = async (req: NextApiRequest, res: NextApiResponse) => {
       res.status(200).json({ id: session.id });
     } catch (error) {
       if (error instanceof Error)
-        res.status(error.statusCode || 500).json(error.message);
+        res.status(error.code || 500).json(error.message);
     }
   } else {
     res.setHeader(`Allow`, `POST`);

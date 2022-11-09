@@ -1,4 +1,4 @@
-import { productsValue, selectTotal } from '@/store/productsSlice';
+import { productsValue, selectTotalPrice } from '@/store/productsSlice';
 import { useAppSelector } from '@/types/hooks';
 import React from 'react';
 import Button from './Button';
@@ -9,7 +9,7 @@ const stripePromise = loadStripe(process.env.stripe_public_key as string);
 
 export default function CartTotal() {
   const { data: session } = useSession();
-  const totalPrice = useAppSelector(selectTotal);
+  const totalPrice = useAppSelector(selectTotalPrice);
   const products = useAppSelector(productsValue);
 
   const createCheckoutSession = async () => {

@@ -13,23 +13,39 @@ import { Product } from '@/types/main';
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import { sanityRequest } from '@/utils/requests';
 import { useAppDispatch, useAppSelector } from '@/types/hooks';
-import { addProduct, productsValue } from '@/store/productsSlice';
+import {
+  addProduct,
+  productsValue,
+  removeAllProducts,
+} from '@/store/productsSlice';
 
 interface Props {
   product: Product;
+  products: Product[];
 }
 
-const Product: NextPage<Props> = ({ product }) => {
+const Product: NextPage<Props> = ({ product, products }) => {
   const dispatch = useAppDispatch();
   const productsList = useAppSelector(productsValue);
   const [quantity, setQuantity] = useState(1);
   const { image, category, name, description, price } = product;
+  const formattedProduct = { ...product };
+  formattedProduct.quantity = quantity;
+  formattedProduct.totalPrice = product.price * quantity;
   const addToBasket = () => {
-    dispatch(addProduct(product));
+    dispatch(
+      addProduct({
+        newProduct: formattedProduct,
+      }),
+    );
   };
+  const removeAllItems = () => {
+    dispatch(removeAllProducts());
+  };
+  // console.log(formattedProduct);
   console.log(productsList);
   return (
-    <div className="container mt-20">
+    <div className="container mt-32">
       <div className="product  md:px-8 lg:px-12">
         <div className="product_main my-12 grid grid-cols-1 md:grid-cols-2 md:gap-4">
           <div className="mx-auto w-[20rem]">
@@ -84,7 +100,10 @@ const Product: NextPage<Props> = ({ product }) => {
               </div>
             </div>
             <div className="mt-6 flex md:justify-center">
-              <Button className="btn btn-outline-primary mr-4 w-1/2 md:w-[40%] md:p-3">
+              <Button
+                onClick={removeAllItems}
+                className="btn btn-outline-primary mr-4 w-1/2 md:w-[40%] md:p-3"
+              >
                 buy now
               </Button>
               <Button
@@ -174,15 +193,15 @@ const Product: NextPage<Props> = ({ product }) => {
       <div className="my-10">
         <p className="font-bold">You may also like:</p>
       </div>
-      {/* <div className="h-[40rem] md:h-[35rem] my-12 mx-auto flex">
+      <div className="h-[40rem] md:h-[35rem] my-12 mx-auto flex">
         <Slider>
-          {productItems.map((item) => (
+          {products.map((item) => (
             <SwiperSlide key={item.id}>
               <ShopItem {...item} />
             </SwiperSlide>
           ))}
         </Slider>
-      </div> */}
+      </div>
       <hr />
       <InfoBlock />
       <hr />
@@ -212,6 +231,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const product = await sanityRequest(params?.slug as string);
+  const products = await sanityRequest();
+
   if (!product) {
     return {
       notFound: true,
@@ -220,62 +241,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   return {
     props: {
       product: product[0],
+      products,
     },
   };
 };
-// const productItems = [
-//   {
-//     title: `Loft Lamp`,
-//     type: `Lighting`,
-//     price: `$25`,
-//     id: 1,
-//   },
-//   {
-//     title: `Cool Flower`,
-//     type: `Decoration`,
-//     price: `$20`,
-//     id: 2,
-//   },
-//   {
-//     title: `Cozy Sofa`,
-//     type: `Furniture`,
-//     price: `$150`,
-//     id: 3,
-//   },
-//   {
-//     title: `Awesome Candle`,
-//     type: `Lighting`,
-//     price: `$25`,
-//     id: 4,
-//   },
-//   {
-//     title: `Fancy Chair`,
-//     type: `Furniture`,
-//     price: `$70`,
-//     id: 5,
-//   },
-//   {
-//     title: `Chinese Teapot`,
-//     type: `Decoration`,
-//     price: `$50`,
-//     id: 6,
-//   },
-//   {
-//     title: `Soft Pillow`,
-//     type: `Bedding`,
-//     price: `$30`,
-//     id: 7,
-//   },
-//   {
-//     title: `Wooden Basket`,
-//     type: `Decoration`,
-//     price: `$20`,
-//     id: 8,
-//   },
-//   {
-//     title: `Awesome Armchair`,
-//     type: `Furniture`,
-//     price: `$90`,
-//     id: 9,
-//   },
-// ];

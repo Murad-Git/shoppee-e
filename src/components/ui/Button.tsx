@@ -6,6 +6,7 @@ interface Props
     HTMLButtonElement
   > {
   children: React.ReactNode;
+  // [key: string]: any;
 }
 
 export default function Button({ children, ...rest }: Props) {

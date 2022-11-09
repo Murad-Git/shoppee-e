@@ -1,12 +1,19 @@
 import { buffer } from 'micro';
 import * as admin from 'firebase-admin';
 import type { NextApiRequest, NextApiResponse } from 'next';
+import { Session } from '@/types/main';
 
 // Secure a connection to Firebase from the backend
-const serviceAccount = require(`../../../permissions.json`);
 const app = !admin.apps.length
   ? admin.initializeApp({
-      credential: admin.credential.cert(serviceAccount),
+      credential: admin.credential.cert({
+        projectId: process.env.FIREBASE_PROJECT_ID,
+        privateKey: process.env.FIREBASE_PRIVATE_KEY
+          ? process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/gm, `\n`)
+          : undefined,
+        clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
+      }),
+      // credential: admin.credential.cert(serviceAccount),
       databaseURL: `https://e-shoppee-a2938.firebaseio.com`,
     })
   : admin.app();
@@ -15,7 +22,7 @@ const app = !admin.apps.length
 const stripe = require(`stripe`)(process.env.STRIPE_SECRET_KEY);
 const endpointSecret = process.env.STRIPE_SIGNING_SECRET;
 
-const fulfillOrder = async (session) => {
+const fulfillOrder = async (session: Session) => {
   console.log(`fulfilling the order`);
   console.log(session);
 
@@ -26,7 +33,7 @@ const fulfillOrder = async (session) => {
     .collection(`orders`)
     .doc(session.id)
     .set({
-      amount: session.amount_total / 100,
+      amount: !!session.amount_total && session.amount_total / 100,
       amount_shipping: session.total_details.amount_shipping / 100,
       images: JSON.parse(session.metadata.images).map((image) =>
         image
@@ -53,14 +60,14 @@ const webhook = async (req: NextApiRequest, res: NextApiResponse) => {
       try {
         event = stripe.webhooks.constructEvent(payload, sig, endpointSecret);
       } catch (error) {
-        console.error(error.message);
-        return res.status(400).send(`Webhook error ${error.message}`);
+        if (error instanceof Error)
+          res.status(400).send(`Webhook error ${error.message}`);
       }
 
       // Handle the checkout.session.completed event
       if (event.type === `checkout.session.completed`) {
         const session = event.data.object;
-        console.log(session);
+
         // Fulfill the order
         return fulfillOrder(session)
           .then(() => res.status(200))
@@ -68,7 +75,7 @@ const webhook = async (req: NextApiRequest, res: NextApiResponse) => {
       }
     } catch (error) {
       if (error instanceof Error)
-        res.status(error.statusCode || 500).json(error.message);
+        res.status(error.code || 500).json(error.message);
     }
   }
 };
