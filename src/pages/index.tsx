@@ -9,7 +9,7 @@ interface Props {
   products: [Product];
 }
 
-const Home: NextPage<Props> = ({ products }) => {
+const Home: NextPage<Props> = ({ products }: Props) => {
   return (
     <>
       <HeroCarousel />
@@ -39,35 +39,3 @@ export const getStaticProps: GetStaticProps = async () => {
     throw new Error(error as string);
   }
 };
-
-// export const getStaticProps: GetStaticProps = wrapper.getStaticProps(
-//   (store) => async () => {
-//     const query = `*[_type== 'product']{
-//   "id":_id,
-//   name,
-//   description,
-//   "onstock":availability,
-//   category,
-//   price,
-//   currency,
-//   "image":image.asset->url,
-//   "slug":slug.current
-// }`;
-
-//     const products: [Product] = await sanityClient.fetch(query);
-
-//     if (!products)
-//       return {
-//         notFound: true,
-//         redirect: `/`,
-//       };
-//     products.forEach((product) => store.dispatch(addProduct(product)));
-//     console.log(store.getState().reducer.products);
-//     return {
-//       props: {
-//         products,
-//       },
-//       revalidate: 10000,
-//     };
-//   },
-// );

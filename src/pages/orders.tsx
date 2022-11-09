@@ -15,7 +15,7 @@ interface Props {
   }[];
 }
 
-const Orders: NextPage<Props> = ({ orders }) => {
+const Orders: NextPage<Props> = ({ orders }: Props) => {
   const { data: session } = useSession();
   console.log(orders);
   return (
@@ -32,9 +32,10 @@ const Orders: NextPage<Props> = ({ orders }) => {
         <h4>Please sign in to see your orders</h4>
       )}
       <div className="mt-5 space-y-4">
-        {orders?.map((order, index) => (
-          <Order key={index} order={order.value} />
-        ))}
+        {orders.length > 0 &&
+          orders.map((order, index) => (
+            <Order key={index} order={order.value} />
+          ))}
       </div>
     </main>
   );
