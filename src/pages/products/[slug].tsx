@@ -1,23 +1,20 @@
+import InfoBlock from '@/components/infoBlock/InfoBlock';
+import InstagramFollow from '@/components/InstagramFollow/InstagramFollow';
 import ShopItem from '@/components/shopSection/ShopItem';
 import Button from '@/components/ui/Button';
+import Slider from '@/components/ui/Slider';
+import { addProduct, productsValue } from '@/store/productsSlice';
+import { useAppDispatch, useAppSelector } from '@/types/hooks';
+import { Product } from '@/types/main';
+import { sanityRequest } from '@/utils/requests';
 import { faStar } from '@fortawesome/free-regular-svg-icons';
 import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Image from 'next/image';
-import React, { useState } from 'react';
-import { SwiperSlide } from 'swiper/react';
-import Slider from '@/components/ui/Slider';
-import InfoBlock from '@/components/infoBlock/InfoBlock';
-import InstagramFollow from '@/components/InstagramFollow/InstagramFollow';
-import { Product } from '@/types/main';
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
-import { sanityRequest } from '@/utils/requests';
-import { useAppDispatch, useAppSelector } from '@/types/hooks';
-import {
-  addProduct,
-  productsValue,
-  removeAllProducts,
-} from '@/store/productsSlice';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
+import { useState } from 'react';
+import { SwiperSlide } from 'swiper/react';
 
 interface Props {
   product: Product;
@@ -26,6 +23,7 @@ interface Props {
 
 const Product: NextPage<Props> = ({ product, products }) => {
   const dispatch = useAppDispatch();
+  const router = useRouter();
   const productsList = useAppSelector(productsValue);
   const [quantity, setQuantity] = useState(1);
   const { image, category, name, description, price } = product;
@@ -39,11 +37,17 @@ const Product: NextPage<Props> = ({ product, products }) => {
       }),
     );
   };
-  const removeAllItems = () => {
-    dispatch(removeAllProducts());
+  // const removeAllItems = () => {
+  //   dispatch(removeAllProducts());
+  // };
+  const OnBuyNow = () => {
+    dispatch(
+      addProduct({
+        newProduct: formattedProduct,
+      }),
+    );
+    router.push(`/cart`);
   };
-  // console.log(formattedProduct);
-  console.log(productsList);
   return (
     <div className="container mt-32">
       <div className="product  md:px-8 lg:px-12">
@@ -101,7 +105,7 @@ const Product: NextPage<Props> = ({ product, products }) => {
             </div>
             <div className="mt-6 flex md:justify-center">
               <Button
-                onClick={removeAllItems}
+                onClick={OnBuyNow}
                 className="btn btn-outline-primary mr-4 w-1/2 md:w-[40%] md:p-3"
               >
                 buy now
@@ -214,7 +218,7 @@ export default Product;
 export const getStaticPaths: GetStaticPaths = async () => {
   try {
     const products = await sanityRequest();
-
+    if (!products) throw new Error(`Could not find product items from CMS`);
     const paths = products.map((product) => ({
       params: {
         slug: product.slug,

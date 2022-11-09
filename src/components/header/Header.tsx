@@ -1,18 +1,17 @@
 import { productsValue } from '@/store/productsSlice';
 import { useAppSelector } from '@/types/hooks';
-import { faUser } from '@fortawesome/free-regular-svg-icons';
 import {
-  faCartShopping,
-  faMagnifyingGlass,
   faArrowRightFromBracket,
   faArrowsLeftRightToLine,
+  faCartShopping,
+  faMagnifyingGlass,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { signIn, signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Overlay from '../ui/Overlay';
 import NavItems from './HeaderItems';
-import { useSession, signIn, signOut } from 'next-auth/react';
 
 export default function Header() {
   const { data: session } = useSession();
@@ -80,7 +79,7 @@ export default function Header() {
             </li>
             <li
               className="hidden md:block"
-              onClick={session ? signOut : signIn}
+              onClick={() => (session ? signOut : signIn)}
             >
               <Link href="/cart">
                 <a className="box-border p-4">
@@ -92,7 +91,9 @@ export default function Header() {
                         : faArrowsLeftRightToLine
                     }
                   />
-                  <p>{!session ? `SignIn` : `hello ` + session?.user.name}</p>
+                  <p>{`${
+                    session ? `hello ` + session.user?.name : `SignIn`
+                  }`}</p>
                 </a>
               </Link>
             </li>

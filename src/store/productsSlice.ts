@@ -13,10 +13,6 @@ const initialState: IState = {
   productsList: [],
 };
 
-// middleware
-// const middleware = [thunk];
-// const addProduct =
-
 export const productsSlice = createSlice({
   name: `products`,
   initialState,
@@ -32,6 +28,7 @@ export const productsSlice = createSlice({
         const existingItem = state.productsList.find(
           (product) => product.id === newProduct.id,
         );
+
         if (existingItem) {
           existingItem.quantity += newProduct.quantity;
           existingItem.totalPrice += newProduct.totalPrice;
@@ -41,28 +38,27 @@ export const productsSlice = createSlice({
       }
     },
     decrementFromCart: (state: IState, { payload }: PayloadAction<string>) => {
-      const existingItem = state.productsList.find(
-        (product) => product.id === payload,
-      );
-      if (existingItem?.quantity === 1) {
-        state.productsList = state.productsList.filter(
-          (product) => product.id !== payload,
-        );
-      } else {
-        !!existingItem && existingItem.totalPrice > 0
-          ? (existingItem.totalPrice -= existingItem.price)
-          : (existingItem.totalPrice = 0);
-        !!existingItem && existingItem.quantity--;
-      }
+      state.productsList.find((product) => {
+        if (product.id === payload && product.quantity === 1) {
+          state.productsList = state.productsList.filter(
+            (product) => product.id !== payload,
+          );
+        }
+        if (product.id === payload && product.quantity > 1) {
+          !!product && product.totalPrice > 0
+            ? (product.totalPrice -= product.price)
+            : (product.totalPrice = 0);
+          !!product && product.quantity--;
+        }
+      });
     },
     incrementFromCart: (state, { payload }: PayloadAction<string>) => {
-      const existingItem = state.productsList.find(
-        (product) => product.id === payload,
-      );
-      if (existingItem) {
-        existingItem.quantity++;
-        existingItem.totalPrice += existingItem.price;
-      }
+      state.productsList.find((product) => {
+        if (product.id === payload) {
+          product.quantity++;
+          product.totalPrice += product.price;
+        }
+      });
     },
     removeProduct: (state: IState, { payload }: PayloadAction<string>) => {
       state.productsList = state.productsList.filter(

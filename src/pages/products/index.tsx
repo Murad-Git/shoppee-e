@@ -1,7 +1,6 @@
 import ShopItems from '@/components/shopSection/ShopItems';
 import { Props } from '@/components/shopSection/ShopSection';
-import { FilterPanel } from '@/components/ui/FilterPanel';
-import { Filter } from '@/components/ui/FilterPanel';
+import { Filter, FilterPanel } from '@/components/ui/FilterPanel';
 import { Product } from '@/types/main';
 import { sanityRequest } from '@/utils/requests';
 import { GetStaticProps } from 'next';

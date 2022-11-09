@@ -1,7 +1,7 @@
-import { buffer } from 'micro';
-import * as admin from 'firebase-admin';
-import type { NextApiRequest, NextApiResponse } from 'next';
 import { Session } from '@/types/main';
+import * as admin from 'firebase-admin';
+import { buffer } from 'micro';
+import type { NextApiRequest, NextApiResponse } from 'next';
 
 // Secure a connection to Firebase from the backend
 const app = !admin.apps.length
@@ -35,7 +35,7 @@ const fulfillOrder = async (session: Session) => {
     .set({
       amount: !!session.amount_total && session.amount_total / 100,
       amount_shipping: session.total_details.amount_shipping / 100,
-      images: JSON.parse(session.metadata.images).map((image) =>
+      images: JSON.parse(session.metadata.images).map((image: string) =>
         image
           .replaceAll(`%1T`, `https://cdn.sanity.io/images/`)
           .replaceAll(`%2T`, `production`)
@@ -74,8 +74,7 @@ const webhook = async (req: NextApiRequest, res: NextApiResponse) => {
           .catch((err) => res.status(400).send(`webhook error ${err.message}`));
       }
     } catch (error) {
-      if (error instanceof Error)
-        res.status(error.code || 500).json(error.message);
+      if (error instanceof Error) res.status(500).json(error.message);
     }
   }
 };

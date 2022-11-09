@@ -1,7 +1,6 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-regular-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Image from 'next/image';
-import React from 'react';
 import { useRouter } from 'next/router';
 
 interface Props {
@@ -83,12 +82,3 @@ export default function ShopItem({
     </div>
   );
 }
-
-// <Image
-//   className='bg-[url("/images/products/1.png")] w-full bg-cover bg-no-repeat min-h-[300px] z-0'
-//   // src="/images/products/1.png"
-//   height={500}
-//   width={500}
-//   objectFit="cover"
-//   alt="product"
-// />;

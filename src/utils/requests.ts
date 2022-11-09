@@ -1,7 +1,7 @@
 import { Product } from '@/types/main';
 import { sanityClient } from 'sanity';
 
-export const sanityRequest = async (slug?: string) => {
+export const sanityRequest = async (slug?: any) => {
   try {
     const query = `*[_type== 'product' ${
       slug ? `&& slug.current == "${slug}"` : ``
@@ -23,9 +23,6 @@ export const sanityRequest = async (slug?: string) => {
     return products;
   } catch (error) {
     console.error(error);
-    let message;
-    if (error instanceof Error) message = error.message;
-    else message = String(error);
-    throw new Error(message);
+    if (error instanceof Error) throw new Error(error.message);
   }
 };
