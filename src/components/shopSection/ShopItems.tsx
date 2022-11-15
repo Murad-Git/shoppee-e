@@ -7,9 +7,13 @@ export default function ShopItems({ products, ...props }: Props) {
       className="mx-auto grid grid-cols-1 sm:grid-cols-2 sm:gap-4 md:grid-cols-3 lg:grid-cols-4 px-12"
       {...props}
     >
-      {products.map((item) => (
-        <ShopItem key={item.id} {...item} />
-      ))}
+      {products.length ? (
+        products.map((product) => (
+          <ShopItem key={product.id} product={product} />
+        ))
+      ) : (
+        <h3 className="mt-5 mx-auto">No products found</h3>
+      )}
     </div>
   );
 }

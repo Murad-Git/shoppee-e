@@ -1,10 +1,9 @@
 import { productsValue, selectTotalPrice } from '@/store/productsSlice';
 import { useAppSelector } from '@/types/hooks';
-import React from 'react';
-import Button from './Button';
-import { useSession } from 'next-auth/react';
 import { loadStripe } from '@stripe/stripe-js';
 import axios from 'axios';
+import { useSession } from 'next-auth/react';
+import Button from './Button';
 const stripePromise = loadStripe(process.env.stripe_public_key as string);
 
 export default function CartTotal() {
@@ -13,6 +12,7 @@ export default function CartTotal() {
   const products = useAppSelector(productsValue);
 
   const createCheckoutSession = async () => {
+    if (!session) return;
     const stripe = await stripePromise;
 
     // Call the backend to create checkout session

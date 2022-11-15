@@ -30,6 +30,7 @@ const Product: NextPage<Props> = ({ product, products }) => {
   const formattedProduct = { ...product };
   formattedProduct.quantity = quantity;
   formattedProduct.totalPrice = product.price * quantity;
+
   const addToBasket = () => {
     dispatch(
       addProduct({
@@ -199,9 +200,9 @@ const Product: NextPage<Props> = ({ product, products }) => {
       </div>
       <div className="h-[40rem] md:h-[35rem] my-12 mx-auto flex">
         <Slider>
-          {products.map((item) => (
-            <SwiperSlide key={item.id}>
-              <ShopItem {...item} />
+          {products.map((product) => (
+            <SwiperSlide key={product.id}>
+              <ShopItem product={product} />
             </SwiperSlide>
           ))}
         </Slider>

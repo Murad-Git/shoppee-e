@@ -1,5 +1,5 @@
 import { Product } from '@/types/main';
-import { sanityClient } from 'sanity';
+import { sanityClient } from '@/utils/sanity';
 
 export const sanityRequest = async (slug?: any) => {
   try {

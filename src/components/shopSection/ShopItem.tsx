@@ -1,68 +1,93 @@
+import { addProduct, toggleLikedProduct } from '@/store/productsSlice';
+import { useAppDispatch, useAppSelector } from '@/types/hooks';
+import { Product } from '@/types/main';
 import { faHeart } from '@fortawesome/free-regular-svg-icons';
+import {
+  faCartShopping,
+  faHeart as solidHeart,
+  faMagnifyingGlassPlus,
+} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import React, { useCallback } from 'react';
 
 interface Props {
-  name: string;
-  price: string | number;
-  id: number | string;
-  category: string;
-  currency?: string;
-  description?: string;
-  image: string;
-  onstock?: boolean;
-  slug?: string;
-  key?: string;
+  product: Product;
 }
 
-export default function ShopItem({
-  name,
-  category,
-  price,
-  image,
-  slug,
-}: Props) {
+export default function ShopItem({ product }: Props) {
   const router = useRouter();
-  // const dispatch = useAppDispatch();
-  // const product = useAppSelector(selectProducts);
+  const dispatch = useAppDispatch();
+  const { image, category, name, slug, price } = product;
+
+  const liked = useAppSelector((state) => state.likedProducts);
+  const isLiked = liked.some((item) => item.id === product.id);
+  console.log(liked);
   const onGoProduct = () => {
     router.push(`/products/${slug}`);
   };
-  const handleAdd = () => {
-    // dispatch(addProduct());
+  const handleAdd = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    const formattedProduct = { ...product };
+    formattedProduct.quantity = 1;
+    formattedProduct.totalPrice = product.price;
+    dispatch(
+      addProduct({
+        newProduct: formattedProduct,
+      }),
+    );
   };
+  const handleLikedProduct = useCallback(
+    (e: React.MouseEvent<HTMLButtonElement>) => {
+      e.stopPropagation();
+      dispatch(
+        toggleLikedProduct({
+          product,
+        }),
+      );
+    },
+    [product, dispatch],
+  );
   return (
     <div
       onClick={onGoProduct}
       className="flex flex-col justify-center items-start cursor-pointer"
     >
       <div className="relative">
-        <a>
-          <div className="mx-auto" onClick={handleAdd}>
-            <Image
-              className="w-full z-0"
-              src={image}
-              height={500}
-              width={500}
-              objectFit="cover"
-              alt="product"
-            />
-          </div>
-        </a>
-        <div className="absolute h-full top-0 right-4 translate-x-[35%] flex flex-col justify-center text-[#555]">
-          <a className="mb-3 cursor-pointer">
-            <FontAwesomeIcon className="text-xl" icon={faHeart} />
-          </a>
-          <a className="mb-3 cursor-pointer">
-            <FontAwesomeIcon className="text-xl" icon={faHeart} />
-          </a>
-          <a
-            className="
+        <div className="mx-auto" onClick={onGoProduct}>
+          <Image
+            className="w-full z-0"
+            src={image}
+            height={500}
+            width={500}
+            objectFit="cover"
+            alt="product"
+          />
+        </div>
+
+        <div className="absolute h-full top-0 right-8 translate-x-[35%] flex flex-col justify-center text-[#555] space-y-9">
+          <button onClick={handleLikedProduct}>
+            <a className="cursor-pointer">
+              <FontAwesomeIcon
+                className="h-6"
+                icon={isLiked ? solidHeart : faHeart}
+              />
+            </a>
+          </button>
+          <button>
+            <a className="cursor-pointer">
+              <FontAwesomeIcon className=" h-6" icon={faMagnifyingGlassPlus} />
+            </a>
+          </button>
+          <button onClick={handleAdd}>
+            <a
+              className="
             mb-3 cursor-pointer"
-          >
-            <FontAwesomeIcon className="text-xl" icon={faHeart} />
-          </a>
+            >
+              <FontAwesomeIcon className="h-6" icon={faCartShopping} />
+            </a>
+          </button>
         </div>
       </div>
 

@@ -1,13 +1,12 @@
+import Order from '@/components/ui/Order';
+import { Orders } from '@/types/main';
+import db from '@/utils/firebase';
+import { collection, getDocs } from 'firebase/firestore';
+import moment from 'moment';
 import { GetServerSideProps, NextPage } from 'next';
 import { getSession, useSession } from 'next-auth/react';
-import React from 'react';
-import db from '../../firebase';
-import moment from 'moment';
-import { collection, getDocs } from 'firebase/firestore';
-import { Orders } from '@/types/main';
-import Order from '@/components/ui/Order';
 
-interface Props {
+export interface ordersProps {
   // orders: Orders | ArrayProps;
   orders: {
     status: string;
@@ -15,18 +14,18 @@ interface Props {
   }[];
 }
 
-const Orders: NextPage<Props> = ({ orders }: Props) => {
+const Orders: NextPage<ordersProps> = ({ orders }: ordersProps) => {
   const { data: session } = useSession();
-  console.log(orders);
   return (
-    <main className="mt-32 container">
+    <main className="mt-32 container mb-20">
       <h2 className="font-bold mb-22 mt-6 border-b-2 border-[rgb(217,217,217)] pb-6">
         Your Orders
       </h2>
       {session ? (
         <h4>
-          {orders.length > 1 ? orders.length + ` Orders` : `1 Order`}
-          {/* {orders instanceof Array ? orders.length + ` Orders` : `1 Order`} */}
+          {(orders.length === 0 && `You do not have orders yet`) ||
+            (orders.length === 1 && `1 Order`) ||
+            (orders.length > 1 && orders.length + ` Orders`)}
         </h4>
       ) : (
         <h4>Please sign in to see your orders</h4>
@@ -48,7 +47,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getSession(context);
   if (!session) {
     return {
-      props: {},
+      notFound: true,
+      redirect: `/`,
     };
   }
   // Firebase db

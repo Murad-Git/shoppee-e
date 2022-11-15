@@ -1,7 +1,6 @@
 import { Orders } from '@/types/main';
 import moment from 'moment';
 import Image from 'next/dist/client/image';
-import React from 'react';
 import Currency from 'react-currency-formatter';
 
 interface Props {
@@ -37,14 +36,17 @@ export default function Order({ order }: Props) {
           {totalItems2} items
         </p>
         <p className="uppercase absolute top-2 right-2 w-40 lg:w-96 truncate text-xs whitespace-nowrap">
-          order #{id}
+          order id #{id}
         </p>
       </div>
       <div className="p-5 sm:p-10">
         <div className="flex space-x-6 overflow-x-auto">
           {orderedItems.map((item, index) => (
-            <div key={index} className="w-20 object-contain sm:w-44 relative">
-              <p className="absolute top-2 left-4 z-20 font-bold">
+            <div
+              key={index}
+              className="min-w-[8rem] md:min-w-[13rem] object-contain sm:w-44 relative"
+            >
+              <p className="absolute text-sm md:text-base top-2 left-4 z-20 font-bold">
                 {item.amount}x
               </p>
               <Image

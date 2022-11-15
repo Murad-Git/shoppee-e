@@ -16,7 +16,7 @@ interface State {
   };
 }
 
-export default function Products({ products }: Props) {
+export default function Shop({ products }: Props) {
   const uniqueItems = (value: string, index: number, self: string[]) =>
     self.indexOf(value) === index;
   const uniqueCategories = products

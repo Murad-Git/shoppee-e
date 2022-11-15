@@ -1,14 +1,13 @@
-import { Product } from '@/types/main';
-import Image from 'next/image';
-import React from 'react';
-import { faClose, faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useAppDispatch } from '@/types/hooks';
 import {
+  decrementFromCart,
   incrementFromCart,
   removeProduct,
-  decrementFromCart,
 } from '@/store/productsSlice';
+import { useAppDispatch } from '@/types/hooks';
+import { Product } from '@/types/main';
+import { faClose, faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Image from 'next/image';
 
 interface Props {
   product: Product;
@@ -35,7 +34,7 @@ export default function TableItem({ product }: Props) {
     <tr className="mt-2">
       <td className="px-0 pt-6">
         <div className="flex items-center">
-          <div className="w-40 mr-6">
+          <div className="min-w-[8rem] mr-6">
             <Image
               src={product.image}
               height={500}

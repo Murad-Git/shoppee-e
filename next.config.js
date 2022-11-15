@@ -6,6 +6,7 @@ const nextConfig = {
       'images.unsplash.com',
       'flowbite.com',
       'cdn.sanity.io',
+      'lh3.googleusercontent.com',
     ],
   },
   // reactStrictMode: true,

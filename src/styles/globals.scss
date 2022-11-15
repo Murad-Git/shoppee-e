@@ -110,7 +110,12 @@ body {
 a {
   color: inherit;
   text-decoration: none;
-  color: #bd744c;
+  color: #555;
+  // color: #bd744c;
+  :hover{
+    color: #bd744c;
+    // color: #8f654f;
+  }
 }
 
 * {

@@ -18,10 +18,7 @@ export default function MyApp({
   // const { store, props } = wrapper.useWrappedStore(pageProps);
   return (
     <>
-      <SessionProvider
-        session={pageProps.session}
-        basePath="https://shoppee-e-wnsg-git-master-murad-git.vercel.app/api/auth"
-      >
+      <SessionProvider session={pageProps.session}>
         <Provider store={store}>
           <PersistGate loading={null} persistor={persistor}>
             <Header />

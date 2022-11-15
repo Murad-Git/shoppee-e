@@ -1,14 +1,13 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React from 'react';
-import { faSquareCheck } from '@fortawesome/free-solid-svg-icons';
 import Button from '@/components/ui/Button';
+import { faSquareCheck } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useRouter } from 'next/router';
 
 export default function Success() {
   const router = useRouter();
   return (
-    <main className="max-w-screen-lg mx-auto h-[20rem] mt-36">
-      <div className="flex flex-col p-10 bg-white ">
+    <main className="max-w-screen-lg mx-auto h-[20rem] mt-36 mb-20">
+      <div className="flex flex-col p-10 mb-8 bg-white ">
         <div className="flex items-center space-x-2 mb-5">
           <FontAwesomeIcon
             icon={faSquareCheck}
@@ -25,7 +24,7 @@ export default function Success() {
         </p>
         <Button
           onClick={() => router.push(`/orders`)}
-          className="btn btn-primary w-1/3"
+          className="btn btn-primary md:w-1/3"
         >
           Go to my orders
         </Button>

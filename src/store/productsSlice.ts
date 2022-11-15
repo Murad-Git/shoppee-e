@@ -7,10 +7,12 @@ import { RootState } from './store';
 
 type IState = {
   productsList: Product[];
+  likedProducts: Product[];
 };
 
 const initialState: IState = {
   productsList: [],
+  likedProducts: [],
 };
 
 export const productsSlice = createSlice({
@@ -68,6 +70,25 @@ export const productsSlice = createSlice({
     removeAllProducts: (state: IState) => {
       state.productsList = [];
     },
+    toggleLikedProduct: (
+      state: IState,
+      { payload }: PayloadAction<{ product: Product }>,
+    ) => {
+      if (state.likedProducts.length === 0) {
+        state.likedProducts = [...state.likedProducts, payload.product];
+      } else {
+        const existingItem = state.likedProducts.find(
+          (product) => product.id === payload.product.id,
+        );
+        if (existingItem) {
+          state.likedProducts = state.likedProducts.filter(
+            (item) => item.id !== payload.product.id,
+          );
+        } else {
+          state.likedProducts = [...state.likedProducts, payload.product];
+        }
+      }
+    },
   },
 });
 
@@ -77,6 +98,7 @@ export const {
   removeAllProducts,
   decrementFromCart,
   incrementFromCart,
+  toggleLikedProduct,
 } = productsSlice.actions;
 
 export const productsValue = (state: RootState) => state.productsList;
