@@ -2,8 +2,8 @@ import { faClose } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
-import { Backdrop } from './Overlay';
 import InputCheck from './InputCheck';
+import { Backdrop } from './Overlay';
 
 interface Props {
   onConfirm: (value: React.SetStateAction<boolean>) => void;
@@ -57,6 +57,7 @@ export const Filter: React.FC<Props> = ({
           >
             {priceValue}
           </label>
+
           <input
             max="1500"
             min="0"
@@ -72,14 +73,11 @@ export const Filter: React.FC<Props> = ({
       </div>
       <div className="filter_availabity md:my-12">
         <div className="filter_title flex justify-between">
-          <h5 className="uppercase font-bold mb-4 md:text-2xl">categories</h5>
+          <h5 className="uppercase font-bold mb-4 md:text-2xl">On Stock</h5>
         </div>
         <div className="mt-3">
-          <div className="mb-3">
-            <InputCheck item="onstock" />
-          </div>
           <div>
-            <InputCheck item="outofstock" />
+            <InputCheck item="onstock" onFilter={onFilter} />
           </div>
         </div>
       </div>

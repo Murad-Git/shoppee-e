@@ -1,6 +1,6 @@
 import ShopItems from '@/components/shopSection/ShopItems';
 import Button from '@/components/ui/Button';
-import Order from '@/components/ui/Order';
+import OrdersUI from '@/components/ui/OrdersUI';
 import { useAppSelector } from '@/types/hooks';
 import db from '@/utils/firebase';
 import { collection, getDocs } from 'firebase/firestore';
@@ -8,13 +8,12 @@ import moment from 'moment';
 import { GetServerSideProps, NextPage } from 'next';
 import { getSession, useSession } from 'next-auth/react';
 import Image from 'next/dist/client/image';
-import { useRouter } from 'next/router';
+
 import { useState } from 'react';
 import { ordersProps } from '../orders';
 
 const Profile: NextPage<ordersProps> = ({ orders }: ordersProps) => {
   const { data: session } = useSession();
-  const router = useRouter();
   const [toggleRender, setToggleRender] = useState({
     liked: true,
   });
@@ -63,38 +62,14 @@ const Profile: NextPage<ordersProps> = ({ orders }: ordersProps) => {
         </div>
         <div className="mt-10">
           {toggleRender.liked ? (
-            likedProducts.length ? (
-              <ShopItems products={likedProducts} />
-            ) : (
-              <div>
-                <h3 className="mt-5 mx-auto">No products found</h3>
-                <Button
-                  className="btn btn-primary mt-4"
-                  onClick={() => router.push(`/shop`)}
-                >
-                  Go Shopping
-                </Button>
-              </div>
-            )
+            <ShopItems products={likedProducts} />
           ) : (
             <>
               {session ? (
-                <h4>
-                  {(!!orders &&
-                    orders?.length === 0 &&
-                    `You do not have orders yet`) ||
-                    (orders?.length === 1 && `1 Order`) ||
-                    (orders?.length > 1 && orders?.length + ` Orders`)}
-                </h4>
+                <OrdersUI orders={orders} />
               ) : (
                 <h4>Please sign in to see your orders</h4>
               )}
-              <div className="mt-5 space-y-4">
-                {orders?.length > 0 &&
-                  orders?.map((order, index) => (
-                    <Order key={index} order={order.value} />
-                  ))}
-              </div>
             </>
           )}
         </div>

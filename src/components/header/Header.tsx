@@ -1,10 +1,10 @@
 import { productsValue } from '@/store/productsSlice';
 import { useAppSelector } from '@/types/hooks';
+import { faUser } from '@fortawesome/free-regular-svg-icons';
 import {
   faArrowRightFromBracket,
   faCartShopping,
-  // faMagnifyingGlass,
-  faUser,
+  faUser as filledUser,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { signIn, signOut, useSession } from 'next-auth/react';
@@ -82,7 +82,7 @@ export default function Header() {
                 <a className="box-border p-4">
                   <FontAwesomeIcon
                     className="h-4 text-[#262626] hover:text-accent-color"
-                    icon={faUser}
+                    icon={session ? filledUser : faUser}
                   />
                 </a>
               </Link>
@@ -110,9 +110,6 @@ export default function Header() {
                       <p className="mx-2">Log In</p>
                     </>
                   )}
-                  {/* <p>{`${
-                    session ? `hello ` + session.user?.name : `SignIn`
-                  }`}</p> */}
                 </a>
               </button>
             </li>

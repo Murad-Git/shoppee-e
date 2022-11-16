@@ -15,7 +15,7 @@ export interface Product {
   quantity: number;
   totalPrice: number;
 }
-export interface Orders {
+export interface Order {
   amount: number;
   amountShipping: number;
   id: string;

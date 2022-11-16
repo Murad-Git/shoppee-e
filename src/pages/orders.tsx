@@ -1,5 +1,5 @@
-import Order from '@/components/ui/Order';
-import { Orders } from '@/types/main';
+import OrdersUI from '@/components/ui/OrdersUI';
+import { Order } from '@/types/main';
 import db from '@/utils/firebase';
 import { collection, getDocs } from 'firebase/firestore';
 import moment from 'moment';
@@ -10,7 +10,7 @@ export interface ordersProps {
   // orders: Orders | ArrayProps;
   orders: {
     status: string;
-    value: Orders;
+    value: Order;
   }[];
 }
 
@@ -22,20 +22,10 @@ const Orders: NextPage<ordersProps> = ({ orders }: ordersProps) => {
         Your Orders
       </h2>
       {session ? (
-        <h4>
-          {(orders.length === 0 && `You do not have orders yet`) ||
-            (orders.length === 1 && `1 Order`) ||
-            (orders.length > 1 && orders.length + ` Orders`)}
-        </h4>
+        <OrdersUI orders={orders} />
       ) : (
         <h4>Please sign in to see your orders</h4>
       )}
-      <div className="mt-5 space-y-4">
-        {orders.length > 0 &&
-          orders.map((order, index) => (
-            <Order key={index} order={order.value} />
-          ))}
-      </div>
     </main>
   );
 };

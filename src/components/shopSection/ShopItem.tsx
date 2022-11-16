@@ -23,10 +23,7 @@ export default function ShopItem({ product }: Props) {
 
   const liked = useAppSelector((state) => state.likedProducts);
   const isLiked = liked.some((item) => item.id === product.id);
-  console.log(liked);
-  const onGoProduct = () => {
-    router.push(`/products/${slug}`);
-  };
+
   const handleAdd = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
     const formattedProduct = { ...product };
@@ -49,13 +46,11 @@ export default function ShopItem({ product }: Props) {
     },
     [product, dispatch],
   );
+  // console.log(`shopItem rendered`);
   return (
-    <div
-      onClick={onGoProduct}
-      className="flex flex-col justify-center items-start cursor-pointer"
-    >
+    <div className="flex flex-col justify-center items-start cursor-pointer">
       <div className="relative">
-        <div className="mx-auto" onClick={onGoProduct}>
+        <div className="mx-auto" onClick={() => router.push(`/shop/${slug}`)}>
           <Image
             className="w-full z-0"
             src={image}

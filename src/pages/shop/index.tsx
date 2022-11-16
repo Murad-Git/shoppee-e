@@ -2,88 +2,84 @@ import ShopItems from '@/components/shopSection/ShopItems';
 import { Props } from '@/components/shopSection/ShopSection';
 import { Filter, FilterPanel } from '@/components/ui/FilterPanel';
 import { Product } from '@/types/main';
+import { uniqueCategories } from '@/utils/helpers';
 import { sanityRequest } from '@/utils/requests';
 import { GetStaticProps } from 'next';
 import React, { useEffect, useState } from 'react';
 
 interface State {
   initial: Product[];
+  filtered: [] | Product[];
   categories: {
     [key: string]: boolean;
   };
-  stock: {
-    [key: string]: boolean;
-  };
+  onstock: boolean;
 }
 
 export default function Shop({ products }: Props) {
-  const uniqueItems = (value: string, index: number, self: string[]) =>
-    self.indexOf(value) === index;
-  const uniqueCategories = products
-    .map((item) => item.category)
-    .filter(uniqueItems);
-  const uniqueCategoriesObj = uniqueCategories.reduce(
-    (o, key) => ({ ...(o as object), [key]: false }),
-    {},
-  );
+  const { categoriesArr, categoriesObj } = uniqueCategories(products);
   const [showFilter, setShowFilter] = useState(false);
   const [productsList, setProductsList] = useState<State>({
     initial: products,
-    categories: uniqueCategoriesObj,
-    stock: {
-      onstock: false,
-      outofstock: false,
-    },
+    filtered: products,
+    categories: categoriesObj,
+    onstock: true,
   });
-  const [counter, setCounter] = useState(0);
-  useEffect(() => {
-    console.log(`hello`);
-    setCounter(1);
-  }, [productsList]);
-  console.log(counter);
-  const filterCategory = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
 
-    // name === 'onstock' || name === 'outofstock' && setProductsList((prevState) => {
-    //   return {
-    //     ...prevState,
-    //     stock: {
-    //       [name]: !prevState.stock[name]
-    //     }
-    //   }
-    // })
+  const filterCategory = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name } = event.target;
+
     setProductsList((prevState) => {
-      if (name === `onstock` || name === `outofstock`) {
+      if (name === `onstock`) {
         return {
           ...prevState,
-          stock: {
-            ...prevState.stock,
-            [name]: !prevState.stock[name],
+          onstock: !prevState.onstock,
+        };
+      } else {
+        return {
+          ...prevState,
+          categories: {
+            ...prevState.categories,
+            [name]: !prevState.categories[name],
           },
         };
       }
-      return {
-        ...prevState,
-        categories: {
-          ...prevState.categories,
-          [name]: !prevState.categories[name],
-        },
-      };
     });
   };
 
-  const filteredProducts = () => {
+  useEffect(() => {
+    // returns list of categories which true
     const checkedProducts = Object.keys(productsList.categories).map(
       (key) => productsList.categories[key] && key,
     );
-    const onStock = Object.keys(productsList.stock).map(
-      (key) => productsList.stock[key] && key,
-    );
-    return productsList.initial.filter(({ category }) =>
+
+    // filter products which includes category of checkedProducts
+    const filteredICategory = productsList.initial.filter(({ category }) =>
       checkedProducts.includes(category),
     );
-  };
+    // filter products which includes onstock filter of initial or filteredCategory
+    const filteredStock = filteredICategory.length
+      ? filteredICategory.filter(
+          ({ onstock }) => onstock === productsList.onstock,
+        )
+      : productsList.initial.filter(
+          ({ onstock }) => onstock === productsList.onstock,
+        );
 
+    setProductsList((prevState) => ({
+      ...prevState,
+      filtered: filteredStock,
+    }));
+  }, [productsList.categories, productsList.onstock, productsList.initial]);
+  const onHandleSort = (
+    e: React.ChangeEvent<HTMLSelectElement>,
+    // e: React.DetailedHTMLProps<
+    //   SelectHTMLAttributes<HTMLSelectElement>,
+    //   HTMLSelectElement
+    // >,
+  ) => {
+    console.log(e.target.value);
+  };
   return (
     <>
       <div className="container mt-32 mb-12">
@@ -97,16 +93,41 @@ export default function Shop({ products }: Props) {
             className="filters-desktop"
             onConfirm={setShowFilter}
             onFilter={filterCategory}
-            categories={uniqueCategories}
+            categories={categoriesArr}
           />
-          <ShopItems
-            className="mx-auto grid grid-cols-1 sm:grid-cols-2 sm:gap-4  lg:grid-cols-3 2xl:grid-cols-4 px-12 col-span-3 lg:col-span-3 2xl:col-span-4"
-            products={
-              filteredProducts().length === 0
-                ? productsList.initial
-                : filteredProducts()
-            }
-          />
+          <div className="col-span-3 lg:col-span-3 2xl:col-span-4">
+            <div className="hidden md:flex  justify-between items-center mb-12 px-12">
+              <h6>
+                Showing{` `}
+                <span className="text-accent-color font-semibold">
+                  {productsList.filtered.length}
+                </span>
+                {` `}
+                of{` `}
+                <span className="text-accent-color font-semibold">
+                  {productsList.initial.length}
+                </span>
+                {` `}
+                Products
+              </h6>
+              <div className="flex items-center min-w-[18rem]">
+                <h6 className="mr-4 whitespace-nowrap">Sort by:</h6>
+                <select
+                  name="lth"
+                  id="lth"
+                  className="form-control h-12 w-48"
+                  onChange={onHandleSort}
+                >
+                  <option value="lth">Price: Low to high</option>
+                  <option value="htl">Price: High to low</option>
+                </select>
+              </div>
+            </div>
+            <ShopItems
+              // className="mx-auto mb-auto grid grid-cols-1 sm:grid-cols-2 sm:gap-4  lg:grid-cols-3 2xl:grid-cols-4 px-12 col-span-3 lg:col-span-3 2xl:col-span-4"
+              products={productsList.filtered}
+            />
+          </div>
         </div>
       </div>
       {showFilter && (
@@ -114,7 +135,7 @@ export default function Shop({ products }: Props) {
           className="filters-mob"
           onConfirm={setShowFilter}
           onFilter={filterCategory}
-          categories={uniqueCategories}
+          categories={categoriesArr}
         />
       )}
     </>
