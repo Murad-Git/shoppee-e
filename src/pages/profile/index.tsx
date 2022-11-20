@@ -8,12 +8,15 @@ import moment from 'moment';
 import { GetServerSideProps, NextPage } from 'next';
 import { getSession, useSession } from 'next-auth/react';
 import Image from 'next/dist/client/image';
+import { useRouter } from 'next/router';
 
 import { useState } from 'react';
 import { ordersProps } from '../orders';
 
 const Profile: NextPage<ordersProps> = ({ orders }: ordersProps) => {
   const { data: session } = useSession();
+  const router = useRouter();
+
   const [toggleRender, setToggleRender] = useState({
     liked: true,
   });
@@ -62,7 +65,16 @@ const Profile: NextPage<ordersProps> = ({ orders }: ordersProps) => {
         </div>
         <div className="mt-10">
           {toggleRender.liked ? (
-            <ShopItems products={likedProducts} />
+            likedProducts.length ? (
+              <ShopItems products={likedProducts} />
+            ) : (
+              <Button
+                className="btn btn-primary mt-4"
+                onClick={() => router.push(`/shop`)}
+              >
+                Go Shopping
+              </Button>
+            )
           ) : (
             <>
               {session ? (
@@ -86,8 +98,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getSession(context);
   if (!session) {
     return {
-      notFound: true,
-      redirect: `/`,
+      redirect: {
+        destination: `/`,
+        permanent: false,
+      },
     };
   }
   // Firebase db

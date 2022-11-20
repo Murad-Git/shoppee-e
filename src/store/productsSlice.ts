@@ -101,11 +101,18 @@ export const {
   toggleLikedProduct,
 } = productsSlice.actions;
 
-export const productsValue = (state: RootState) => state.productsList;
+export const productsValue = (state: RootState) =>
+  state.productsSlice.productsList;
 export const selectTotalPrice = (state: RootState) =>
-  state.productsList.reduce((acc, cur) => (acc += cur.totalPrice), 0);
+  state.productsSlice.productsList.reduce(
+    (acc, cur) => (acc += cur.totalPrice as number),
+    0,
+  );
 export const selectTotalQuantity = (state: RootState) => {
-  state.productsList.reduce((acc, cur) => (acc += cur.quantity), 0);
+  state.productsSlice.productsList.reduce(
+    (acc, cur) => (acc += cur.quantity),
+    0,
+  );
 };
 
 export default productsSlice.reducer;

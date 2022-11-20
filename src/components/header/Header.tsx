@@ -19,7 +19,6 @@ export default function Header() {
   const { data: session } = useSession();
   const [hamMenuToggle, setHamMenuToggle] = useState<boolean>(false);
   const productsList = useAppSelector(productsValue);
-
   const handleGoProfile = () => {
     session ? router.push(`/profile`) : alert(`you need to login`);
   };
@@ -46,7 +45,7 @@ export default function Header() {
       <nav className="header navbar ">
         <div className="container flex flex-wrap justify-between items-center">
           <button
-            className="md:hidden"
+            className="block md:hidden"
             onClick={() => setHamMenuToggle((prev) => !prev)}
           >
             HM
@@ -76,7 +75,7 @@ export default function Header() {
               </li>
             </ul>
           </nav>
-          <ul className="h-full flex flex-wrap md:space-x-4 items-center">
+          <ul className="h-full flex flex-wrap xl:space-x-4 items-center">
             <li onClick={handleGoProfile}>
               <Link href="/profile">
                 <a className="box-border p-4">
@@ -88,7 +87,7 @@ export default function Header() {
               </Link>
             </li>
             <li
-              className="hidden md:block"
+              className="hidden lg:block"
               onClick={() => (session ? signOut() : signIn())}
             >
               <button>

@@ -35,7 +35,7 @@ export default function CartTotal() {
           <h2 className="font-bold mb-12">Cart Total</h2>
           <div className="flex">
             <h6 className="font-bold mr-12 mb-0">Subtotal:</h6>
-            <h6 className="font-bold mb-0">{totalPrice}$</h6>
+            <h6 className="font-bold mb-0">{totalPrice || 0}$</h6>
           </div>
           <hr className="my-6 lg:my-10" />
           <div className="flex">
@@ -50,7 +50,7 @@ export default function CartTotal() {
           <hr className="my-6 lg:my-10" />
           <div className="flex">
             <h5 className="font-bold mr-16">Total:</h5>
-            <h5 className="font-bold">{totalPrice}$</h5>
+            <h5 className="font-bold">{totalPrice || 0}$</h5>
           </div>
         </div>
         <Button

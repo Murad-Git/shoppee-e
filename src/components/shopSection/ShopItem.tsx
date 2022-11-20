@@ -21,7 +21,7 @@ export default function ShopItem({ product }: Props) {
   const dispatch = useAppDispatch();
   const { image, category, name, slug, price } = product;
 
-  const liked = useAppSelector((state) => state.likedProducts);
+  const liked = useAppSelector((state) => state.productsSlice.likedProducts);
   const isLiked = liked.some((item) => item.id === product.id);
 
   const handleAdd = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -46,7 +46,7 @@ export default function ShopItem({ product }: Props) {
     },
     [product, dispatch],
   );
-  // console.log(`shopItem rendered`);
+
   return (
     <div className="flex flex-col justify-center items-start cursor-pointer">
       <div className="relative">
@@ -61,18 +61,21 @@ export default function ShopItem({ product }: Props) {
           />
         </div>
 
-        <div className="absolute h-full top-0 right-8 translate-x-[35%] flex flex-col justify-center text-[#555] space-y-9">
+        <div className="absolute h-full top-0 right-10 lg:right-6 xl:right-8 translate-x-[35%] flex flex-col justify-center text-[#555] space-y-9 md:space-y-3 lg:space-y-7  xl:space-y-9">
           <button onClick={handleLikedProduct}>
             <a className="cursor-pointer">
               <FontAwesomeIcon
-                className="h-6"
+                className="h-6 lg:h-5 xl:h-6"
                 icon={isLiked ? solidHeart : faHeart}
               />
             </a>
           </button>
           <button>
             <a className="cursor-pointer">
-              <FontAwesomeIcon className=" h-6" icon={faMagnifyingGlassPlus} />
+              <FontAwesomeIcon
+                className="h-6 lg:h-5 xl:h-6"
+                icon={faMagnifyingGlassPlus}
+              />
             </a>
           </button>
           <button onClick={handleAdd}>
@@ -80,7 +83,10 @@ export default function ShopItem({ product }: Props) {
               className="
             mb-3 cursor-pointer"
             >
-              <FontAwesomeIcon className="h-6" icon={faCartShopping} />
+              <FontAwesomeIcon
+                className="h-6 lg:h-5 xl:h-6"
+                icon={faCartShopping}
+              />
             </a>
           </button>
         </div>

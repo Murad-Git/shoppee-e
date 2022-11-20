@@ -7,14 +7,12 @@ import { Backdrop } from './Overlay';
 
 interface Props {
   onConfirm: (value: React.SetStateAction<boolean>) => void;
-  onFilter: (event: React.ChangeEvent<HTMLInputElement>) => void;
   categories: string[];
   className?: string;
 }
 
 export const Filter: React.FC<Props> = ({
   onConfirm,
-  onFilter,
   categories,
   className,
 }) => {
@@ -38,7 +36,7 @@ export const Filter: React.FC<Props> = ({
         <div className="categories">
           {categories.map((item, index) => (
             <div key={index} className="flex items-center mb-3">
-              <InputCheck item={item} onFilter={onFilter} />
+              <InputCheck item={item} />
             </div>
           ))}
         </div>
@@ -77,7 +75,7 @@ export const Filter: React.FC<Props> = ({
         </div>
         <div className="mt-3">
           <div>
-            <InputCheck item="onstock" onFilter={onFilter} />
+            <InputCheck item="onstock" />
           </div>
         </div>
       </div>
@@ -85,12 +83,7 @@ export const Filter: React.FC<Props> = ({
   );
 };
 
-export function FilterPanel({
-  onConfirm,
-  onFilter,
-  categories,
-  className,
-}: Props) {
+export function FilterPanel({ onConfirm, categories, className }: Props) {
   return (
     <>
       {ReactDOM.createPortal(
@@ -100,9 +93,8 @@ export function FilterPanel({
       {ReactDOM.createPortal(
         <Filter
           className={className}
-          categories={categories}
-          onFilter={onFilter}
           onConfirm={onConfirm}
+          categories={categories}
           // products={products}
         />,
         document.getElementById(`overlays`) as Element,

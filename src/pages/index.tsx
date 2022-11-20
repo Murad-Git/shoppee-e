@@ -24,11 +24,7 @@ export default Home;
 export const getStaticProps: GetStaticProps = async () => {
   try {
     const products = await sanityRequest();
-    if (!products)
-      return {
-        notFound: true,
-        redirect: `/`,
-      };
+
     return {
       props: {
         products,
