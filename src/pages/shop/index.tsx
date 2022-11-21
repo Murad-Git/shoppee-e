@@ -29,7 +29,8 @@ export default function Shop({ products }: Props) {
     if (!products) return;
     dispatch(getInitialProducts(products));
   }, [products, dispatch]);
-
+  console.log(`shop rendered`);
+  console.log(currentFilter);
   return (
     <>
       <div className="container mt-32 mb-12">
@@ -40,7 +41,7 @@ export default function Shop({ products }: Props) {
             </button>
             <button
               className="font-semibold"
-              onClick={() => dispatch(filterSort())}
+              onClick={() => dispatch(filterSort(`mobile`))}
             >
               <FontAwesomeIcon
                 className="h-5 mr-1"
@@ -53,8 +54,6 @@ export default function Shop({ products }: Props) {
                 }
               />
               {currentFilter.name || `Sort`}
-              {/* <FontAwesomeIcon className="h-5 mr-1" icon={faArrowUpWideShort} />
-              Sort */}
             </button>
           </div>
           <hr className="md:hidden" />
@@ -79,25 +78,29 @@ export default function Shop({ products }: Props) {
                 Products
               </h6>
               <div className="flex items-center min-w-[18rem]">
-                <h6 className="mr-4 whitespace-nowrap">Sort by:</h6>
+                <button className="font-semibold">
+                  <FontAwesomeIcon
+                    className="h-5 mr-1"
+                    icon={
+                      currentFilter && currentFilter.value === `htl`
+                        ? faArrowUpWideShort
+                        : currentFilter.value === `alph`
+                        ? faArrowDownAZ
+                        : faArrowDownShortWide
+                    }
+                  />
+                  {currentFilter.name || `Sort`}
+                </button>
                 <select
                   name="lth"
                   id="lth"
                   className="form-control h-12 w-48"
                   onChange={(e) => dispatch(filterSort(e))}
+                  // value={currentFilter.value}
                 >
-                  <option selected={currentFilter.value === `lth`} value="lth">
-                    Price: Low to high
-                  </option>
-                  <option selected={currentFilter.value === `htl`} value="htl">
-                    Price: High to low
-                  </option>
-                  <option
-                    selected={currentFilter.value === `alph`}
-                    value="alph"
-                  >
-                    Alphabetically
-                  </option>
+                  <option value="lth">Price: Low to high</option>
+                  <option value="htl">Price: High to low</option>
+                  <option value="alph">Alphabetically</option>
                 </select>
               </div>
             </div>

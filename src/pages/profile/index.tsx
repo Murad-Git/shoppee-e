@@ -20,7 +20,9 @@ const Profile: NextPage<ordersProps> = ({ orders }: ordersProps) => {
   const [toggleRender, setToggleRender] = useState({
     liked: true,
   });
-  const likedProducts = useAppSelector((state) => state.likedProducts);
+  const likedProducts = useAppSelector(
+    (state) => state.productsSlice.likedProducts,
+  );
 
   return (
     <main className="mt-32 container mb-20">

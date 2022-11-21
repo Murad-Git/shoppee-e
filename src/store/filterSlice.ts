@@ -3,11 +3,15 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import React from 'react';
 import { RootState } from './store';
 
-// interface IDataAction {
-//   action?: {
-//     payload:any
-//   }
+// type DataActionWithoutPayload = {
+//   type: 'no-payload'
 // }
+// type DataActionWithPayload = {
+//   type: 'with-payload';
+//   payload: PayloadAction<React.ChangeEvent<HTMLSelectElement>>;
+// };
+// type DataAction = DataActionWithPayload | DataActionWithoutPayload;
+
 type IFilterState = {
   initial: Product[];
   filtered: Product[] | [];
@@ -71,7 +75,7 @@ export const filterSlice = createSlice({
     },
     filterSort(
       state: IFilterState,
-      action: PayloadAction<React.ChangeEvent<HTMLSelectElement>>,
+      { payload }: PayloadAction<React.ChangeEvent<HTMLSelectElement> | string>,
     ) {
       const sortItems = (type: string) => {
         type === `lth` && state.filtered.sort((a, b) => a.price - b.price);
@@ -79,13 +83,11 @@ export const filterSlice = createSlice({
         type === `alph` &&
           state.filtered.sort((a, b) => a.name.localeCompare(b.name));
       };
-      // Desktop
-      if (action && action.payload) {
-        const { value: sortType } = action.payload.target as HTMLSelectElement;
-        sortItems(sortType);
-        // Mobile
-      } else {
+
+      //   // Mobile
+      if (typeof payload === `string` && payload === `mobile`) {
         if (state.sortCurrent && Object.keys(state.sortCurrent).length > 0) {
+          console.log(`mobile filter`);
           for (let i = 0; i < state.sortList.length; i++) {
             if (state.sortList[i].value === state.sortCurrent.value) {
               const nextIndex = i === 2 ? 0 : i + 1;
@@ -98,6 +100,18 @@ export const filterSlice = createSlice({
           state.sortCurrent = state?.sortList[0];
           sortItems(`lth`);
         }
+      }
+      // Desktop
+      if (
+        typeof payload !== `string` &&
+        (payload.target as HTMLSelectElement)
+      ) {
+        const { value: sortType } =
+          payload.target && (payload.target as HTMLSelectElement);
+        sortItems(sortType);
+        state.sortCurrent = state.sortList.find(
+          (item) => item.value && item.value === sortType,
+        )!;
       }
     },
   },
