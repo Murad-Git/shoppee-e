@@ -8,10 +8,16 @@ import { useAppDispatch, useAppSelector } from '@/types/hooks';
 import { loadStripe } from '@stripe/stripe-js';
 import axios from 'axios';
 import { useSession } from 'next-auth/react';
+import { useState } from 'react';
+import Card from 'react-credit-cards';
+import 'react-credit-cards/es/styles-compiled.css';
+
 import Button from './Button';
+
 const stripePromise = loadStripe(process.env.stripe_public_key as string);
 
 export default function CartTotal() {
+  const [isFrontOfCardVisible, setIsFrontOfCardVisible] = useState(true);
   const { data: session } = useSession();
   const totalPrice = useAppSelector(selectTotalPrice);
   const products = useAppSelector(productsValue);
@@ -40,6 +46,11 @@ export default function CartTotal() {
       sessionId: checkoutSession.data.id,
     });
     if (result?.error) alert(result.error.message);
+  };
+
+  const toggleCardFlip = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    e.preventDefault();
+    setIsFrontOfCardVisible((prev) => !prev);
   };
   return (
     <div className="lg:col-span-1 mt-auto lg:mt-6">
@@ -81,6 +92,15 @@ export default function CartTotal() {
           {session ? `check out` : `login to proceed`}
         </Button>
       </section>
+      <div className="cursor-pointer mt-6" onClick={(e) => toggleCardFlip(e)}>
+        <Card
+          cvc="424"
+          expiry="08/25"
+          name="John Smith"
+          number="4242 4242 4242 4242"
+          focused={isFrontOfCardVisible ? `number` : `cvc`}
+        />
+      </div>
     </div>
   );
 }

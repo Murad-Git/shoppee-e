@@ -1,3 +1,4 @@
+import useSnackBar from '@/hooks/use-snackBar';
 import { productsValue } from '@/store/productsSlice';
 import { useAppSelector } from '@/types/hooks';
 import { faUser } from '@fortawesome/free-regular-svg-icons';
@@ -16,11 +17,18 @@ import HeaderItems from './HeaderItems';
 
 export default function Header() {
   const router = useRouter();
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
   const [hamMenuToggle, setHamMenuToggle] = useState<boolean>(false);
   const productsList = useAppSelector(productsValue);
+  const notLogged = useSnackBar({
+    snacktype: {
+      type: `message`,
+      message: `You need to Login`,
+    },
+    variant: `warning`,
+  });
   const handleGoProfile = () => {
-    session ? router.push(`/profile`) : alert(`you need to login`);
+    session ? router.push(`/profile`) : notLogged();
   };
 
   // useEffect(() => {
