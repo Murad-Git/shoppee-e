@@ -29,8 +29,6 @@ export default function Shop({ products }: Props) {
     if (!products) return;
     dispatch(getInitialProducts(products));
   }, [products, dispatch]);
-  console.log(`shop rendered`);
-  console.log(currentFilter);
   return (
     <>
       <div className="container mt-32 mb-12">
@@ -96,7 +94,7 @@ export default function Shop({ products }: Props) {
                   id="lth"
                   className="form-control h-12 w-48"
                   onChange={(e) => dispatch(filterSort(e))}
-                  // value={currentFilter.value}
+                  value={currentFilter.value}
                 >
                   <option value="lth">Price: Low to high</option>
                   <option value="htl">Price: High to low</option>

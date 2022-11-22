@@ -41,7 +41,7 @@ export const Filter: React.FC<Props> = ({
           ))}
         </div>
       </div>
-      <div className="filter_price mb-4 md:my-12">
+      {/* <div className="filter_price mb-4 md:my-12">
         <div className="filter_title flex flex-col">
           <h5 className="uppercase font-bold mb-4 md:mb-10 md:text-2xl">
             price
@@ -68,7 +68,7 @@ export const Filter: React.FC<Props> = ({
             id="default-range"
           />
         </div>
-      </div>
+      </div> */}
       <div className="filter_availabity md:my-12">
         <div className="filter_title flex justify-between">
           <h5 className="uppercase font-bold mb-4 md:text-2xl">On Stock</h5>

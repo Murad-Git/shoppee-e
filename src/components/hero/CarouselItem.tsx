@@ -1,5 +1,5 @@
+import { useRouter } from 'next/dist/client/router';
 import Image from 'next/image';
-import React from 'react';
 import Button from '../ui/Button';
 
 interface Props {
@@ -8,6 +8,7 @@ interface Props {
 }
 
 export default function CarouselItem({ item, index }: Props) {
+  const router = useRouter();
   return (
     <div className="flex w-full h-full items-center justify-center bg-gray-400 dark:bg-gray-700 dark:text-white relative">
       <div className="w-full h-full relative">
@@ -28,7 +29,12 @@ export default function CarouselItem({ item, index }: Props) {
               <h1 className="font-bold uppercase mt-1 text-4xl">
                 the good stuff
               </h1>
-              <Button className="btn-primary btn">view more</Button>
+              <Button
+                className="btn-primary btn"
+                onClick={() => router.push(`/shop`)}
+              >
+                view more
+              </Button>
             </div>
           </div>
         </div>

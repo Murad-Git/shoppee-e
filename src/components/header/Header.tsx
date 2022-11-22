@@ -16,12 +16,18 @@ import HeaderItems from './HeaderItems';
 
 export default function Header() {
   const router = useRouter();
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const [hamMenuToggle, setHamMenuToggle] = useState<boolean>(false);
   const productsList = useAppSelector(productsValue);
   const handleGoProfile = () => {
     session ? router.push(`/profile`) : alert(`you need to login`);
   };
+
+  // useEffect(() => {
+  //   if (status === `authenticated`) return welcomeSnackBar();
+  // }, [status, welcomeSnackBar]);
+  // if (status === `unauthenticated`) logoutSnackBar();
+  // console.log(status);
   return (
     <>
       {hamMenuToggle && (
@@ -62,8 +68,8 @@ export default function Header() {
               <li className="relative inline-block">
                 <Link href="/">Home</Link>
               </li>
-              <li className="relative inline-block">
-                <a className="">Pages</a>
+              <li className="relative inline-block" onClick={handleGoProfile}>
+                <a className="">Profile</a>
               </li>
               <li className="relative inline-block">
                 <Link href="/shop" className="">
@@ -77,14 +83,12 @@ export default function Header() {
           </nav>
           <ul className="h-full flex flex-wrap xl:space-x-4 items-center">
             <li onClick={handleGoProfile}>
-              <Link href="/profile">
-                <a className="box-border p-4">
-                  <FontAwesomeIcon
-                    className="h-4 text-[#262626] hover:text-accent-color"
-                    icon={session ? filledUser : faUser}
-                  />
-                </a>
-              </Link>
+              <a className="box-border p-4 cursor-pointer">
+                <FontAwesomeIcon
+                  className="h-4 text-[#262626] hover:text-accent-color"
+                  icon={session ? filledUser : faUser}
+                />
+              </a>
             </li>
             <li
               className="hidden lg:block"
@@ -128,6 +132,7 @@ export default function Header() {
           </ul>
         </div>
       </nav>
+      {/* {status === `authenticated` && welcomeSnackBar()} */}
       {hamMenuToggle && <Overlay onConfirm={setHamMenuToggle} />}
     </>
   );

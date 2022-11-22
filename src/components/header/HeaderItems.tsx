@@ -10,13 +10,13 @@ const hamMenuItems = [
     title: `Pages`,
     subMenu: [
       {
-        title: `About Us`,
-        href: `/about`,
+        title: `Profile`,
+        href: `/profile`,
 
         id: 1,
       },
       {
-        title: `About Team`,
+        title: `About Us`,
         href: `/about`,
 
         id: 2,
@@ -25,13 +25,13 @@ const hamMenuItems = [
         title: `Contact Us`,
         href: `/contact`,
 
-        id: 3,
+        id: 4,
       },
       {
         title: `FAQ`,
         href: `/faq`,
 
-        id: 4,
+        id: 5,
       },
     ],
   },
@@ -47,11 +47,6 @@ const hamMenuItems = [
         title: `Categories`,
         href: `/`,
         id: 6,
-      },
-      {
-        title: `Account`,
-        href: `/`,
-        id: 7,
       },
     ],
   },

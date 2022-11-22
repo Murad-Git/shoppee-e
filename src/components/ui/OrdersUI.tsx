@@ -24,7 +24,7 @@ export default function OrdersUI({ orders }: ordersProps) {
           (orders?.length > 1 && orders?.length + ` Orders`)}
       </h4>
 
-      <div className="mt-5 space-y-4">
+      <div className="mt-5 space-y-4 overflow-hidden">
         {orders?.length > 0 &&
           orders?.map((order, index) => (
             <div className="relative border rounded-md" key={index}>
@@ -54,12 +54,14 @@ export default function OrdersUI({ orders }: ordersProps) {
                 </p>
               </div>
               <div className="p-5 sm:p-10">
-                <div className="flex space-x-6 overflow-x-auto">
+                {/* <div className="whitespace-nowrap space-x-6 overflow-y-hidden overflow-x-auto scrollbar-thin scroll-smooth h-20"> */}
+                <div className="space-x-6 overflow-x-auto overflow-y-hidden whitespace-nowrap w-[25rem] sm:w-[30rem] md:w-[40rem] lg:w-full scrollbar-thin scroll-smooth">
                   {orderedItems(order.value.items, order.value.images).map(
                     (item, index) => (
                       <div
                         key={index}
-                        className="min-w-[8rem] md:min-w-[13rem] object-contain sm:w-44 relative"
+                        className="w-32 object-contain relative inline-block"
+                        // className="inline-block w-20 object-contain relative "
                       >
                         <p className="absolute text-sm md:text-base top-2 left-4 z-20 font-bold">
                           {item.amount}x

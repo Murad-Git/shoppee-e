@@ -18,21 +18,23 @@ export default function CartTable() {
         </tr>
       </thead>
       <tbody>
-        {products.length > 0 ? (
-          products.map((product) => (
-            <TableItem product={product} key={product.id} />
-          ))
-        ) : (
-          <div>
-            <h2 className="my-8">Your shopping cart is empty</h2>
-            <Button
-              className="btn btn-primary"
-              onClick={() => router.push(`/products`)}
-            >
-              Go Shop
-            </Button>
-          </div>
-        )}
+        <>
+          {products.length > 0 ? (
+            products.map((product) => (
+              <TableItem product={product} key={product.id} />
+            ))
+          ) : (
+            <div>
+              <h2 className="my-8">Your shopping cart is empty</h2>
+              <Button
+                className="btn btn-primary"
+                onClick={() => router.push(`/shop`)}
+              >
+                Go Shop
+              </Button>
+            </div>
+          )}
+        </>
       </tbody>
     </table>
   );

@@ -3,15 +3,6 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import React from 'react';
 import { RootState } from './store';
 
-// type DataActionWithoutPayload = {
-//   type: 'no-payload'
-// }
-// type DataActionWithPayload = {
-//   type: 'with-payload';
-//   payload: PayloadAction<React.ChangeEvent<HTMLSelectElement>>;
-// };
-// type DataAction = DataActionWithPayload | DataActionWithoutPayload;
-
 type IFilterState = {
   initial: Product[];
   filtered: Product[] | [];

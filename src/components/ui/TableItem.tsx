@@ -1,3 +1,4 @@
+import useSnackBar from '@/hooks/use-snackBar';
 import {
   decrementFromCart,
   incrementFromCart,
@@ -15,19 +16,45 @@ interface Props {
 
 export default function TableItem({ product }: Props) {
   const dispatch = useAppDispatch();
+  const addProductInfo = useSnackBar({
+    amount: 1,
+    product: product.name,
+    snacktype: {
+      type: `product`,
+      func: `add`,
+    },
+    variant: `success`,
+  });
+  const removeProductInfo = useSnackBar({
+    amount: 1,
+    product: product.name,
+    snacktype: {
+      type: `product`,
+      func: `remove`,
+    },
+    variant: `error`,
+  });
+  const removeAllProductsInfo = useSnackBar({
+    amount: product.quantity,
+    product: product.name,
+    snacktype: {
+      type: `product`,
+      func: `remove`,
+    },
+    variant: `error`,
+  });
 
   const removeAllCart = (id: string) => {
+    removeAllProductsInfo();
     dispatch(removeProduct(id));
   };
 
   const descrementAmount = (id: string) => {
-    console.log(`descrement`);
-    console.log(id);
+    removeProductInfo();
     dispatch(decrementFromCart(id));
   };
   const incrementAmount = (id: string) => {
-    console.log(`increment`);
-    console.log(id);
+    addProductInfo();
     dispatch(incrementFromCart(id));
   };
   return (

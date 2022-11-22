@@ -5,6 +5,7 @@ import TopProducts from '@/components/topProducts/TopProducts';
 import { Product } from '@/types/main';
 import { sanityRequest } from '@/utils/requests';
 import { GetStaticProps, NextPage } from 'next';
+
 interface Props {
   products: [Product];
 }

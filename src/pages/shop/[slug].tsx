@@ -3,8 +3,9 @@ import InstagramFollow from '@/components/InstagramFollow/InstagramFollow';
 import ShopItem from '@/components/shopSection/ShopItem';
 import Button from '@/components/ui/Button';
 import Slider from '@/components/ui/Slider';
-import { addProduct, productsValue } from '@/store/productsSlice';
-import { useAppDispatch, useAppSelector } from '@/types/hooks';
+import useSnackBar from '@/hooks/use-snackBar';
+import { addProduct, removeAllProducts } from '@/store/productsSlice';
+import { useAppDispatch } from '@/types/hooks';
 import { Product } from '@/types/main';
 import { sanityRequest } from '@/utils/requests';
 import { faStar } from '@fortawesome/free-regular-svg-icons';
@@ -24,14 +25,32 @@ interface Props {
 const Product: NextPage<Props> = ({ product, products }) => {
   const dispatch = useAppDispatch();
   const router = useRouter();
-  const productsList = useAppSelector(productsValue);
+  // const productsList = useAppSelector(productsValue);
   const [quantity, setQuantity] = useState(1);
   const { image, category, name, description, price } = product;
   const formattedProduct = { ...product };
   formattedProduct.quantity = quantity;
   formattedProduct.totalPrice = product.price * quantity;
 
+  const addProductInfo = useSnackBar({
+    amount: quantity,
+    product: product.name,
+    snacktype: {
+      type: `product`,
+      func: `add`,
+    },
+    variant: `success`,
+  });
+  const unavailableProduct = useSnackBar({
+    snacktype: {
+      type: `message`,
+      message: `Product is not unavailable. Please choose another one`,
+    },
+    variant: `warning`,
+  });
   const addToBasket = () => {
+    if (product.onstock === false) return unavailableProduct();
+    addProductInfo();
     dispatch(
       addProduct({
         newProduct: formattedProduct,
@@ -42,6 +61,8 @@ const Product: NextPage<Props> = ({ product, products }) => {
   //   dispatch(removeAllProducts());
   // };
   const OnBuyNow = () => {
+    if (product.onstock === false) return unavailableProduct();
+    addProductInfo();
     dispatch(
       addProduct({
         newProduct: formattedProduct,
@@ -53,7 +74,11 @@ const Product: NextPage<Props> = ({ product, products }) => {
     <div className="container mt-32">
       <div className="product  md:px-8 lg:px-12">
         <div className="product_main my-12 grid grid-cols-1 md:grid-cols-2 md:gap-4">
-          <div className="mx-auto w-[20rem]">
+          <div
+            className={`mx-auto w-[20rem] ${
+              product.onstock === false && `bg-white opacity-40`
+            }`}
+          >
             <Image
               src={image}
               height={500}
@@ -124,7 +149,10 @@ const Product: NextPage<Props> = ({ product, products }) => {
         <div className="reviews my-10">
           <div className="flex justify-between items-center">
             <h4 className="font-bold">Reviews:</h4>
-            <button className="cursor-pointer text-accent-color font-bold text-sm leading-[1.5] text-center relative transition-all duration-300 ease-linear  uppercase p-1">
+            <button
+              className="cursor-pointer text-accent-color font-bold text-sm leading-[1.5] text-center relative transition-all duration-300 ease-linear  uppercase p-1"
+              onClick={() => dispatch(removeAllProducts())}
+            >
               Leave Feedback
             </button>
           </div>

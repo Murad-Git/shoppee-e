@@ -26,10 +26,13 @@
     ]
   },
   "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
     "@fortawesome/fontawesome-svg-core": "6.2.0",
     "@fortawesome/free-regular-svg-icons": "6.2.0",
     "@fortawesome/free-solid-svg-icons": "6.2.0",
     "@fortawesome/react-fontawesome": "0.2.0",
+    "@mui/material": "^5.10.14",
     "@reduxjs/toolkit": "1.8.6",
     "@sanity/cli": "2.34.0",
     "@stripe/stripe-js": "1.42.1",
@@ -47,6 +50,7 @@
     "next-auth": "4.15.0",
     "next-redux-wrapper": "8.0.0",
     "next-sanity": "0.8.5",
+    "notistack": "^2.0.8",
     "react": "18.2.0",
     "react-currency-formatter": "1.1.0",
     "react-dom": "18.2.0",
@@ -54,7 +58,7 @@
     "react-redux": "8.0.4",
     "redux-persist": "6.0.0",
     "sharp": "^0.31.2",
-    "stripe": "10.15.0",
+    "stripe": "^10.15.0",
     "swiper": "8.4.4",
     "tw-elements": "1.0.0-alpha12"
   },

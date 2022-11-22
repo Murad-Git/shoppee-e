@@ -5,9 +5,9 @@ import '@/styles/globals.scss';
 import { Session } from 'next-auth/core/types';
 import { SessionProvider } from 'next-auth/react';
 import type { AppProps } from 'next/app';
+import { SnackbarProvider } from 'notistack';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
-// import { wrapper } from '@/store/store';
 
 export default function MyApp({
   Component,
@@ -21,9 +21,11 @@ export default function MyApp({
       <SessionProvider session={pageProps.session}>
         <Provider store={store}>
           <PersistGate loading={null} persistor={persistor}>
-            <Header />
-            <Component {...pageProps} />
-            <Footer />
+            <SnackbarProvider maxSnack={3}>
+              <Header />
+              <Component {...pageProps} />
+              <Footer />
+            </SnackbarProvider>
           </PersistGate>
         </Provider>
       </SessionProvider>

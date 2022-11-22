@@ -29,7 +29,7 @@ const Profile: NextPage<ordersProps> = ({ orders }: ordersProps) => {
       <div className="flex items-end mb-8">
         <div className="w-20 mr-8">
           <Image
-            src={session?.user?.image || `/profile/no-person.png`}
+            src={session?.user?.image || `/images/profile/no-person.png`}
             width={500}
             height={500}
             objectFit="cover"

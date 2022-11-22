@@ -17,7 +17,7 @@ const app = !admin.apps.length
       databaseURL: `https://e-shoppee-a2938.firebaseio.com`,
     })
   : admin.app();
-// const db = getFirestore()
+
 // Establish connection to Stripe
 const stripe = require(`stripe`)(process.env.STRIPE_SECRET_KEY);
 const endpointSecret = process.env.STRIPE_SIGNING_SECRET;
@@ -70,7 +70,7 @@ const webhook = async (req: NextApiRequest, res: NextApiResponse) => {
 
         // Fulfill the order
         return fulfillOrder(session)
-          .then(() => res.status(200))
+          .then(() => res.status(200).end())
           .catch((err) => res.status(400).send(`webhook error ${err.message}`));
       }
     } catch (error) {

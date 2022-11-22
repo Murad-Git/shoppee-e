@@ -1,3 +1,4 @@
+import useSnackBar from '@/hooks/use-snackBar';
 import { addProduct, toggleLikedProduct } from '@/store/productsSlice';
 import { useAppDispatch, useAppSelector } from '@/types/hooks';
 import { Product } from '@/types/main';
@@ -24,8 +25,45 @@ export default function ShopItem({ product }: Props) {
   const liked = useAppSelector((state) => state.productsSlice.likedProducts);
   const isLiked = liked.some((item) => item.id === product.id);
 
+  const addLiked = useSnackBar({
+    amount: 1,
+    product: product.name,
+    snacktype: {
+      type: `product`,
+      func: `addLike`,
+    },
+    variant: `success`,
+  });
+  const removeLiked = useSnackBar({
+    amount: 1,
+    product: product.name,
+    snacktype: {
+      type: `product`,
+      func: `removeLike`,
+    },
+    variant: `info`,
+  });
+  const addProductInfo = useSnackBar({
+    amount: 1,
+    product: product.name,
+    snacktype: {
+      type: `product`,
+      func: `add`,
+    },
+    variant: `success`,
+  });
+  const unavailableProduct = useSnackBar({
+    snacktype: {
+      type: `message`,
+      message: `Product is not unavailable. Please choose another one`,
+    },
+    variant: `warning`,
+  });
+
   const handleAdd = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
+    if (product.onstock === false) return unavailableProduct();
+    addProductInfo();
     const formattedProduct = { ...product };
     formattedProduct.quantity = 1;
     formattedProduct.totalPrice = product.price;
@@ -38,19 +76,25 @@ export default function ShopItem({ product }: Props) {
   const handleLikedProduct = useCallback(
     (e: React.MouseEvent<HTMLButtonElement>) => {
       e.stopPropagation();
+      isLiked ? removeLiked() : addLiked();
       dispatch(
         toggleLikedProduct({
           product,
         }),
       );
     },
-    [product, dispatch],
+    [product, dispatch, addLiked, isLiked, removeLiked],
   );
 
   return (
     <div className="flex flex-col justify-center items-start cursor-pointer">
       <div className="relative">
-        <div className="mx-auto" onClick={() => router.push(`/shop/${slug}`)}>
+        <div
+          className={`mx-auto ${
+            product.onstock === false && `bg-white opacity-40`
+          }`}
+          onClick={() => router.push(`/shop/${slug}`)}
+        >
           <Image
             className="w-full z-0"
             src={image}

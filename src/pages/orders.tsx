@@ -7,7 +7,6 @@ import { GetServerSideProps, NextPage } from 'next';
 import { getSession, useSession } from 'next-auth/react';
 
 export interface ordersProps {
-  // orders: Orders | ArrayProps;
   orders: {
     status: string;
     value: Order;

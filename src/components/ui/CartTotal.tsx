@@ -1,5 +1,10 @@
-import { productsValue, selectTotalPrice } from '@/store/productsSlice';
-import { useAppSelector } from '@/types/hooks';
+import useSnackBar from '@/hooks/use-snackBar';
+import {
+  productsValue,
+  removeAllProducts,
+  selectTotalPrice,
+} from '@/store/productsSlice';
+import { useAppDispatch, useAppSelector } from '@/types/hooks';
 import { loadStripe } from '@stripe/stripe-js';
 import axios from 'axios';
 import { useSession } from 'next-auth/react';
@@ -10,9 +15,17 @@ export default function CartTotal() {
   const { data: session } = useSession();
   const totalPrice = useAppSelector(selectTotalPrice);
   const products = useAppSelector(productsValue);
-
+  const dispatch = useAppDispatch();
+  const emptyCartInfo = useSnackBar({
+    snacktype: {
+      type: `message`,
+      message: `Your cart is empty. Please add a product`,
+    },
+    variant: `warning`,
+  });
   const createCheckoutSession = async () => {
     if (!session) return;
+    if (!products.length) return emptyCartInfo();
     const stripe = await stripePromise;
 
     // Call the backend to create checkout session
@@ -21,11 +34,11 @@ export default function CartTotal() {
       email: session?.user?.email,
     });
 
+    dispatch(removeAllProducts());
     // Redirect to Stripe Checkout
     const result = await stripe?.redirectToCheckout({
       sessionId: checkoutSession.data.id,
     });
-
     if (result?.error) alert(result.error.message);
   };
   return (
@@ -35,7 +48,9 @@ export default function CartTotal() {
           <h2 className="font-bold mb-12">Cart Total</h2>
           <div className="flex">
             <h6 className="font-bold mr-12 mb-0">Subtotal:</h6>
-            <h6 className="font-bold mb-0">{totalPrice || 0}$</h6>
+            <h6 className="font-bold mb-0">
+              <>{totalPrice || 0}$</>
+            </h6>
           </div>
           <hr className="my-6 lg:my-10" />
           <div className="flex">
@@ -50,7 +65,9 @@ export default function CartTotal() {
           <hr className="my-6 lg:my-10" />
           <div className="flex">
             <h5 className="font-bold mr-16">Total:</h5>
-            <h5 className="font-bold">{totalPrice || 0}$</h5>
+            <h5 className="font-bold">
+              <>{totalPrice || 0}$</>
+            </h5>
           </div>
         </div>
         <Button
