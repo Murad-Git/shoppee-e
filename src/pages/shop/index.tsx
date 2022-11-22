@@ -131,6 +131,7 @@ export const getStaticProps: GetStaticProps = async () => {
       props: {
         products,
       },
+      revalidate: 30,
     };
   } catch (error) {
     throw new Error(error as string);
