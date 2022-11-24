@@ -8,6 +8,44 @@
     @apply flex justify-center items-center;
   }
 
+  .menuToggle{
+    @apply block relative z-40 select-none;
+    input{
+      @apply block w-10 h-8 absolute top-[-7px] left-[-5px] cursor-pointer opacity-0 z-50;
+    }
+    input:checked~span{
+      opacity: 1;
+      transform: rotate(45deg) translate(-10px, -20px);
+      background: white;
+    }
+    input:checked~span:nth-last-child(2){
+      transform: rotate(-45deg) translate(1px, 10px);
+    }
+    input:checked~span:nth-last-child(3){
+        opacity: 0;
+          transform: rotate(0deg) scale(0.2, 0.2);
+    }
+    span{
+    display: block;
+    width: 33px;
+    height: 4px;
+    margin-bottom: 5px;
+    position: relative;
+    background: #232323;
+    border-radius: 3px;
+    z-index: 40;
+    transform-origin: 4px 0px;
+    transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0),
+      background 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0),
+      opacity 0.55s ease;
+    }
+    span:first-child{
+      transform-origin: 0% 0%;
+    }
+    span:nth-last-child(2){
+      transform-origin: 0% 100%;
+    }
+  }
   .nav-hamb-items {
     @apply text-sm;
     a {
@@ -64,20 +102,13 @@
   .footer {
     @apply h-full bg-[#262626] pt-6 block;
   }
-
+ 
   .form-control {
     @apply block w-full text-base font-light leading-[1.5] text-[#495057] bg-white transition-all duration-150 ease-in-out py-[14px] px-6 h-full focus:border-accent-color;
   }
 
-  .header_nav {
-    @apply hidden md:inline-block;
-    a {
-      @apply text-[#3c484f] flex items-center py-0 px-4 cursor-pointer leading-[inherit];
-    }
-  }
-
   .header {
-    @apply bg-white shadow-lg fixed w-full z-40 top-0 flex justify-start flex-wrap items-center text-xl h-[80px] border-none font-medium;
+    @apply bg-white shadow-lg fixed w-full z-20 top-0 flex justify-start flex-wrap items-center text-xl h-[80px] border-none font-medium;
   }
 
   .quantity-buttons {
@@ -111,6 +142,7 @@ a {
   color: inherit;
   text-decoration: none;
   color: #555;
+  transition: color 0.3s ease;
   // color: #bd744c;
   :hover{
     color: #bd744c;

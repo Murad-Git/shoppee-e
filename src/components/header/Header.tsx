@@ -31,38 +31,23 @@ export default function Header() {
     session ? router.push(`/profile`) : notLogged();
   };
 
-  // useEffect(() => {
-  //   if (status === `authenticated`) return welcomeSnackBar();
-  // }, [status, welcomeSnackBar]);
-  // if (status === `unauthenticated`) logoutSnackBar();
-  // console.log(status);
   return (
     <>
-      {hamMenuToggle && (
-        <div className="sidebar-wrapper fixed top-0 left-0 bottom-0 z-50 h-screen overflow-y-auto overflow-x-hidden w-[300px] transition-all">
-          <nav className="w-[300px] absolute left-0 top-0 bottom-0 bg-[#262626] text-white overflow-y-auto font-sans">
-            <header className="my-4 mx-0 text-lg w-max font-light text-left transition-[width] ease-in-out duration-300 pl-6">
-              <Link href="/">
-                <span
-                  className="mx-1 font-bold text-4xl"
-                  onClick={() => setHamMenuToggle((prev) => !prev)}
-                >
-                  Shoppee-<i>e</i>
-                </span>
-              </Link>
-            </header>
-            <HeaderItems toggleMenu={setHamMenuToggle} />
-            <div></div>
-          </nav>
-        </div>
-      )}
       <nav className="header navbar ">
         <div className="container flex flex-wrap justify-between items-center">
           <button
-            className="block md:hidden"
+            className="menuToggle md:hidden"
             onClick={() => setHamMenuToggle((prev) => !prev)}
           >
-            HM
+            <input
+              type="checkbox"
+              checked={hamMenuToggle}
+              name="hamburger"
+              id="hamburger"
+            />
+            <span></span>
+            <span></span>
+            <span></span>
           </button>
           <Link href="/">
             <a className="navbar-brand inline-block whitespace-nowrap cursor-pointer">
@@ -72,7 +57,25 @@ export default function Header() {
             </a>
           </Link>
           <nav className="header_nav">
-            <ul className="leading-10">
+            {hamMenuToggle && (
+              <div className="block md:hidden sidebar-wrapper absolute top-0 left-0 bottom-0 z-30 h-screen overflow-x-hidden w-[300px] bg-[#262626] text-white ">
+                <nav className="w-[300px] relative left-0 top-20 bottom-0  font-sans">
+                  <header className="my-4 mx-0 text-lg w-max font-light text-left transition-[width] ease-in-out duration-300 pl-6">
+                    <Link href="/">
+                      <span
+                        className="mx-1 font-bold text-4xl"
+                        onClick={() => setHamMenuToggle((prev) => !prev)}
+                      >
+                        Shoppee-<i>e</i>
+                      </span>
+                    </Link>
+                  </header>
+                  <HeaderItems toggleMenu={setHamMenuToggle} />
+                  <div></div>
+                </nav>
+              </div>
+            )}
+            <ul className="leading-10 hidden md:inline-block space-x-9">
               <li className="relative inline-block">
                 <Link href="/">Home</Link>
               </li>

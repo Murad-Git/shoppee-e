@@ -1,129 +1,81 @@
-<p align="center">
-  <img src="https://user-images.githubusercontent.com/26466516/141659551-d7ba5630-7200-46fe-863b-87818dae970a.png" alt="Next.js TypeScript Starter">
-</p>
+# Shoppee-<i>e</i>
 
-<br />
+![preview](./public/readme/https___shoppee-e-wnsg-git-master.gif)
 
-<div align="center"><strong>Non-opinionated TypeScript starter for Next.js</strong></div>
-<div align="center">Highly scalable foundation with the best DX. All the tools you need to build your next project.</div>
+> E-commerce web shop platform.
+> Live demo [_here_](https://movie-rating-timdb.vercel.app/).
 
-<br />
+## Table of Contents
 
-<div align="center">
-  <img src="https://img.shields.io/static/v1?label=PRs&message=welcome&style=flat-square&color=5e17eb&labelColor=000000" alt="PRs welcome!" />
+- [General Info](#general-information)
+- [Technologies Used](#technologies)
+- [Features](#features)
+- [Screenshots](#screenshots)
+- [Setup](#quick-setup)
+- [Project Status](#project-status)
+- [Room for Improvement](#room-for-improvement)
+- [Acknowledgements](#acknowledgements)
+- [Contact](#contact)
+<!-- * [License](#license) -->
 
-  <img alt="License" src="https://img.shields.io/github/license/jpedroschmitz/typescript-nextjs-starter?style=flat-square&color=5e17eb&labelColor=000000">
+## General Information
 
-  <a href="https://twitter.com/intent/follow?screen_name=jpedroschmitz">
-    <img src="https://img.shields.io/twitter/follow/jpedroschmitz?style=flat-square&color=5e17eb&labelColor=000000" alt="Follow @jpedroschmitz" />
-  </a>
-</div>
+- This is fullstack e-commerce website created with React, TypeScript, NextJS, Firebase, Stripe and Sanity CMS.
 
-<div align="center">
-  <sub>Created by <a href="https://twitter.com/jpedroschmitz">João Pedro</a> with the help of many <a href="https://github.com/jpedroschmitz/typescript-nextjs-starter/graphs/contributors">wonderful contributors</a>.</sub>
-</div>
+## Technologies
 
-<br />
+- React <a href="https://reactjs.org/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original-wordmark.svg" alt="react" width="30" height="20"/> </a>
+- TypeScript <a href="https://www.typescriptlang.org/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/typescript/typescript-original.svg" alt="typescript" width="30" height="20"/> </a>
+- NextJS <a href="https://nextjs.org/" target="_blank" rel="noreferrer"> <img src="https://www.rlogical.com/wp-content/uploads/2021/08/Rlogical-Blog-Images-thumbnail.png" alt="nextjs" width="20" height="20"/> </a>
+- Firebase <a href="https://firebase.google.com/" target="_blank" rel="noreferrer"> <img src="https://www.gstatic.com/devrel-devsite/prod/ve6e6ebff6d326e85aedeebfd3fad7cfd85d0fc48cfc2ee55b5498d178a34d928/firebase/images/touchicon-180.png" alt="firebase" width="20" height="20"/> </a>
+- Stripe <a href="https://stripe.com/en-pl" target="_blank" rel="noreferrer"> <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Stripe_Logo%2C_revised_2016.svg/2560px-Stripe_Logo%2C_revised_2016.svg.png" alt="stripe" width="40" height="20"/> </a>
+- Sanity CMS <a href="https://www.sanity.io/" target="_blank" rel="noreferrer"> <img src="https://images.g2crowd.com/uploads/product/image/social_landscape/social_landscape_96102ac6497377cd53da621075fe828e/sanity.png" alt="sanity" width="30" height="20"/> </a>
+- Tailwind CSS <a href="https://tailwindcss.com/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/tailwindcss/tailwindcss-icon.svg" alt="tailwind" width="20" height="20"/> </a>, SASS <a href="https://sass-lang.com" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/sass/sass-original.svg" alt="sass" width="20" height="20"/> </a>
 
 ## Features
 
-- ⚡️ Next.js 12
-- ⚛️ React 18
-- ⛑ TypeScript
-- 📏 ESLint — To find and fix problems in your code
-- 💖 Prettier — Code Formatter for consistent style
-- 🐶 Husky — For running scripts before committing
-- 🚓 Commitlint — To make sure your commit messages follow the convention
-- 🖌 Renovate — To keep your dependencies up to date
-- 🚫 lint-staged — Run ESLint and Prettier against staged Git files
-- 👷 PR Workflow — Run Type Check & Linters on Pull Requests
-- ⚙️ EditorConfig - Consistent coding styles across editors and IDEs
-- 🗂 Path Mapping — Import components or images using the `@` prefix
+- You can login by using your google account.
+- You can filter products, add to liked list or to the cart. You can process payment by using test cart credentials provided below 'Cart Total' segment. After successfull payment you can find your orders history in profile page.
+- Payment process is handled by Stripe platform, which provides payments dashboard to control all payments
+- After successfull payment the order is located into Firebase database by webhook.
+- All products are fetched from Sanity CMS platform. You can add any products by special sanity content management page.
+- the website uses ISR (Incremental Static Regeneration) and SSR (Server Side Rendering) technologies.
 
-## Quick Start
+## Sanity
 
-The best way to start with this template is using [Create Next App](https://nextjs.org/docs/api-reference/create-next-app).
+- sanity content management page preview
+  ![preview](./public/readme/thistle-mandrill%20%E2%80%93%20Sanity.gif)
+
+## Quick Setup
+
+Download the repo by using in your terminal `git clone https://github.com/Murad-Git/shoppee-e`
+then go to the main folder and start the project by
 
 ```
-# yarn
-yarn create next-app -e https://github.com/jpedroschmitz/typescript-nextjs-starter
-# npm
-npx create-next-app -e https://github.com/jpedroschmitz/typescript-nextjs-starter
-# pnpm
-pnpm create next-app -e https://github.com/jpedroschmitz/typescript-nextjs-starter
+cd shoppee-e
+npm i
+# or
+yarn install
+
+npm run dev
+# or
+yarn dev
 ```
 
-### Development
+## Project Status
 
-To start the project locally, run:
+Project is: In progress
 
-```bash
-pnpm dev
-```
+## Room for Improvement
 
-Open `http://localhost:3000` with your browser to see the result.
+Room for improvement:
 
-## Testimonials
+- Adding additional login options (GitHub, Facebook)
 
-> [**“This starter is by far the best TypeScript starter for Next.js. Feature packed but un-opinionated at the same time!”**](https://github.com/jpedroschmitz/typescript-nextjs-starter/issues/87#issue-789642190)<br>
-> — Arafat Zahan
+## Acknowledgements
 
-> [**“I can really recommend the Next.js Typescript Starter repo as a solid foundation for your future Next.js projects.”**](https://corfitz.medium.com/create-a-custom-create-next-project-command-2a6b35a1c8e6)<br>
-> — Corfitz
+- The layout was inspired from [Flatlogic](https://flatlogic-ecommerce.herokuapp.com/)
 
-> [**“Brilliant work!”**](https://github.com/jpedroschmitz/typescript-nextjs-starter/issues/87#issuecomment-769314539)<br>
-> — Soham Dasgupta
+## Contact
 
-## Showcase
-
-List of websites that started off with Next.js TypeScript Starter:
-
-- [dowhile.io](https://dowhile.io)
-- [hygraph.com](https://hygraph.com)
-- [mobg.com.br](https://mobg.com.br)
-- [nextlevelweek.com](https://nextlevelweek.com)
-- [rocketseat.com.br](https://www.rocketseat.com.br)
-- [unfork.vercel.app](https://unfork.vercel.app)
-- [Add yours](https://github.com/jpedroschmitz/typescript-nextjs-starter/edit/main/README.md)
-
-## Documentation
-
-### Requirements
-
-- Node.js >= 12.22.0
-- pnpm 7
-
-### Directory Structure
-
-- [`.github`](.github) — GitHub configuration including the CI workflow.<br>
-- [`.husky`](.husky) — Husky configuration and hooks.<br>
-- [`public`](./public) — Static assets such as robots.txt, images, and favicon.<br>
-- [`src`](./src) — Application source code, including pages, components, styles.
-
-### Scripts
-
-- `pnpm dev` — Starts the application in development mode at `http://localhost:3000`.
-- `pnpm build` — Creates an optimized production build of your application.
-- `pnpm start` — Starts the application in production mode.
-- `pnpm type-check` — Validate code using TypeScript compiler.
-- `pnpm lint` — Runs ESLint for all files in the `src` directory.
-- `pnpm format` — Runs Prettier for all files in the `src` directory.
-
-### Path Mapping
-
-TypeScript are pre-configured with custom path mappings. To import components or files, use the `@` prefix.
-
-```tsx
-import { Button } from '@/components/Button';
-
-// To import images or other files from the public folder
-import avatar from '@/public/avatar.png';
-```
-
-### Switch to Yarn/npm
-
-This starter uses pnpm by default, but this choice is yours. If you'd like to switch to Yarn/npm, delete the `pnpm-lock.yaml` file, install the dependencies with Yarn/npm, change the CI workflow, and Husky Git hooks to use Yarn/npm commands.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for more information.
+Created by [Murad Kos](https://github.com/Murad-Git) - feel free to contact me!

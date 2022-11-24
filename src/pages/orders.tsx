@@ -30,44 +30,51 @@ const Orders: NextPage<ordersProps> = ({ orders }: ordersProps) => {
 };
 export default Orders;
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const stripe = require(`stripe`)(process.env.STRIPE_SECRET_KEY);
+  try {
+    const stripe = require(`stripe`)(process.env.STRIPE_SECRET_KEY);
 
-  // Get the users logged in credentials
-  const session = await getSession(context);
-  if (!session) {
+    // Get the users logged in credentials
+    const session = await getSession(context);
+    if (!session) {
+      return {
+        redirect: {
+          destination: `/`,
+          permanent: false,
+        },
+      };
+    }
+    // Firebase db
+    const ordersCol = collection(
+      db,
+      `users/` +
+        encodeURIComponent(session.user?.email as string).replace(
+          /\./g,
+          `%2E`,
+        ) +
+        `/orders/`,
+    );
+    const ordersSnapshot = await getDocs(ordersCol);
+    // const stripeOrders = ordersSnapshot.docs.map((doc) => doc.data());
+
+    // Stripe orders
+    const orders = await Promise.allSettled(
+      ordersSnapshot.docs.map(async (order) => ({
+        id: order.id,
+        amount: order.data().amount,
+        amountShipping: order.data().amount_shipping,
+        images: order.data().images,
+        timestamp: moment(order.data().timestamp.toDate()).unix(),
+        items: (
+          await stripe.checkout.sessions.listLineItems(order.id, { limit: 100 })
+        ).data,
+      })),
+    );
     return {
-      redirect: {
-        destination: `/`,
-        permanent: false,
+      props: {
+        orders,
       },
     };
+  } catch (error) {
+    throw new Error(error as string);
   }
-  // Firebase db
-  const ordersCol = collection(
-    db,
-    `users/` +
-      encodeURIComponent(session.user?.email as string).replace(/\./g, `%2E`) +
-      `/orders/`,
-  );
-  const ordersSnapshot = await getDocs(ordersCol);
-  // const stripeOrders = ordersSnapshot.docs.map((doc) => doc.data());
-
-  // Stripe orders
-  const orders = await Promise.allSettled(
-    ordersSnapshot.docs.map(async (order) => ({
-      id: order.id,
-      amount: order.data().amount,
-      amountShipping: order.data().amount_shipping,
-      images: order.data().images,
-      timestamp: moment(order.data().timestamp.toDate()).unix(),
-      items: (
-        await stripe.checkout.sessions.listLineItems(order.id, { limit: 100 })
-      ).data,
-    })),
-  );
-  return {
-    props: {
-      orders,
-    },
-  };
 };

@@ -35,6 +35,7 @@ export const filterSlice = createSlice({
       { payload }: PayloadAction<Product[]>,
     ) {
       if (payload) {
+        console.log(`get initial state:`, payload);
         state.initial = payload;
         state.filtered.length ? `` : (state.filtered = payload);
       }

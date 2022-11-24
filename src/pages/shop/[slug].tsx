@@ -1,5 +1,3 @@
-import InfoBlock from '@/components/infoBlock/InfoBlock';
-import InstagramFollow from '@/components/InstagramFollow/InstagramFollow';
 import ShopItem from '@/components/shopSection/ShopItem';
 import Button from '@/components/ui/Button';
 import Slider from '@/components/ui/Slider';
@@ -235,10 +233,6 @@ const Product: NextPage<Props> = ({ product, products }) => {
           ))}
         </Slider>
       </div>
-      <hr />
-      <InfoBlock />
-      <hr />
-      <InstagramFollow />
     </div>
   );
 };
