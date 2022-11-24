@@ -1,16 +1,16 @@
 # Shoppee-<i>e</i>
 
-![preview](./public/readme/https___shoppee-e-wnsg-git-master.gif)
+https://user-images.githubusercontent.com/45511700/203849872-6b739620-da3a-43ab-9edf-c85098bc8dd4.mp4
 
 > E-commerce web shop platform.
-> Live demo [_here_](https://movie-rating-timdb.vercel.app/).
+> 
+> [Live demo](https://shoppee-e-wnsg-git-master-murad-git.vercel.app/).
 
 ## Table of Contents
 
 - [General Info](#general-information)
 - [Technologies Used](#technologies)
 - [Features](#features)
-- [Screenshots](#screenshots)
 - [Setup](#quick-setup)
 - [Project Status](#project-status)
 - [Room for Improvement](#room-for-improvement)
@@ -43,8 +43,11 @@
 
 ## Sanity
 
-- sanity content management page preview
-  ![preview](./public/readme/thistle-mandrill%20%E2%80%93%20Sanity.gif)
+- Sanity content management page preview
+
+https://user-images.githubusercontent.com/45511700/203850225-2afee71c-7944-47f8-8cbd-84d5665932cd.mp4
+
+
 
 ## Quick Setup
 
@@ -71,6 +74,7 @@ Project is: In progress
 Room for improvement:
 
 - Adding additional login options (GitHub, Facebook)
+- Light and dark themes
 
 ## Acknowledgements
 
