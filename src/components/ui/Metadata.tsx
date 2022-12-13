@@ -12,6 +12,13 @@ export default function Metadata() {
       />
       <meta property="og:image" content="/images/icons/page-screenshot.png" />
       <meta property="og:image:alt" content="Landing page" />
+      <meta
+        property="og:url"
+        content="https://shoppee-e-wnsg.vercel.app/"
+        data-react-helmet="true"
+      />
+      <meta property="og:type" content="website" data-react-helmet="true" />
+      <meta property="fb:app_id" content="857361435508119" />
     </>
   );
 }

@@ -126,7 +126,7 @@ export default function Shop({ products }: Props) {
     </>
   );
 }
-
+//@ts-ignore: Unreachable code error
 export const getStaticProps: GetStaticProps = async () => {
   try {
     const products = await sanityRequest();
@@ -144,6 +144,11 @@ export const getStaticProps: GetStaticProps = async () => {
       revalidate: 30,
     };
   } catch (error) {
-    throw new Error(error as string);
+    if (error instanceof Error) {
+      console.error(error.message);
+      return {
+        notFound: true,
+      };
+    }
   }
 };
