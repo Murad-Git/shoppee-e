@@ -17,6 +17,10 @@ const Home: NextPage<Props> = ({ products }: Props) => {
       <Head>
         <title>E-commerce webshop</title>
         <meta
+          name="google-site-verification"
+          content="YaDnZV8r5BtNQxmiuO0NtkvOulT9dthyYDf15q_cUtE"
+        />
+        <meta
           name="description"
           content="Find your favourite product, buy it immediately or save it for later"
           key="desc"
@@ -26,7 +30,6 @@ const Home: NextPage<Props> = ({ products }: Props) => {
       <ShopSection products={products} />
       <DiscountSection />
       <TopProducts />
-      google-site-verification: google11242ba5d2b1ae2c.html
     </>
   );
 };
