@@ -26,6 +26,7 @@ const Home: NextPage<Props> = ({ products }: Props) => {
       <ShopSection products={products} />
       <DiscountSection />
       <TopProducts />
+      google-site-verification: google11242ba5d2b1ae2c.html
     </>
   );
 };
