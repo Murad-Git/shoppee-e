@@ -1,3 +1,4 @@
+import Button from '@/components/ui/Button';
 import OrdersUI from '@/components/ui/OrdersUI';
 import { Order } from '@/types/main';
 import db from '@/utils/firebase';
@@ -5,37 +6,64 @@ import { collection, getDocs } from 'firebase/firestore';
 import moment from 'moment';
 import { GetServerSideProps, NextPage } from 'next';
 import { getSession, useSession } from 'next-auth/react';
+import { useRouter } from 'next/dist/client/router';
+import Head from 'next/head';
 
 export interface ordersProps {
+  noOrders?: boolean;
   orders: {
     status: string;
     value: Order;
   }[];
 }
 
-const Orders: NextPage<ordersProps> = ({ orders }: ordersProps) => {
+const Orders: NextPage<ordersProps> = ({ orders, noOrders }: ordersProps) => {
   const { data: session } = useSession();
+  const router = useRouter();
+
   return (
-    <main className="mt-32 container mb-20">
-      <h2 className="font-bold mb-22 mt-6 border-b-2 border-[rgb(217,217,217)] pb-6">
-        Your Orders
-      </h2>
-      {session ? (
-        <OrdersUI orders={orders} />
-      ) : (
-        <h4>Please sign in to see your orders</h4>
-      )}
-    </main>
+    <>
+      <Head>
+        <title>Your orders</title>
+        <meta name="description" content="Your orders" key="desc" />
+      </Head>
+      <main className="pt-32 container pb-20">
+        {noOrders ? (
+          <div>
+            <h2>You do not have orders yet</h2>
+            <Button
+              className="btn btn-primary mt-4"
+              onClick={() => router.push(`/shop`)}
+            >
+              Go Shopping
+            </Button>
+          </div>
+        ) : (
+          <>
+            <h2 className="font-bold mb-22 mt-6 border-b-2 border-[rgb(217,217,217)] pb-6">
+              Your Orders
+            </h2>
+            {session ? (
+              <OrdersUI orders={orders} />
+            ) : (
+              <h4>Please sign in to see your orders</h4>
+            )}
+          </>
+        )}
+      </main>
+    </>
   );
 };
 export default Orders;
+
+//@ts-ignore: Unreachable code error
 export const getServerSideProps: GetServerSideProps = async (context) => {
   try {
     const stripe = require(`stripe`)(process.env.STRIPE_SECRET_KEY);
 
     // Get the users logged in credentials
     const session = await getSession(context);
-    if (!session) {
+    if (!session?.user) {
       return {
         redirect: {
           destination: `/`,
@@ -75,6 +103,14 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       },
     };
   } catch (error) {
-    throw new Error(error as string);
+    if (error instanceof Error) {
+      console.error(error.message);
+      return {
+        props: {
+          orders: null,
+          noOrders: true,
+        },
+      };
+    }
   }
 };

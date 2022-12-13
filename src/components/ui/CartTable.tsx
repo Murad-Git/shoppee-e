@@ -7,9 +7,10 @@ import TableItem from './TableItem';
 export default function CartTable() {
   const products = useAppSelector(productsValue);
   const router = useRouter();
+  const darkState = useAppSelector((state) => state.productsSlice.darkMode);
 
   return (
-    <table>
+    <table className="border-separate border-spacing-y-2 border-spacing-x-1">
       <thead>
         <tr className="border-b-2 border-[rgb(217,217,217)]">
           <th className="bg-transparent text-dark px-0">Products</th>
@@ -17,7 +18,7 @@ export default function CartTable() {
           <th className="bg-transparent text-dark px-0">Price</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody className={`${darkState ? `dark-bg2` : ``}`}>
         <>
           {products.length > 0 ? (
             products.map((product) => (

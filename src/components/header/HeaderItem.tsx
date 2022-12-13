@@ -27,8 +27,8 @@ export default function HeaderItem({
     >
       <Link href={href ? href : ``}>
         <button onClick={() => (href ? toggleMenu((prev: any) => !prev) : ``)}>
-          <a>
-            <span>{title}</span>
+          <a aria-label={title}>
+            <p>{title}</p>
           </a>
         </button>
       </Link>

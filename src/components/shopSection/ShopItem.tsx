@@ -86,17 +86,22 @@ export default function ShopItem({ product }: Props) {
     [product, dispatch, addLiked, isLiked, removeLiked],
   );
 
+  const darkState = useAppSelector((state) => state.productsSlice.darkMode);
+
   return (
-    <div className="flex flex-col justify-center items-start cursor-pointer">
+    <div
+      className={`flex flex-col justify-center items-start cursor-pointer rounded ${
+        darkState ? `dark-text` : ``
+      }`}
+    >
       <div className="relative">
         <div
           className={`mx-auto ${
-            product.onstock === false && `bg-white opacity-40`
+            product.onstock === false ? `bg-white opacity-40` : ``
           }`}
           onClick={() => router.push(`/shop/${slug}`)}
         >
           <Image
-            className="w-full z-0"
             src={image}
             height={500}
             width={500}
@@ -136,7 +141,7 @@ export default function ShopItem({ product }: Props) {
         </div>
       </div>
 
-      <div className="mb-4 w-[10rem] ">
+      <div className="mb-4 w-[10rem] px-2 h-[8rem]">
         <div className="relative ">
           <div className="flex flex-col items-start max-w-[245px] mx-auto justify-start">
             <div>

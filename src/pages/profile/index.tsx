@@ -8,12 +8,13 @@ import moment from 'moment';
 import { GetServerSideProps, NextPage } from 'next';
 import { getSession, useSession } from 'next-auth/react';
 import Image from 'next/dist/client/image';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
 
 import { useState } from 'react';
 import { ordersProps } from '../orders';
 
-const Profile: NextPage<ordersProps> = ({ orders }: ordersProps) => {
+const Profile: NextPage<ordersProps> = ({ orders, noOrders }: ordersProps) => {
   const { data: session } = useSession();
   const router = useRouter();
 
@@ -25,113 +26,156 @@ const Profile: NextPage<ordersProps> = ({ orders }: ordersProps) => {
   );
 
   return (
-    <main className="mt-32 container mb-20">
-      <div className="flex items-end mb-8">
-        <div className="w-20 mr-8">
-          <Image
-            src={session?.user?.image || `/images/profile/no-person.png`}
-            width={500}
-            height={500}
-            objectFit="cover"
-            alt="product"
-          />
-        </div>
-        <h4>
-          Hello <span>{session?.user?.name}</span>
-        </h4>
-      </div>
-      <div className="grid">
-        <div className="flex items-center justify-evenly">
-          <Button
-            className={
-              !toggleRender.liked
-                ? `btn btn-primary`
-                : `btn btn-outline-primary`
-            }
-            onClick={() =>
-              setToggleRender((prev) => ({ ...prev, liked: false }))
-            }
-          >
-            Your orders
-          </Button>
-          <Button
-            className={
-              toggleRender.liked ? `btn btn-primary` : `btn btn-outline-primary`
-            }
-            onClick={() =>
-              setToggleRender((prev) => ({ ...prev, liked: true }))
-            }
-          >
-            Liked products
-          </Button>
-        </div>
-        <div className="mt-10">
-          {toggleRender.liked ? (
-            likedProducts.length ? (
-              <ShopItems products={likedProducts} />
-            ) : (
-              <Button
-                className="btn btn-primary mt-4"
-                onClick={() => router.push(`/shop`)}
-              >
-                Go Shopping
-              </Button>
-            )
-          ) : (
-            <>
-              {session ? (
-                <OrdersUI orders={orders} />
-              ) : (
-                <h4>Please sign in to see your orders</h4>
-              )}
-            </>
-          )}
-        </div>
-      </div>
-    </main>
+    <>
+      <Head>
+        <title>Your profile</title>
+        <meta
+          name="description"
+          content="Find your orders and list of your favourite products"
+          key="desc"
+        />
+      </Head>
+      <main className="pt-32 container pb-20">
+        {noOrders ? (
+          <div>
+            <h2>You do not have orders yet</h2>
+            <Button
+              className="btn btn-primary mt-4"
+              onClick={() => router.push(`/shop`)}
+            >
+              Go Shopping
+            </Button>
+          </div>
+        ) : (
+          <>
+            <div className="flex items-end mb-8">
+              <div className="w-20 mr-8">
+                <Image
+                  src={session?.user?.image || `/images/profile/no-person.png`}
+                  width={500}
+                  height={500}
+                  objectFit="cover"
+                  alt="product"
+                />
+              </div>
+              <h4>
+                Hello <span>{session?.user?.name}</span>
+              </h4>
+            </div>
+            <div className="grid">
+              <div className="flex items-center justify-evenly">
+                <Button
+                  className={
+                    !toggleRender.liked
+                      ? `btn btn-primary`
+                      : `btn btn-outline-primary`
+                  }
+                  onClick={() =>
+                    setToggleRender((prev) => ({ ...prev, liked: false }))
+                  }
+                >
+                  Your orders
+                </Button>
+                <Button
+                  className={
+                    toggleRender.liked
+                      ? `btn btn-primary`
+                      : `btn btn-outline-primary`
+                  }
+                  onClick={() =>
+                    setToggleRender((prev) => ({ ...prev, liked: true }))
+                  }
+                >
+                  Liked products
+                </Button>
+              </div>
+              <div className="mt-10">
+                {toggleRender.liked ? (
+                  likedProducts.length ? (
+                    <ShopItems products={likedProducts} />
+                  ) : (
+                    <Button
+                      className="btn btn-primary mt-4"
+                      onClick={() => router.push(`/shop`)}
+                    >
+                      Go Shopping
+                    </Button>
+                  )
+                ) : (
+                  <>
+                    {session ? (
+                      <OrdersUI orders={orders} />
+                    ) : (
+                      <h4>Please sign in to see your orders</h4>
+                    )}
+                  </>
+                )}
+              </div>
+            </div>
+          </>
+        )}
+      </main>
+    </>
   );
 };
 export default Profile;
 
+//@ts-ignore: Unreachable code error
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const stripe = require(`stripe`)(process.env.STRIPE_SECRET_KEY);
+  try {
+    const stripe = require(`stripe`)(process.env.STRIPE_SECRET_KEY);
 
-  // Get the users logged in credentials
-  const session = await getSession(context);
-  if (!session) {
+    // Get the users logged in credentials
+    const session = await getSession(context);
+    if (!session?.user) {
+      return {
+        redirect: {
+          destination: `/`,
+          permanent: false,
+        },
+      };
+    }
+    // Firebase db
+
+    const ordersCol = collection(
+      db,
+      `users/` +
+        encodeURIComponent(session.user?.email as string).replace(
+          /\./g,
+          `%2E`,
+        ) +
+        `/orders/`,
+    );
+
+    const ordersSnapshot = await getDocs(ordersCol);
+    // const stripeOrders = ordersSnapshot.docs.map((doc) => doc.data());
+
+    // Stripe orders
+    const orders = await Promise.allSettled(
+      ordersSnapshot.docs.map(async (order) => ({
+        id: order.id,
+        amount: order.data().amount,
+        amountShipping: order.data().amount_shipping,
+        images: order.data().images,
+        timestamp: moment(order.data().timestamp.toDate()).unix(),
+        items: (
+          await stripe.checkout.sessions.listLineItems(order.id, { limit: 100 })
+        ).data,
+      })),
+    );
     return {
-      redirect: {
-        destination: `/`,
-        permanent: false,
+      props: {
+        orders,
       },
     };
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(error.message);
+      return {
+        props: {
+          noOrders: true,
+        },
+      };
+    }
   }
-  // Firebase db
-  const ordersCol = collection(
-    db,
-    `users/` +
-      encodeURIComponent(session.user?.email as string).replace(/\./g, `%2E`) +
-      `/orders/`,
-  );
-  const ordersSnapshot = await getDocs(ordersCol);
-  // const stripeOrders = ordersSnapshot.docs.map((doc) => doc.data());
-
-  // Stripe orders
-  const orders = await Promise.allSettled(
-    ordersSnapshot.docs.map(async (order) => ({
-      id: order.id,
-      amount: order.data().amount,
-      amountShipping: order.data().amount_shipping,
-      images: order.data().images,
-      timestamp: moment(order.data().timestamp.toDate()).unix(),
-      items: (
-        await stripe.checkout.sessions.listLineItems(order.id, { limit: 100 })
-      ).data,
-    })),
-  );
-  return {
-    props: {
-      orders,
-    },
-  };
 };

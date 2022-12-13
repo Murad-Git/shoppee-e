@@ -58,7 +58,7 @@ export default function TableItem({ product }: Props) {
     dispatch(incrementFromCart(id));
   };
   return (
-    <tr className="mt-2">
+    <tr>
       <td className="px-0 pt-6">
         <div className="flex items-center">
           <div className="min-w-[8rem] mr-6">
@@ -94,20 +94,23 @@ export default function TableItem({ product }: Props) {
           </button>
         </div>
       </td>
-      <td className="px-0 pt-6">
-        <h6 className="font-bold text-lg mb-0">{product.totalPrice}$</h6>
-      </td>
-      <td className="px-0 pt-7">
-        <button
-          type="button"
-          onClick={() => removeAllCart(product.id)}
-          className="border-0 p-0"
-        >
-          <FontAwesomeIcon
-            className="h-6 hover:text-accent-color"
-            icon={faClose}
-          />
-        </button>
+      <td className="px-0 pt-6 ">
+        <div className="flex items-center justify-center space-x-2">
+          <h6 className="font-bold text-lg mb-0 my-auto inline-block">
+            {product.totalPrice}$
+          </h6>
+
+          <button
+            type="button"
+            onClick={() => removeAllCart(product.id)}
+            className="border-0 p-0 pr-1"
+          >
+            <FontAwesomeIcon
+              className="h-6 hover:text-accent-color"
+              icon={faClose}
+            />
+          </button>
+        </div>
       </td>
     </tr>
   );

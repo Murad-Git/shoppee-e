@@ -4,7 +4,7 @@ import { Props } from './ShopSection';
 export default function ShopItems({ products, ...props }: Props) {
   return (
     <div
-      className="mx-auto mb-auto grid grid-cols-1 sm:grid-cols-2 sm:gap-4 md:grid-cols-3 lg:grid-cols-4 px-12"
+      className="mx-auto grid grid-cols-1 sm:grid-cols-2 sm:gap-4 md:grid-cols-3 lg:grid-cols-4 px-12 space-y-3 mb-4"
       {...props}
     >
       {products.length ? (

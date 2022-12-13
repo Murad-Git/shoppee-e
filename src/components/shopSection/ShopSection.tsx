@@ -1,5 +1,4 @@
 import { Product } from '@/types/main';
-import React from 'react';
 import Button from '../ui/Button';
 import ShopItems from './ShopItems';
 
@@ -11,7 +10,7 @@ export interface Props {
 
 export default function ShopSection({ products }: Props) {
   return (
-    <div className="my-24 container">
+    <div className="py-24 container">
       <h3 className="font-bold text-center mb-6">New Arrivals</h3>
       <div className="mb-2 flex flex-wrap justify-center">
         <div className="relative w-full px-2">

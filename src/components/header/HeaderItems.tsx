@@ -57,7 +57,6 @@ interface Props {
 }
 export default function HeaderItems({ toggleMenu }: Props) {
   const { data: session } = useSession();
-  console.log(session);
   return (
     <ul
       className="pt-8 pb-3 px-0 overflow-y-auto overflow-x-hidden"
@@ -68,8 +67,8 @@ export default function HeaderItems({ toggleMenu }: Props) {
       ))}
       <li className="nav-hamb-items">
         <button onClick={() => (session ? signOut() : signIn())}>
-          <a>
-            <span>{session ? `Log Out` : `Log In`}</span>
+          <a aria-label="logging button">
+            <p>{session ? `Log Out` : `Log In`}</p>
           </a>
         </button>
       </li>

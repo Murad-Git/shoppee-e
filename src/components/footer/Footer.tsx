@@ -1,13 +1,12 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHouse } from '@fortawesome/free-solid-svg-icons';
-import React from 'react';
-import Button from '../ui/Button';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import InfoBlock from '../infoBlock/InfoBlock';
 import InstagramFollow from '../InstagramFollow/InstagramFollow';
+import Button from '../ui/Button';
 
-export default function Footer() {
+export default function Footer({ className }: { className: string }) {
   return (
-    <>
+    <div className={className}>
       <hr />
       <InfoBlock />
       <hr />
@@ -24,8 +23,9 @@ export default function Footer() {
               </p>
             </div>
             <div className="flex items-center">
-              <label htmlFor="email"></label>
+              <label htmlFor="email">Email:</label>
               <input
+                aria-labelledby="email"
                 className="form-control mr-4 h-full placeholder:text-[#747373]"
                 type="email"
                 name="email"
@@ -122,6 +122,6 @@ export default function Footer() {
           </div>
         </div>
       </footer>
-    </>
+    </div>
   );
 }

@@ -5,14 +5,24 @@ import { RootState } from './store';
 // import { AppState, State } from './store';
 // import { RootState } from './store';
 
+const getDarkMode = () => {
+  if (typeof window !== `undefined`) {
+    return window.matchMedia(`(prefers-color-scheme: dark)`).matches;
+  } else {
+    return false;
+  }
+};
+
 type IState = {
   productsList: Product[];
   likedProducts: Product[];
+  darkMode: boolean;
 };
 
 const initialState: IState = {
   productsList: [],
   likedProducts: [],
+  darkMode: getDarkMode(),
 };
 
 export const productsSlice = createSlice({
@@ -89,6 +99,9 @@ export const productsSlice = createSlice({
         }
       }
     },
+    darkMode(state) {
+      state.darkMode = !state.darkMode;
+    },
   },
 });
 
@@ -99,6 +112,7 @@ export const {
   decrementFromCart,
   incrementFromCart,
   toggleLikedProduct,
+  darkMode,
 } = productsSlice.actions;
 
 export const productsValue = (state: RootState) =>

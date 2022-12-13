@@ -25,6 +25,14 @@ const storage =
     ? createWebStorage(`local`)
     : createNoopStorage();
 
+const getDarkMode = () => {
+  if (typeof window !== `undefined`) {
+    return window.matchMedia(`(prefers-color-scheme: dark)`).matches;
+  } else {
+    return false;
+  }
+};
+
 const migrations: any = {
   0: (state: RootState) => {
     return {
@@ -43,16 +51,20 @@ const migrations: any = {
       },
     };
   },
-  // 1: (state: RootState) => {
-  //   return {
-  //     state
-  //   }
-  // }
+  1: (state: RootState) => {
+    return {
+      ...state,
+      productsSlice: {
+        ...state.productsSlice,
+        darkMode: getDarkMode(),
+      },
+    };
+  },
 };
 const persistConfig = {
   key: `root`,
   storage,
-  version: 0,
+  version: 1,
   // stateReconciler: autoMergeLevel2,
   migrate: createMigrate(migrations, { debug: true }),
 };

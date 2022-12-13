@@ -48,6 +48,12 @@
       "extends": ["plugin:@typescript-eslint/recommended", "prettier"],
       "rules": {
         "@typescript-eslint/explicit-function-return-type": "off",
+        "@typescript-eslint/ban-ts-comment": [
+          "error",
+          {
+            "ts-ignore": "allow-with-description"
+          }
+        ],
         "@typescript-eslint/explicit-module-boundary-types": "off",
         "no-use-before-define": [0],
         "@typescript-eslint/no-use-before-define": [1],

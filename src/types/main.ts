@@ -1,3 +1,5 @@
+import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next';
+
 export interface Main {
   children?: React.ReactNode | [React.ReactNode];
 }
@@ -93,10 +95,8 @@ export interface Session {
   };
   url: null | string;
 }
-// export interface ErrnoException extends Error {
-//   errno?: number;
-//   code?: string;
-//   path?: string;
-//   syscall?: string;
-//   stack?: string;
-// }
+export type ServerProps<
+  P extends { [key: string]: any } = { [key: string]: any | null },
+> = (
+  context: GetServerSidePropsContext,
+) => Promise<GetServerSidePropsResult<P>>;

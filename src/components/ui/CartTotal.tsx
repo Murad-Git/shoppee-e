@@ -52,9 +52,15 @@ export default function CartTotal() {
     e.preventDefault();
     setIsFrontOfCardVisible((prev) => !prev);
   };
+  const darkState = useAppSelector((state) => state.productsSlice.darkMode);
+
   return (
-    <div className="lg:col-span-1 mt-auto lg:mt-6">
-      <section className="bg-[#f5f5f5] flex flex-col">
+    <div
+      className={`lg:col-span-1 mt-auto lg:mt-6 pb-4 ${
+        darkState ? `bg-slate-700` : `shadow-xl`
+      }`}
+    >
+      <section className="flex flex-col">
         <div className="p-8">
           <h2 className="font-bold mb-12">Cart Total</h2>
           <div className="flex">

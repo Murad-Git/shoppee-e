@@ -1,6 +1,6 @@
 import { faClose } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useState } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import InputCheck from './InputCheck';
 import { Backdrop } from './Overlay';
@@ -16,8 +16,6 @@ export const Filter: React.FC<Props> = ({
   categories,
   className,
 }) => {
-  const [priceValue, setPriceValue] = useState(`0`);
-
   return (
     <div className={className}>
       <div className="filter_categories mb-8">
@@ -41,34 +39,6 @@ export const Filter: React.FC<Props> = ({
           ))}
         </div>
       </div>
-      {/* <div className="filter_price mb-4 md:my-12">
-        <div className="filter_title flex flex-col">
-          <h5 className="uppercase font-bold mb-4 md:mb-10 md:text-2xl">
-            price
-          </h5>
-          <p className="text-[#555] text-lg">
-            Price Range: <span className="block my-1">$0 - $1500</span>
-          </p>
-          <label
-            htmlFor="default-range"
-            className="form-label text-gray-900 block mb-2 text-sm font-medium  dark:text-gray-300 md:text-base"
-          >
-            {priceValue}
-          </label>
-
-          <input
-            max="1500"
-            min="0"
-            step="5"
-            value={priceValue}
-            type="range"
-            onChange={(value) => setPriceValue(value.target.value)}
-            onInput={(value) => console.log(value)}
-            className="form-range mb-6 w-full text-accent-color h-1 bg-gray-200 rounded-lg appearance-none cursor-pointer range-sm dark:bg-gray-700"
-            id="default-range"
-          />
-        </div>
-      </div> */}
       <div className="filter_availabity md:my-12">
         <div className="filter_title flex justify-between">
           <h5 className="uppercase font-bold mb-4 md:text-2xl">On Stock</h5>

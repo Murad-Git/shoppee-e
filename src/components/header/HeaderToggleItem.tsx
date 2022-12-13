@@ -15,8 +15,8 @@ export default function HeaderToggleItem({ itemInfo, toggleMenu }: Props) {
       {itemInfo.map((item) => (
         <li key={item.id} onClick={() => toggleMenu((prev: any) => !prev)}>
           <Link href={item.href}>
-            <a className="nav-ham-drop-items">
-              <span>{item.title}</span>
+            <a aria-label={item.title} className="nav-ham-drop-items">
+              <p>{item.title}</p>
             </a>
           </Link>
         </li>

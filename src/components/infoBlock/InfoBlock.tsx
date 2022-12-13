@@ -1,10 +1,9 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  faTruck,
   faHeadset,
   faRotateLeft,
+  faTruck,
 } from '@fortawesome/free-solid-svg-icons';
-import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export default function InfoBlock() {
   return (

@@ -13,6 +13,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { GetStaticProps } from 'next';
+import Head from 'next/head';
 import { useEffect, useState } from 'react';
 
 export default function Shop({ products }: Props) {
@@ -20,6 +21,7 @@ export default function Shop({ products }: Props) {
   const dispatch = useAppDispatch();
   const initialState = useAppSelector((state) => state.filterSlice.initial);
   const filteredState = useAppSelector((state) => state.filterSlice.filtered);
+  const darkState = useAppSelector((state) => state.productsSlice.darkMode);
   const currentFilter = useAppSelector(
     (state) => state.filterSlice.sortCurrent,
   );
@@ -28,10 +30,18 @@ export default function Shop({ products }: Props) {
   useEffect(() => {
     if (!products) return;
     dispatch(getInitialProducts(products));
-  }, [products, dispatch]);
+  }, []);
   return (
     <>
-      <div className="container mt-32 mb-12">
+      <Head>
+        <title>E-commerce webshop</title>
+        <meta
+          name="description"
+          content="Find your favourite product, buy it immediately or save it for later"
+          key="desc"
+        />
+      </Head>
+      <div className="container pt-24 pb-12">
         <div className="md:grid md:grid-cols-4 lg:grid-cols-4 2xl:grid-cols-5">
           <div className="filters_mob flex justify-between md:hidden px-3">
             <button onClick={() => setShowFilter((prev) => !prev)}>
@@ -64,14 +74,14 @@ export default function Shop({ products }: Props) {
             <div className="hidden md:flex justify-between items-center mb-12 px-12">
               <h6>
                 Showing{` `}
-                <span className="text-accent-color font-semibold">
+                <p className="text-accent-color font-semibold inline-block">
                   {filteredState.length}
-                </span>
+                </p>
                 {` `}
                 of{` `}
-                <span className="text-accent-color font-semibold">
+                <p className="text-accent-color font-semibold inline-block">
                   {initialState.length}
-                </span>
+                </p>
                 {` `}
                 Products
               </h6>
@@ -92,7 +102,7 @@ export default function Shop({ products }: Props) {
                 <select
                   name="lth"
                   id="lth"
-                  className="form-control h-12 w-48"
+                  className="form-control h-12 w-48 bg-slate-800 fill-slate-800"
                   onChange={(e) => dispatch(filterSort(e))}
                   value={currentFilter.value}
                 >
@@ -108,7 +118,7 @@ export default function Shop({ products }: Props) {
       </div>
       {showFilter && (
         <FilterPanel
-          className="filters-mob"
+          className={`filters-mob ${darkState ? `dark-bg opacity-95` : ``}`}
           onConfirm={setShowFilter}
           categories={categoriesArr}
         />

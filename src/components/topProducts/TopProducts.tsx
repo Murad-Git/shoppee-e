@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import React from 'react';
 
 export default function TopProducts() {
   return (
@@ -13,7 +12,10 @@ export default function TopProducts() {
         </p>
       </div>
       <div className="grid grid-flow-row-dense grid-cols-1 mx-auto md:grid-cols-3 lg:grid-cols-4">
-        <a className="relative cursor-pointer mb-8 md:m-1 md:col-span-2 md:row-span-2">
+        <a
+          aria-label="top product"
+          className="relative cursor-pointer mb-8 md:m-1 md:col-span-2 md:row-span-2"
+        >
           <div className="w-full">
             <Image
               className="w-full"
@@ -32,7 +34,10 @@ export default function TopProducts() {
             <h6 className="text-[#555] mt-6">Save up to 30%</h6>
           </div>
         </a>
-        <a className="relative cursor-pointer mb-8 md:m-1">
+        <a
+          aria-label="top product"
+          className="relative cursor-pointer mb-8 md:m-1"
+        >
           <div className="w-full">
             <Image
               src="/images/top/top2.jpg"
@@ -48,7 +53,10 @@ export default function TopProducts() {
             <p className="text-right underline">shop now</p>
           </div>
         </a>
-        <a className="relative cursor-pointer mb-8 md:m-1">
+        <a
+          aria-label="top product"
+          className="relative cursor-pointer mb-8 md:m-1"
+        >
           <div className="w-full">
             <Image
               src="/images/top/top3.jpg"
@@ -59,13 +67,11 @@ export default function TopProducts() {
               layout="responsive"
             />
           </div>
-          {/* <div className="absolute h-14 bottom-[2rem] flex flex-col justify-center items-center label">
-            <h6 className="font-bold whitespace-nowrap uppercase mb-0 text-white">
-              spring sale
-            </h6>
-          </div> */}
         </a>
-        <a className="relative cursor-pointer mb-8 md:m-1">
+        <a
+          aria-label="top product"
+          className="relative cursor-pointer mb-8 md:m-1"
+        >
           <div className="w-full">
             <Image
               src="/images/top/top4.jpg"
@@ -76,13 +82,11 @@ export default function TopProducts() {
               layout="responsive"
             />
           </div>
-          {/* <div className="absolute h-14 bottom-[2rem] flex flex-col justify-center items-center label">
-            <h6 className="font-bold whitespace-nowrap uppercase mb-0 text-white">
-              70% sale
-            </h6>
-          </div> */}
         </a>
-        <a className="relative cursor-pointer mb-8 md:m-1">
+        <a
+          aria-label="top product"
+          className="relative cursor-pointer mb-8 md:m-1"
+        >
           <div className="w-full">
             <Image
               src="/images/top/top5.jpg"
