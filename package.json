@@ -72,6 +72,7 @@
     "@types/react-credit-cards": "^0.8.1",
     "@types/react-currency-formatter": "1.1.4",
     "@types/react-dom": "18.0.6",
+    "@typescript-eslint/eslint-plugin": "^5.46.1",
     "autoprefixer": "10.4.12",
     "eslint": "^8.29.0",
     "eslint-config-next": "12.3.1",
