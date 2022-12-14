@@ -4,7 +4,7 @@ import { buffer } from 'micro';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 // Secure a connection to Firebase from the backend
-const app = !admin.apps.length
+const app = !admin?.apps?.length
   ? admin.initializeApp({
       credential: admin.credential.cert({
         projectId: process.env.FIREBASE_PROJECT_ID,
