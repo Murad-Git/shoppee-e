@@ -1,5 +1,5 @@
 import { Product } from '@/types/main';
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import React from 'react';
 import { RootState } from './store';
 
@@ -35,7 +35,6 @@ export const filterSlice = createSlice({
       { payload }: PayloadAction<Product[]>,
     ) {
       if (payload) {
-        console.log(`get initial state:`, payload);
         state.initial = payload;
         state.filtered.length ? `` : (state.filtered = payload);
       }

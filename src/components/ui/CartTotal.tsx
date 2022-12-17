@@ -31,7 +31,7 @@ export default function CartTotal() {
   });
   const createCheckoutSession = async () => {
     if (!session) return;
-    if (!products.length) return emptyCartInfo();
+    if (!products?.length) return emptyCartInfo();
     const stripe = await stripePromise;
 
     // Call the backend to create checkout session

@@ -21,9 +21,9 @@ export default function ShopItem({ product }: Props) {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const { image, category, name, slug, price } = product;
-
+  console.log(product);
   const liked = useAppSelector((state) => state.productsSlice.likedProducts);
-  const isLiked = liked ? liked?.some((item) => item.id === product.id) : false;
+  const isLiked = liked && liked?.some((item) => item.id === product.id);
 
   const addLiked = useSnackBar({
     amount: 1,

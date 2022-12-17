@@ -20,7 +20,7 @@ export default function CartTable() {
       </thead>
       <tbody className={`${darkState ? `dark-bg2` : ``}`}>
         <>
-          {products.length > 0 ? (
+          {products && products?.length > 0 ? (
             products.map((product) => (
               <TableItem product={product} key={product.id} />
             ))

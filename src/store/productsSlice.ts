@@ -34,7 +34,7 @@ export const productsSlice = createSlice({
       action: PayloadAction<{ newProduct: Product }>,
     ) => {
       const { newProduct } = action.payload;
-      if (state.productsList.length === 0) {
+      if (state.productsList?.length === 0) {
         state.productsList = [...state.productsList, newProduct];
       } else {
         const existingItem = state.productsList.find(
@@ -84,7 +84,7 @@ export const productsSlice = createSlice({
       state: IState,
       { payload }: PayloadAction<{ product: Product }>,
     ) => {
-      if (state.likedProducts.length === 0) {
+      if (state.likedProducts?.length === 0) {
         state.likedProducts = [...state.likedProducts, payload.product];
       } else {
         const existingItem = state.likedProducts.find(
@@ -119,7 +119,7 @@ export const productsValue = (state: RootState) =>
   state.productsSlice.productsList;
 export const selectTotalPrice = (state: RootState) =>
   state.productsSlice.productsList.reduce(
-    (acc, cur) => (acc += cur.totalPrice as number),
+    (acc, cur) => (acc += cur.totalPrice ? cur.totalPrice : 0),
     0,
   );
 export const selectTotalQuantity = (state: RootState) => {
