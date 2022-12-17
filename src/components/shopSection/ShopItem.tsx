@@ -5,8 +5,8 @@ import { Product } from '@/types/main';
 import { faHeart } from '@fortawesome/free-regular-svg-icons';
 import {
   faCartShopping,
-  faHeart as solidHeart,
   faMagnifyingGlassPlus,
+  faHeart as solidHeart,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Image from 'next/image';
@@ -23,7 +23,7 @@ export default function ShopItem({ product }: Props) {
   const { image, category, name, slug, price } = product;
 
   const liked = useAppSelector((state) => state.productsSlice.likedProducts);
-  const isLiked = liked.some((item) => item.id === product.id);
+  const isLiked = liked ? liked?.some((item) => item.id === product.id) : false;
 
   const addLiked = useSnackBar({
     amount: 1,

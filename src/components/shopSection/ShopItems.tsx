@@ -7,7 +7,7 @@ export default function ShopItems({ products, ...props }: Props) {
       className="mx-auto grid grid-cols-1 sm:grid-cols-2 sm:gap-4 md:grid-cols-3 lg:grid-cols-4 px-12 space-y-3 mb-4"
       {...props}
     >
-      {products.length ? (
+      {products && products?.length ? (
         products.map((product) => (
           <ShopItem key={product.id} product={product} />
         ))

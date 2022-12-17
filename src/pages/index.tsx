@@ -53,10 +53,7 @@ export const getStaticProps: GetStaticProps = async () => {
     const products = await sanityRequest();
     if (!products)
       return {
-        redirect: {
-          destination: `/`,
-          permanent: false,
-        },
+        notFound: true,
       };
     return {
       props: {

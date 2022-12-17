@@ -1,7 +1,6 @@
 import Footer from '@/components/footer/Footer';
 import Header from '@/components/header/Header';
 import { useAppSelector } from '@/types/hooks';
-
 import React from 'react';
 
 export const Layout: React.FC<{

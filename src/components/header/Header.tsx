@@ -171,7 +171,9 @@ export default function Header() {
                   className="box-border p-4 relative text-[#262626] hover:text-accent-color"
                 >
                   <p className="absolute text-[9px] inline-block font-bold text-[#3c484f] mb-0 ml-2 top-0">
-                    {productsList.length > 0 ? productsList.length : ``}
+                    {productsList && productsList?.length > 0
+                      ? productsList.length
+                      : ``}
                   </p>
                   <FontAwesomeIcon className="h-4 " icon={faCartShopping} />
                 </a>

@@ -8,25 +8,26 @@ import { SnackbarProvider } from 'notistack';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 
-import { useEffect } from 'react';
-
 export default function MyApp({
   Component,
   pageProps,
 }: AppProps<{
   session: Session;
 }>) {
-  useEffect(() => {
-    if (typeof window !== `undefined`) {
-      const loader = document.getElementById(`loader`);
-      if (loader) loader.remove();
-    }
-  }, []);
+  // useEffect(() => {
+  //   const loader = document.getElementById(`loader`);
+  //   if (loader) {
+  //     if (typeof window !== `undefined`) {
+  //       loader.classList.add(`loader`);
+  //     } else loader.classList.remove(`loader`);
+  //     loader.classList.remove(`loader`);
+  //   }
+  // }, []);
   // const { store, props } = wrapper.useWrappedStore(pageProps);
   return (
     <SessionProvider session={pageProps.session}>
       <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
+        <PersistGate loading={<div>loading</div>} persistor={persistor}>
           <SnackbarProvider maxSnack={3}>
             <Layout>
               <Component {...pageProps} />
