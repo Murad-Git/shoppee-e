@@ -8,7 +8,7 @@ interface Props {
   props?: any;
 }
 
-export default function InputCheck({ item, ...props }: Props) {
+const InputCheck = ({ item, ...props }: Props) => {
   const dispatch = useAppDispatch();
   const categories = useAppSelector((state) => state.filterSlice.categories);
   const onstock = useAppSelector((state) => state.filterSlice.onstock);
@@ -35,4 +35,5 @@ export default function InputCheck({ item, ...props }: Props) {
       </label>
     </>
   );
-}
+};
+export default InputCheck;

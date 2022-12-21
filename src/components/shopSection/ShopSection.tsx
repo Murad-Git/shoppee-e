@@ -8,7 +8,7 @@ export interface Props {
   [key: string]: any;
 }
 
-export default function ShopSection({ products }: Props) {
+const ShopSection = ({ products }: Props) => {
   return (
     <div className="py-24 container">
       <h3 className="font-bold text-center mb-6">New Arrivals</h3>
@@ -23,8 +23,9 @@ export default function ShopSection({ products }: Props) {
       </div>
       <ShopItems products={products} />
       <div className="flex justify-center">
-        <Button className="btn btn-outline-primary">view more</Button>
+        <Button variant="outline">view more</Button>
       </div>
     </div>
   );
-}
+};
+export default ShopSection;

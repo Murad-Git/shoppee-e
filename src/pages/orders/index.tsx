@@ -1,11 +1,11 @@
 import Button from '@/components/ui/Button';
-import OrdersUI from '@/components/ui/OrdersUI';
+import OrdersUI from '@/orders/OrdersUI';
 import { Order } from '@/types/main';
 import db from '@/utils/firebase';
 import { collection, getDocs } from 'firebase/firestore';
 import moment from 'moment';
-import { GetServerSideProps, NextPage } from 'next';
-import { getSession, useSession } from 'next-auth/react';
+import { NextPage } from 'next';
+import { getSession } from 'next-auth/react';
 import { useRouter } from 'next/dist/client/router';
 import Head from 'next/head';
 
@@ -18,21 +18,22 @@ export interface ordersProps {
 }
 
 const Orders: NextPage<ordersProps> = ({ orders, noOrders }: ordersProps) => {
-  const { data: session } = useSession();
   const router = useRouter();
-
   return (
     <>
       <Head>
         <title>Your orders</title>
         <meta name="description" content="Your orders" key="desc" />
       </Head>
-      <main className="pt-32 container pb-20">
+      <main className="py-20 container">
+        <h2 className="font-bold mb-22 border-b-2 border-[rgb(217,217,217)] pb-6">
+          Your Orders
+        </h2>
         {noOrders ? (
-          <div>
+          <div className="p-10">
             <h2>You do not have orders yet</h2>
             <Button
-              className="btn btn-primary mt-4"
+              variant="primary small"
               onClick={() => router.push(`/shop`)}
             >
               Go Shopping
@@ -40,14 +41,7 @@ const Orders: NextPage<ordersProps> = ({ orders, noOrders }: ordersProps) => {
           </div>
         ) : (
           <>
-            <h2 className="font-bold mb-22 mt-6 border-b-2 border-[rgb(217,217,217)] pb-6">
-              Your Orders
-            </h2>
-            {session ? (
-              <OrdersUI orders={orders} />
-            ) : (
-              <h4>Please sign in to see your orders</h4>
-            )}
+            <OrdersUI orders={orders} />
           </>
         )}
       </main>

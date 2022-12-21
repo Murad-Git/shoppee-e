@@ -1,69 +1,16 @@
+import { hamMenuItems } from '@/utils/database';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import HeaderItem from './HeaderItem';
-
-const hamMenuItems = [
-  {
-    title: `Home`,
-    href: `/`,
-  },
-  {
-    title: `Pages`,
-    subMenu: [
-      {
-        title: `Profile`,
-        href: `/profile`,
-
-        id: 1,
-      },
-      {
-        title: `About Us`,
-        href: `/about`,
-
-        id: 2,
-      },
-      {
-        title: `Contact Us`,
-        href: `/contact`,
-
-        id: 4,
-      },
-      {
-        title: `FAQ`,
-        href: `/faq`,
-
-        id: 5,
-      },
-    ],
-  },
-  {
-    title: `Shop`,
-    subMenu: [
-      {
-        title: `Shop`,
-        href: `/shop`,
-        id: 5,
-      },
-      {
-        title: `Categories`,
-        href: `/`,
-        id: 6,
-      },
-    ],
-  },
-];
 
 interface Props {
   toggleMenu: (prev: any) => void;
 }
-export default function HeaderItems({ toggleMenu }: Props) {
+const HeaderItems = ({ toggleMenu }: Props) => {
   const { data: session } = useSession();
   return (
-    <ul
-      className="pt-8 pb-3 px-0 overflow-y-auto overflow-x-hidden"
-      // onClick={() => toggleMenu((prev: any) => !prev)}
-    >
-      {hamMenuItems.map((item, index) => (
-        <HeaderItem key={index} {...item} toggleMenu={toggleMenu} />
+    <ul className="pt-8 pb-3 px-0 overflow-y-auto overflow-x-hidden">
+      {hamMenuItems.map((item) => (
+        <HeaderItem key={item.id} {...item} toggleMenu={toggleMenu} />
       ))}
       <li className="nav-hamb-items">
         <button onClick={() => (session ? signOut() : signIn())}>
@@ -74,4 +21,5 @@ export default function HeaderItems({ toggleMenu }: Props) {
       </li>
     </ul>
   );
-}
+};
+export default HeaderItems;

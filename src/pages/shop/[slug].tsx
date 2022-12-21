@@ -27,9 +27,11 @@ const Product: NextPage<Props> = ({ product, products }) => {
   const router = useRouter();
   const [quantity, setQuantity] = useState(1);
   const { image, category, name, description, price } = product;
-  const formattedProduct = { ...product };
-  formattedProduct.quantity = quantity;
-  formattedProduct.totalPrice = product.price * quantity;
+  const formattedProduct = {
+    ...product,
+    quantity,
+    totalPrice: product.price * quantity,
+  };
 
   const addProductInfo = useSnackBar({
     amount: quantity,
@@ -145,16 +147,10 @@ const Product: NextPage<Props> = ({ product, products }) => {
                     </div>
                   </div>
                   <div className="mt-6 flex md:justify-center">
-                    <Button
-                      onClick={OnBuyNow}
-                      className="btn btn-outline-primary mr-4 w-1/2 md:w-[40%] md:p-3"
-                    >
+                    <Button onClick={OnBuyNow} variant="outline">
                       buy now
                     </Button>
-                    <Button
-                      onClick={addToBasket}
-                      className="btn btn-primary  w-1/2 md:w-[40%] md:p-3"
-                    >
+                    <Button onClick={addToBasket} variant="primary">
                       add to cart
                     </Button>
                   </div>

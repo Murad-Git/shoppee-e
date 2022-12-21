@@ -21,7 +21,7 @@ const initialState: IFilterState = {
     { name: `Sort`, value: `htl` },
     { name: `Alph`, value: `alph` },
   ],
-  sortCurrent: {},
+  sortCurrent: { name: `Sort`, value: `lth` },
   categories: {},
   onstock: true,
 };
@@ -100,9 +100,10 @@ export const filterSlice = createSlice({
         const { value: sortType } =
           payload.target && (payload.target as HTMLSelectElement);
         sortItems(sortType);
-        state.sortCurrent = state.sortList.find(
-          (item) => item.value && item.value === sortType,
-        )!;
+        state.sortCurrent =
+          state.sortList.find(
+            (item) => item.value && item.value === sortType,
+          ) || state.sortList[0];
       }
     },
   },

@@ -10,11 +10,11 @@ export const Backdrop: React.FC<Props> = ({ onConfirm }) => {
     <div
       className="fixed top-0 left-0 w-full h-screen z-10 bg-[rgba(0,0,0,0.1)]"
       onClick={() => onConfirm((prev: any) => !prev)}
-    ></div>
+    />
   );
 };
 
-export default function Overlay({ onConfirm }: Props) {
+const Overlay = ({ onConfirm }: Props) => {
   return (
     <>
       {ReactDOM.createPortal(
@@ -23,4 +23,5 @@ export default function Overlay({ onConfirm }: Props) {
       )}
     </>
   );
-}
+};
+export default Overlay;

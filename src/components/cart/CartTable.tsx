@@ -1,10 +1,10 @@
 import { productsValue } from '@/store/productsSlice';
 import { useAppSelector } from '@/types/hooks';
 import { useRouter } from 'next/router';
-import Button from './Button';
+import Button from '../ui/Button';
 import TableItem from './TableItem';
 
-export default function CartTable() {
+const CartTable = () => {
   const products = useAppSelector(productsValue);
   const router = useRouter();
   const darkState = useAppSelector((state) => state.productsSlice.darkMode);
@@ -25,12 +25,9 @@ export default function CartTable() {
               <TableItem product={product} key={product.id} />
             ))
           ) : (
-            <div>
+            <div className="p-10 border bg-slate-800">
               <h2 className="my-8">Your shopping cart is empty</h2>
-              <Button
-                className="btn btn-primary"
-                onClick={() => router.push(`/shop`)}
-              >
+              <Button variant="primary" onClick={() => router.push(`/shop`)}>
                 Go Shop
               </Button>
             </div>
@@ -39,4 +36,5 @@ export default function CartTable() {
       </tbody>
     </table>
   );
-}
+};
+export default CartTable;

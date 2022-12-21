@@ -45,7 +45,7 @@ const migrations: any = {
           { name: `Sort`, value: `htl` },
           { name: `Alph`, value: `alph` },
         ],
-        sortCurrent: {},
+        sortCurrent: { name: `Sort`, value: `lth` },
         categories: {},
         onstock: true,
       },

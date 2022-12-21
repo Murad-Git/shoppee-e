@@ -1,25 +1,7 @@
+import { blogData } from '@/utils/database';
 import Image from 'next/image';
-import React from 'react';
 
-const blogData = [
-  {
-    date: `March 12, 2020`,
-    title: `What is Shabby Chic?`,
-    id: 1,
-  },
-  {
-    date: `March 12, 2020`,
-    title: `Best Examples of Maximalism`,
-    id: 2,
-  },
-  {
-    date: `March 12, 2020`,
-    title: `What is Lorem Ipsum`,
-    id: 3,
-  },
-];
-
-export default function BlogItems() {
+const BlogItems = () => {
   return (
     <>
       {blogData.map((item) => (
@@ -42,4 +24,5 @@ export default function BlogItems() {
       ))}
     </>
   );
-}
+};
+export default BlogItems;

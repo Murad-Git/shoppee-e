@@ -11,11 +11,7 @@ interface Props {
   className?: string;
 }
 
-export const Filter: React.FC<Props> = ({
-  onConfirm,
-  categories,
-  className,
-}) => {
+const Filter: React.FC<Props> = ({ onConfirm, categories, className }) => {
   return (
     <div className={className}>
       <div className="filter_categories mb-8">
@@ -52,8 +48,9 @@ export const Filter: React.FC<Props> = ({
     </div>
   );
 };
+export default Filter;
 
-export function FilterPanel({ onConfirm, categories, className }: Props) {
+export const FilterPanel = ({ onConfirm, categories, className }: Props) => {
   return (
     <>
       {ReactDOM.createPortal(
@@ -71,4 +68,4 @@ export function FilterPanel({ onConfirm, categories, className }: Props) {
       )}
     </>
   );
-}
+};

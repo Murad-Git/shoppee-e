@@ -11,12 +11,11 @@ import { useSession } from 'next-auth/react';
 import { useState } from 'react';
 import Card from 'react-credit-cards';
 import 'react-credit-cards/es/styles-compiled.css';
-
-import Button from './Button';
+import Button from '../ui/Button';
 
 const stripePromise = loadStripe(process.env.stripe_public_key as string);
 
-export default function CartTotal() {
+const CartTotal = () => {
   const [isFrontOfCardVisible, setIsFrontOfCardVisible] = useState(true);
   const { data: session } = useSession();
   const totalPrice = useAppSelector(selectTotalPrice);
@@ -91,9 +90,7 @@ export default function CartTotal() {
           onClick={createCheckoutSession}
           aria-disabled={!session}
           role="link"
-          className={`btn btn-primary w-full ${
-            !session && `!bg-unlogged-color`
-          }`}
+          variant={session ? `logged` : `unlogged`}
         >
           {session ? `check out` : `login to proceed`}
         </Button>
@@ -109,4 +106,6 @@ export default function CartTotal() {
       </div>
     </div>
   );
-}
+};
+
+export default CartTotal;

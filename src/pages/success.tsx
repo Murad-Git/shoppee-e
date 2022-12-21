@@ -22,10 +22,7 @@ export default function Success() {
           once your item has shipped. If you would like to check the status of
           your order(s), please press the link below.
         </p>
-        <Button
-          onClick={() => router.push(`/orders`)}
-          className="btn btn-primary md:w-1/3"
-        >
+        <Button onClick={() => router.push(`/orders`)} variant="primary">
           Go to my orders
         </Button>
       </div>

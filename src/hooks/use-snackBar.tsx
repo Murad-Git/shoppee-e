@@ -48,6 +48,7 @@ export default function useSnackBar({
     // default
     else return `default product snackback info`;
   };
+
   const loginMessage = (username: string, type: string) => {
     if (type === `success` && username) {
       return `Welcome ${username}`;
@@ -56,6 +57,7 @@ export default function useSnackBar({
     if (type === `error`) return `You need to log in`;
     else return `Welcome back`;
   };
+
   const handler = useCallback(
     (message: string, variant: VariantType) => () => {
       enqueueSnackbar(message, {
@@ -65,6 +67,7 @@ export default function useSnackBar({
     },
     [enqueueSnackbar],
   );
+
   if (snacktype.type === `product` && product)
     return handler(productMessage(product, snacktype.func, amount), variant);
 

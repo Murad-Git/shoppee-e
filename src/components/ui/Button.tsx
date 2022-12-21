@@ -6,9 +6,41 @@ interface Props
     HTMLButtonElement
   > {
   children: React.ReactNode;
-  // [key: string]: any;
+  variant: string;
 }
 
-export default function Button({ children, ...rest }: Props) {
-  return <button {...rest}>{children}</button>;
-}
+const Button = ({ children, variant, ...rest }: Props) => {
+  // const defineClass = (variant: string) => {
+  let buttonClass = ``;
+  switch (variant) {
+    case `primary`:
+      buttonClass = `btn btn-primary w-1/2 md:w-1/3 md:p-3`;
+      break;
+    case `primary small`:
+      buttonClass = `btn btn-primary w-1/2 md:w-1/4 md:p-3`;
+      break;
+    case `outline`:
+      buttonClass = `btn btn-outline-primary w-1/2 md:w-1/3 md:p-3`;
+      break;
+    case `unlogged`:
+      buttonClass = `btn btn-primary w-full bg-unlogged-color`;
+      break;
+    case `logged`:
+      buttonClass = `btn btn-primary w-full`;
+      break;
+    default:
+      buttonClass = `btn`;
+  }
+
+  return (
+    <button className={buttonClass} {...rest}>
+      {children}
+    </button>
+  );
+};
+export default Button;
+
+// variant === `primary` && `btn btn-primary w-1/2 md:w-1/3 md:p-3`;
+// variant === `outline` && `btn btn-outline-primary w-1/2 md:w-1/3 md:p-3`;
+// variant === `unlogged` && `btn btn-primary w-full bg-unlogged-color`;
+// variant === `logged` && `btn btn-primary w-full`;

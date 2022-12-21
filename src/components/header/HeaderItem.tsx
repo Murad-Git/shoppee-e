@@ -13,12 +13,7 @@ interface Props {
   }[];
 }
 
-export default function HeaderItem({
-  title,
-  href,
-  subMenu,
-  toggleMenu,
-}: Props) {
+const HeaderItem = ({ title, href, subMenu, toggleMenu }: Props) => {
   const [toggleHeaderItem, setToggleHeaderItem] = useState(false);
   return (
     <li
@@ -26,7 +21,9 @@ export default function HeaderItem({
       onClick={() => setToggleHeaderItem((prev) => !prev)}
     >
       <Link href={href ? href : ``}>
-        <button onClick={() => (href ? toggleMenu((prev: any) => !prev) : ``)}>
+        <button
+          onClick={() => (href ? toggleMenu((prev: boolean) => !prev) : ``)}
+        >
           <a aria-label={title}>
             <p>{title}</p>
           </a>
@@ -41,4 +38,5 @@ export default function HeaderItem({
       )}
     </li>
   );
-}
+};
+export default HeaderItem;

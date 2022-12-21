@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-export default function InstagramFollow() {
+const InstagramFollow = () => {
   const images = Array.from(Array(6), (x, index) => (
     <Image
       key={index + 1}
@@ -19,4 +19,5 @@ export default function InstagramFollow() {
       </div>
     </section>
   );
-}
+};
+export default InstagramFollow;

@@ -1,6 +1,6 @@
 import ShopItems from '@/components/shopSection/ShopItems';
 import { Props } from '@/components/shopSection/ShopSection';
-import { Filter, FilterPanel } from '@/components/ui/FilterPanel';
+import Filter, { FilterPanel } from '@/components/ui/FilterPanel';
 import { filterSort, getInitialProducts } from '@/store/filterSlice';
 import { useAppDispatch, useAppSelector } from '@/types/hooks';
 import { uniqueCategories } from '@/utils/helpers';
@@ -14,9 +14,10 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { GetStaticProps } from 'next';
 import Head from 'next/head';
+import { NextPage } from 'next/types';
 import { useEffect, useState } from 'react';
 
-export default function Shop({ products }: Props) {
+const Shop: NextPage<Props> = ({ products }) => {
   const { categoriesArr } = uniqueCategories(products);
   const dispatch = useAppDispatch();
   const initialState = useAppSelector((state) => state.filterSlice.initial);
@@ -116,7 +117,7 @@ export default function Shop({ products }: Props) {
           </div>
         </div>
       </div>
-      {showFilter && (
+      {!!showFilter && (
         <FilterPanel
           className={`filters-mob ${darkState ? `dark-bg opacity-95` : ``}`}
           onConfirm={setShowFilter}
@@ -125,7 +126,9 @@ export default function Shop({ products }: Props) {
       )}
     </>
   );
-}
+};
+
+export default Shop;
 //@ts-ignore: Unreachable code error
 export const getStaticProps: GetStaticProps = async () => {
   try {

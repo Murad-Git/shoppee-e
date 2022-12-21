@@ -5,10 +5,10 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-export default function InfoBlock() {
+const InfoBlock = () => {
   return (
-    <div className="h-full container">
-      <div className="h-full grid grid-cols-1 md:grid-cols-3 justify-items-center w-[60%] md:w-full mx-auto md:divide-solid md:divide-x">
+    <div className="border-y border-slate-200 py-2">
+      <div className="h-full grid grid-cols-1 md:grid-cols-3 justify-items-center w-[60%] md:w-full mx-auto md:divide-solid md:divide-x container">
         <div className="h-full w-full flex items-center justify-start mb-8 md:mr-4 md:w-[90%]">
           <section className="flex justify-start items-center">
             <FontAwesomeIcon
@@ -48,61 +48,5 @@ export default function InfoBlock() {
       </div>
     </div>
   );
-}
-
-// Napisz funkcję, która przyjmuje jako argument tablicę liczb całkowitych
-// i jako wynik zwraca sumę dwóch największych liczb w tej tablicy.
-
-// Przykład:
-// sum2max([1, 3, 2]) -> 5
-// sum2max([1, 3, 3, -1]) -> 6
-// sum2max([0, -1, -2]) -> -1
-// sum2max([1]) -> null // brak dwóch liczb
-// sum2max([]) -> null // brak dwóch liczb
-
-// Nagłówki funkcji:
-
-// function sum2max(numbers) {
-//   console.log(numbers.length > 1 ? true : false);
-//   if (numbers.length > 1) {
-//     let largest = numbers[0];
-//     let large;
-//     for (let i = 1; i < numbers.length; ++i) {
-//       if (numbers[i] > largest) {
-//         large = largest;
-//         largest = numbers[i];
-//       } else if (numbers[i] > large || typeof large === `undefined`) {
-//         large = numbers[i];
-//       }
-//     }
-//     return large + largest;
-//   } else {
-//     return null;
-//   }
-// }
-
-// console.log(sum2max([1, 3, 2]));
-// console.log(sum2max([1, 3, 3, -1]));
-// console.log(sum2max([0, -1, -2]));
-// console.log(sum2max([0, -1]));
-// console.log(sum2max([1]));
-// console.log(sum2max([]));
-// function exampleSolution(numbers: number[]): number | null {
-//   if (numbers.length < 2) return null;
-
-//   return [...numbers]
-//     .sort((a, b) => a - b)
-//     .slice(-2)
-//     .reduce((c, p) => c + p, 0);
-// }
-
-// [
-//   [[2, 1, 3], 5],
-//   [[1, 3, 3, 1], 6],
-//   [[], null],
-//   [[1], null],
-//   [[0, -2], -2],
-//   [[0, -1, -2], -1],
-// ].forEach(([input, expect]) => {
-//   console.log(exampleSolution(input) === expect);
-// });
+};
+export default InfoBlock;

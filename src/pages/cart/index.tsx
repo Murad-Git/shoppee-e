@@ -1,5 +1,5 @@
-import CartTable from '@/components/ui/CartTable';
-import CartTotal from '@/components/ui/CartTotal';
+import CartTable from '@/components/cart/CartTable';
+import CartTotal from '@/components/cart/CartTotal';
 import Head from 'next/head';
 
 export default function Cart() {

@@ -13,18 +13,15 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { useCallback } from 'react';
 
-interface Props {
-  product: Product;
-}
-
-export default function ShopItem({ product }: Props) {
+const ShopItem = ({ product }: { product: Product }) => {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const { image, category, name, slug, price } = product;
-  console.log(product);
   const liked = useAppSelector((state) => state.productsSlice.likedProducts);
   const isLiked = liked && liked?.some((item) => item.id === product.id);
+  const darkState = useAppSelector((state) => state.productsSlice.darkMode);
 
+  // pop-ups
   const addLiked = useSnackBar({
     amount: 1,
     product: product.name,
@@ -60,13 +57,16 @@ export default function ShopItem({ product }: Props) {
     variant: `warning`,
   });
 
+  // handlers
   const handleAdd = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
     if (product.onstock === false) return unavailableProduct();
     addProductInfo();
-    const formattedProduct = { ...product };
-    formattedProduct.quantity = 1;
-    formattedProduct.totalPrice = product.price;
+    const formattedProduct = {
+      ...product,
+      quantity: 1,
+      totalPrice: product.price,
+    };
     dispatch(
       addProduct({
         newProduct: formattedProduct,
@@ -85,8 +85,6 @@ export default function ShopItem({ product }: Props) {
     },
     [product, dispatch, addLiked, isLiked, removeLiked],
   );
-
-  const darkState = useAppSelector((state) => state.productsSlice.darkMode);
 
   return (
     <div
@@ -156,4 +154,5 @@ export default function ShopItem({ product }: Props) {
       </div>
     </div>
   );
-}
+};
+export default ShopItem;

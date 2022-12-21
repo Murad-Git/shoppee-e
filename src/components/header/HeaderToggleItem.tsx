@@ -9,7 +9,7 @@ interface Props {
   }[];
 }
 
-export default function HeaderToggleItem({ itemInfo, toggleMenu }: Props) {
+const HeaderToggleItem = ({ itemInfo, toggleMenu }: Props) => {
   return (
     <ul className="p-4">
       {itemInfo.map((item) => (
@@ -23,4 +23,5 @@ export default function HeaderToggleItem({ itemInfo, toggleMenu }: Props) {
       ))}
     </ul>
   );
-}
+};
+export default HeaderToggleItem;

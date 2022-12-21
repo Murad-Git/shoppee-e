@@ -1,4 +1,4 @@
-import { Layout } from '@/components/ui/Layout';
+import Layout from '@/components/ui/Layout';
 import { persistor, store } from '@/store/store';
 import '@/styles/globals.scss';
 import { Session } from 'next-auth/core/types';
@@ -14,16 +14,6 @@ export default function MyApp({
 }: AppProps<{
   session: Session;
 }>) {
-  // useEffect(() => {
-  //   const loader = document.getElementById(`loader`);
-  //   if (loader) {
-  //     if (typeof window !== `undefined`) {
-  //       loader.classList.add(`loader`);
-  //     } else loader.classList.remove(`loader`);
-  //     loader.classList.remove(`loader`);
-  //   }
-  // }, []);
-  // const { store, props } = wrapper.useWrappedStore(pageProps);
   return (
     <SessionProvider session={pageProps.session}>
       <Provider store={store}>

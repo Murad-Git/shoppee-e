@@ -1,15 +1,12 @@
-import React from 'react';
 // Import Swiper React components
+import { Main } from '@/types/main';
+import { Navigation, Pagination } from 'swiper';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 import { Swiper } from 'swiper/react';
 
-import 'swiper/css';
-import 'swiper/css/pagination';
-import 'swiper/css/navigation';
-
-import { Pagination, Navigation } from 'swiper';
-import { Main } from '@/types/main';
-
-export default function Slider({ children }: Main) {
+const Slider = ({ children }: Main) => {
   return (
     <Swiper
       slidesPerView={1}
@@ -41,4 +38,5 @@ export default function Slider({ children }: Main) {
       {children}
     </Swiper>
   );
-}
+};
+export default Slider;

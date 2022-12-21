@@ -2,8 +2,6 @@ import { Product } from '@/types/main';
 import { createSlice } from '@reduxjs/toolkit';
 import { PayloadAction } from '@reduxjs/toolkit/dist/createAction';
 import { RootState } from './store';
-// import { AppState, State } from './store';
-// import { RootState } from './store';
 
 const getDarkMode = () => {
   if (typeof window !== `undefined`) {
@@ -34,12 +32,14 @@ export const productsSlice = createSlice({
       action: PayloadAction<{ newProduct: Product }>,
     ) => {
       const { newProduct } = action.payload;
+      console.log(`state`);
+      console.log(state);
       if (state.productsList?.length === 0) {
         state.productsList = [...state.productsList, newProduct];
       } else {
-        const existingItem = state.productsList.find(
-          (product) => product.id === newProduct.id,
-        );
+        const existingItem =
+          state.productsList?.find((product) => product.id === newProduct.id) ||
+          false;
 
         if (existingItem) {
           existingItem.quantity += newProduct.quantity;
@@ -84,12 +84,15 @@ export const productsSlice = createSlice({
       state: IState,
       { payload }: PayloadAction<{ product: Product }>,
     ) => {
+      console.log(`state`);
+      console.log(state);
       if (state.likedProducts?.length === 0) {
         state.likedProducts = [...state.likedProducts, payload.product];
       } else {
-        const existingItem = state.likedProducts.find(
-          (product) => product.id === payload.product.id,
-        );
+        const existingItem =
+          state.likedProducts?.find(
+            (product) => product.id === payload.product.id,
+          ) || false;
         if (existingItem) {
           state.likedProducts = state.likedProducts.filter(
             (item) => item.id !== payload.product.id,
@@ -117,16 +120,26 @@ export const {
 
 export const productsValue = (state: RootState) =>
   state.productsSlice.productsList;
-export const selectTotalPrice = (state: RootState) =>
-  state.productsSlice.productsList.reduce(
-    (acc, cur) => (acc += cur.totalPrice ? cur.totalPrice : 0),
-    0,
-  );
+export const selectTotalPrice = (state: RootState) => {
+  if (state.productsSlice.productsList.length) {
+    return state.productsSlice.productsList?.reduce(
+      (acc, cur) => (acc += cur.totalPrice),
+      0,
+    );
+  } else {
+    return 0;
+  }
+};
+
 export const selectTotalQuantity = (state: RootState) => {
-  state.productsSlice.productsList.reduce(
-    (acc, cur) => (acc += cur.quantity),
-    0,
-  );
+  if (state.productsSlice.productsList.length) {
+    return state.productsSlice.productsList?.reduce(
+      (acc, cur) => (acc += cur.quantity ? cur.quantity : 0),
+      0,
+    );
+  } else {
+    return 0;
+  }
 };
 
 export default productsSlice.reducer;

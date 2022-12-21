@@ -1,8 +1,7 @@
-import React from 'react';
 import Button from '../ui/Button';
 import BlogItems from './BlogItems';
 
-export default function FromBlog() {
+const FromBlog = () => {
   return (
     <div className="container section">
       <h3 className="text-center font-bold mb-6">From Our Blogs</h3>
@@ -16,8 +15,9 @@ export default function FromBlog() {
         <BlogItems />
       </div>
       <div className="flex justify-center">
-        <Button className="btn btn-outline-primary">view more</Button>
+        <Button variant="outline">view more</Button>
       </div>
     </div>
   );
-}
+};
+export default FromBlog;

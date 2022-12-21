@@ -10,11 +10,7 @@ import { faClose, faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Image from 'next/image';
 
-interface Props {
-  product: Product;
-}
-
-export default function TableItem({ product }: Props) {
+const TableItem = ({ product }: { product: Product }) => {
   const dispatch = useAppDispatch();
   const addProductInfo = useSnackBar({
     amount: 1,
@@ -114,4 +110,5 @@ export default function TableItem({ product }: Props) {
       </td>
     </tr>
   );
-}
+};
+export default TableItem;

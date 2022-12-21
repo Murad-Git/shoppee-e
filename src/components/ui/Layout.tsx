@@ -3,7 +3,7 @@ import Header from '@/components/header/Header';
 import { useAppSelector } from '@/types/hooks';
 import React from 'react';
 
-export const Layout: React.FC<{
+const Layout: React.FC<{
   children: React.ReactNode | React.ReactNode[];
 }> = ({ children }) => {
   const darkState = useAppSelector((state) => state.productsSlice.darkMode);
@@ -19,3 +19,4 @@ export const Layout: React.FC<{
     </>
   );
 };
+export default Layout;

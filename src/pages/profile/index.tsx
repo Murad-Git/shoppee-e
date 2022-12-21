@@ -1,6 +1,6 @@
 import ShopItems from '@/components/shopSection/ShopItems';
 import Button from '@/components/ui/Button';
-import OrdersUI from '@/components/ui/OrdersUI';
+import OrdersUI from '@/orders/OrdersUI';
 import { useAppSelector } from '@/types/hooks';
 import db from '@/utils/firebase';
 import { collection, getDocs } from 'firebase/firestore';
@@ -35,85 +35,72 @@ const Profile: NextPage<ordersProps> = ({ orders, noOrders }: ordersProps) => {
           key="desc"
         />
       </Head>
-      <main className="pt-32 container pb-20">
-        {noOrders ? (
-          <div>
-            <h2>You do not have orders yet</h2>
+      <main className="py-20 container">
+        <h2 className="font-bold mb-22 border-b-2 mb-3 border-[rgb(217,217,217)] pb-6">
+          Your Profile
+        </h2>
+        <div className="flex items-end mb-8">
+          <div className="w-20 mr-8">
+            <Image
+              src={session?.user?.image || `/images/profile/no-person.png`}
+              width={500}
+              height={500}
+              objectFit="cover"
+              alt="product"
+            />
+          </div>
+          <h4>
+            Hello <p>{session?.user?.name}</p>
+          </h4>
+        </div>
+        <div className="grid">
+          <div className="flex items-center justify-evenly ">
             <Button
-              className="btn btn-primary mt-4"
-              onClick={() => router.push(`/shop`)}
+              variant={toggleRender.liked ? `outline` : `primary `}
+              onClick={() =>
+                setToggleRender((prev) => ({ ...prev, liked: false }))
+              }
             >
-              Go Shopping
+              Your orders
+            </Button>
+            <Button
+              variant={toggleRender.liked ? `primary small` : `outline`}
+              onClick={() =>
+                setToggleRender((prev) => ({ ...prev, liked: true }))
+              }
+            >
+              Liked products
             </Button>
           </div>
-        ) : (
-          <>
-            <div className="flex items-end mb-8">
-              <div className="w-20 mr-8">
-                <Image
-                  src={session?.user?.image || `/images/profile/no-person.png`}
-                  width={500}
-                  height={500}
-                  objectFit="cover"
-                  alt="product"
-                />
-              </div>
-              <h4>
-                Hello <span>{session?.user?.name}</span>
-              </h4>
+          {noOrders ? (
+            <div className="p-10">
+              <h2>You do not have orders yet</h2>
+              <Button
+                variant="primary small"
+                onClick={() => router.push(`/shop`)}
+              >
+                Go Shopping
+              </Button>
             </div>
-            <div className="grid">
-              <div className="flex items-center justify-evenly">
-                <Button
-                  className={
-                    !toggleRender.liked
-                      ? `btn btn-primary`
-                      : `btn btn-outline-primary`
-                  }
-                  onClick={() =>
-                    setToggleRender((prev) => ({ ...prev, liked: false }))
-                  }
-                >
-                  Your orders
-                </Button>
-                <Button
-                  className={
-                    toggleRender.liked
-                      ? `btn btn-primary`
-                      : `btn btn-outline-primary`
-                  }
-                  onClick={() =>
-                    setToggleRender((prev) => ({ ...prev, liked: true }))
-                  }
-                >
-                  Liked products
-                </Button>
-              </div>
-              <div className="mt-10">
-                {toggleRender.liked ? (
-                  likedProducts.length ? (
-                    <ShopItems products={likedProducts} />
-                  ) : (
-                    <Button
-                      className="btn btn-primary mt-4"
-                      onClick={() => router.push(`/shop`)}
-                    >
-                      Go Shopping
-                    </Button>
-                  )
+          ) : (
+            <div className="mt-10">
+              {toggleRender.liked ? (
+                likedProducts.length ? (
+                  <ShopItems products={likedProducts} />
                 ) : (
-                  <>
-                    {session ? (
-                      <OrdersUI orders={orders} />
-                    ) : (
-                      <h4>Please sign in to see your orders</h4>
-                    )}
-                  </>
-                )}
-              </div>
+                  <Button
+                    variant="primary"
+                    onClick={() => router.push(`/shop`)}
+                  >
+                    Go Shopping
+                  </Button>
+                )
+              ) : (
+                <OrdersUI orders={orders} />
+              )}
             </div>
-          </>
-        )}
+          )}
+        </div>
       </main>
     </>
   );
@@ -135,8 +122,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         },
       };
     }
-    // Firebase db
 
+    // Firebase db
     const ordersCol = collection(
       db,
       `users/` +

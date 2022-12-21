@@ -55,6 +55,19 @@
       }
     }
   }
+  .navbar-item{
+    @apply text-gray-800 font-semibold text-xl;
+    li{
+    @apply text-gray-800 font-semibold text-xl;
+    }
+    button{
+    @apply text-gray-800 font-semibold text-xl;
+    }
+    a{
+    @apply text-gray-800 font-semibold text-xl;
+    }
+    
+  }
 
   .nav-ham-drop-items {
     @apply pt-3 pr-5 pl-7 text-sm block text-white no-underline cursor-pointer font-bold;
@@ -65,7 +78,7 @@
   } 
 
   .btn {
-    @apply text-sm leading-[1.5] text-center relative transition-all duration-300 ease-linear cursor-pointer uppercase font-bold py-4 px-11;
+    @apply text-sm leading-[1.5] text-center relative transition-all duration-300 ease-linear cursor-pointer uppercase font-bold py-4 px-11 whitespace-nowrap;
   }
   .btn-primary {
     @apply text-white bg-accent-color border-accent-color border;
@@ -125,24 +138,24 @@
     @apply col-span-1 hidden md:block;  
   }
   .dark-bg{
-    @apply bg-slate-800 text-white;
+    @apply bg-slate-800 text-gray-200;
     span{
-      @apply bg-white;
+      @apply bg-gray-200;
     }
     li{
-      @apply text-white;
+      @apply text-gray-200;
       a{
-      @apply text-white;
+      @apply text-gray-200 hover:text-accent-color;
+      }
+      button {
+        @apply text-gray-200 hover:text-accent-color;
       }
     }
     p{
-      @apply text-gray-200 hover:text-white;
+      @apply text-gray-200 hover:text-accent-color;
     }
-    th{
-      @apply text-white;
-    }
-    h2, h3, h4 {
-      @apply text-white;
+    h2, h3, h4,th {
+      @apply text-gray-200;
     }
   }
   .dark-bg2 {
@@ -150,90 +163,17 @@
     @apply bg-slate-700
   }
   .dark-text{
-    @apply bg-slate-600 text-white;
-    a{
-      @apply text-white 
+    @apply bg-slate-600 text-gray-200;
+    a, button{
+      @apply text-gray-200;
     }
   }
-  // .loader {
-  //     animation: rotate 1s infinite;
-  //     height: 50px;
-  //     width: 50px;
-  //   }
-  
-  //   .loader:before,
-  //   .loader:after {
-  //     border-radius: 50%;
-  //     content: '';
-  //     display: block;
-  //     height: 20px;
-  //     width: 20px;
-  //   }
-  
-  //   .loader:before {
-  //     animation: ball1 1s infinite;
-  //     background-color: #cb2025;
-  //     box-shadow: 30px 0 0 #f8b334;
-  //     margin-bottom: 10px;
-  //   }
-  
-  //   .loader:after {
-  //     animation: ball2 1s infinite;
-  //     background-color: #00a096;
-  //     box-shadow: 30px 0 0 #97bf0d;
-  //   }
-  // @keyframes rotate {
-  //   0% {
-  //     -webkit-transform: rotate(0deg) scale(0.8);
-  //     -moz-transform: rotate(0deg) scale(0.8);
-  //   }
+  .dark-carousel{
+    p, h2, h1{
+      @apply text-gray-800;
+    }
 
-  //   50% {
-  //     -webkit-transform: rotate(360deg) scale(1.2);
-  //     -moz-transform: rotate(360deg) scale(1.2);
-  //   }
-
-  //   100% {
-  //     -webkit-transform: rotate(720deg) scale(0.8);
-  //     -moz-transform: rotate(720deg) scale(0.8);
-  //   }
-  // }
-
-  // @keyframes ball1 {
-  //   0% {
-  //     box-shadow: 30px 0 0 #f8b334;
-  //   }
-
-  //   50% {
-  //     box-shadow: 0 0 0 #f8b334;
-  //     margin-bottom: 0;
-  //     -webkit-transform: translate(15px, 15px);
-  //     -moz-transform: translate(15px, 15px);
-  //   }
-
-  //   100% {
-  //     box-shadow: 30px 0 0 #f8b334;
-  //     margin-bottom: 10px;
-  //   }
-  // }
-
-  // @keyframes ball2 {
-  //   0% {
-  //     box-shadow: 30px 0 0 #97bf0d;
-  //   }
-
-  //   50% {
-  //     box-shadow: 0 0 0 #97bf0d;
-  //     margin-top: -20px;
-  //     -webkit-transform: translate(15px, 15px);
-  //     -moz-transform: translate(15px, 15px);
-  //   }
-
-  //   100% {
-  //     box-shadow: 30px 0 0 #97bf0d;
-  //     margin-top: 0;
-  //   }
-  // }
+  }
 }
 
 html,
@@ -253,7 +193,7 @@ body {
 a {
   color: inherit;
   text-decoration: none;
-  color: #555;
+  color: #9ca3af;
   transition: color 0.3s ease;
   cursor: pointer;
   // color: #bd744c;
@@ -310,15 +250,15 @@ h6 {
   font-size: 1rem;
 }
 
-hr {
-  border-top: 1px solid #d9d9d9;
-  width: 100%;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-  box-sizing: content-box;
-  height: 0;
-  overflow: visible;
-}
+// hr {
+//   border-top: 1px solid #d9d9d9;
+//   width: 100%;
+//   padding-top: 1rem;
+//   padding-bottom: 1rem;
+//   box-sizing: content-box;
+//   height: 0;
+//   overflow: visible;
+// }
 
 button,
 input {

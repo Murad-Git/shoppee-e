@@ -1,9 +1,9 @@
 import { useAppSelector } from '@/types/hooks';
 
-export default function DiscountSection() {
+const DiscountSection = () => {
   const darkState = useAppSelector((state) => state.productsSlice.darkMode);
   return (
-    <section className="bg-no-repeat h-[500px]">
+    <section className="bg-no-repeat h-[500px] border-y border-slate-200">
       <div className="container h-full">
         <div className="h-full flex flex-col justify-center items-center">
           <h5 className="uppercase font-bold mb-4">news and inspiration</h5>
@@ -53,4 +53,5 @@ export default function DiscountSection() {
       </div>
     </section>
   );
-}
+};
+export default DiscountSection;
