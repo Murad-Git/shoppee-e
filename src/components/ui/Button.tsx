@@ -20,10 +20,13 @@ const Button = ({ children, variant, ...rest }: Props) => {
       buttonClass = `btn btn-primary w-1/2 md:w-1/4 md:p-3`;
       break;
     case `outline`:
-      buttonClass = `btn btn-outline-primary w-1/2 md:w-1/3 md:p-3`;
+      buttonClass = `btn btn-outline-primary w-1/2 md:w-1/3 md:p-3 mr-2`;
+      break;
+    case `outline small`:
+      buttonClass = `btn btn-outline-primary w-1/2 md:w-1/4 md:p-3 mr-2`;
       break;
     case `unlogged`:
-      buttonClass = `btn btn-primary w-full bg-unlogged-color`;
+      buttonClass = `btn btn-unlogged w-full`;
       break;
     case `logged`:
       buttonClass = `btn btn-primary w-full`;

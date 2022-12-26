@@ -1,7 +1,8 @@
+import OrdersUI from '@/components/orders/OrdersUI';
 import ShopItems from '@/components/shopSection/ShopItems';
 import Button from '@/components/ui/Button';
-import OrdersUI from '@/orders/OrdersUI';
 import { useAppSelector } from '@/types/hooks';
+import { ordersProps } from '@/types/main';
 import db from '@/utils/firebase';
 import { collection, getDocs } from 'firebase/firestore';
 import moment from 'moment';
@@ -10,9 +11,7 @@ import { getSession, useSession } from 'next-auth/react';
 import Image from 'next/dist/client/image';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-
 import { useState } from 'react';
-import { ordersProps } from '../orders';
 
 const Profile: NextPage<ordersProps> = ({ orders, noOrders }: ordersProps) => {
   const { data: session } = useSession();
@@ -24,7 +23,6 @@ const Profile: NextPage<ordersProps> = ({ orders, noOrders }: ordersProps) => {
   const likedProducts = useAppSelector(
     (state) => state.productsSlice.likedProducts,
   );
-
   return (
     <>
       <Head>
@@ -56,7 +54,7 @@ const Profile: NextPage<ordersProps> = ({ orders, noOrders }: ordersProps) => {
         <div className="grid">
           <div className="flex items-center justify-evenly ">
             <Button
-              variant={toggleRender.liked ? `outline` : `primary `}
+              variant={toggleRender.liked ? `outline small` : `primary small`}
               onClick={() =>
                 setToggleRender((prev) => ({ ...prev, liked: false }))
               }
@@ -64,7 +62,7 @@ const Profile: NextPage<ordersProps> = ({ orders, noOrders }: ordersProps) => {
               Your orders
             </Button>
             <Button
-              variant={toggleRender.liked ? `primary small` : `outline`}
+              variant={toggleRender.liked ? `primary small` : `outline small`}
               onClick={() =>
                 setToggleRender((prev) => ({ ...prev, liked: true }))
               }
@@ -72,34 +70,35 @@ const Profile: NextPage<ordersProps> = ({ orders, noOrders }: ordersProps) => {
               Liked products
             </Button>
           </div>
-          {noOrders ? (
-            <div className="p-10">
-              <h2>You do not have orders yet</h2>
-              <Button
-                variant="primary small"
-                onClick={() => router.push(`/shop`)}
-              >
-                Go Shopping
-              </Button>
-            </div>
-          ) : (
-            <div className="mt-10">
-              {toggleRender.liked ? (
-                likedProducts.length ? (
-                  <ShopItems products={likedProducts} />
-                ) : (
+          <div className="mt-10">
+            {toggleRender.liked ? (
+              likedProducts.length ? (
+                <ShopItems products={likedProducts} />
+              ) : (
+                <div className="p-10">
+                  <h2>You do not have liked products</h2>
                   <Button
-                    variant="primary"
+                    variant="primary small"
                     onClick={() => router.push(`/shop`)}
                   >
                     Go Shopping
                   </Button>
-                )
-              ) : (
-                <OrdersUI orders={orders} />
-              )}
-            </div>
-          )}
+                </div>
+              )
+            ) : noOrders ? (
+              <div className="p-10">
+                <h2>You do not have orders yet</h2>
+                <Button
+                  variant="primary small"
+                  onClick={() => router.push(`/shop`)}
+                >
+                  Go Shopping
+                </Button>
+              </div>
+            ) : (
+              <OrdersUI orders={orders} />
+            )}
+          </div>
         </div>
       </main>
     </>
@@ -133,7 +132,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         ) +
         `/orders/`,
     );
-
     const ordersSnapshot = await getDocs(ordersCol);
     // const stripeOrders = ordersSnapshot.docs.map((doc) => doc.data());
 

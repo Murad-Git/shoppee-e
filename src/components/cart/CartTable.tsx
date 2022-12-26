@@ -20,17 +20,19 @@ const CartTable = () => {
       </thead>
       <tbody className={`${darkState ? `dark-bg2` : ``}`}>
         <>
-          {products && products?.length > 0 ? (
+          {products && products?.length && products?.length > 0 ? (
             products.map((product) => (
               <TableItem product={product} key={product.id} />
             ))
           ) : (
-            <div className="p-10 border bg-slate-800">
-              <h2 className="my-8">Your shopping cart is empty</h2>
-              <Button variant="primary" onClick={() => router.push(`/shop`)}>
-                Go Shop
-              </Button>
-            </div>
+            <tr className="p-10 border">
+              <td>
+                <h2 className="my-8 ">Your shopping cart is empty</h2>
+                <Button variant="primary" onClick={() => router.push(`/shop`)}>
+                  Go Shop
+                </Button>
+              </td>
+            </tr>
           )}
         </>
       </tbody>

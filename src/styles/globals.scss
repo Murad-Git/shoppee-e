@@ -87,6 +87,10 @@
   .btn-outline-primary {
     @apply text-accent-color border-accent-color bg-transparent border-2;
   }
+  .btn-unlogged{
+    @extend .btn-primary;
+    @apply bg-unlogged-color ;
+  }
 
   .text-primary {
     @apply text-accent-color font-bold;
@@ -160,7 +164,13 @@
   }
   .dark-bg2 {
     @extend .dark-bg;
-    @apply bg-slate-700
+    @apply bg-slate-700;
+    tr{
+      @apply bg-slate-800;
+      h2{
+        @apply text-gray-200;
+      }
+    }
   }
   .dark-text{
     @apply bg-slate-600 text-gray-200;

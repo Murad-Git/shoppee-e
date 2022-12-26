@@ -1,4 +1,4 @@
-import { ordersProps } from '@/pages/orders';
+import { ordersProps } from '@/types/main';
 import moment from 'moment';
 import Image from 'next/dist/client/image';
 import Currency from 'react-currency-formatter';
@@ -7,7 +7,7 @@ export default function OrdersUI({ orders }: ordersProps) {
   const deliveryText = (amountShipping: number) =>
     amountShipping === 0 ? ` - Free Shipping ` : ` - Next Day Delivery `;
 
-  const totalItems2 = (items: { quantity: number }[]) =>
+  const totalItems = (items: { quantity: number }[]) =>
     items.reduce((acc, item) => (acc += item.quantity), 0);
 
   const orderedItems = (items: { quantity: number }[], images: string[]) => {
@@ -28,7 +28,7 @@ export default function OrdersUI({ orders }: ordersProps) {
         {orders?.length > 0 &&
           orders?.map((order, index) => (
             <div className="relative border rounded-md" key={index}>
-              <div className="flex items-center space-x-10 p-5 bg-gray-100 text-sm text-gray-600">
+              <div className="flex items-center space-x-10 p-5">
                 <div>
                   <p className="uppercase font-bold text-xs">order placed</p>
                   <p>
@@ -46,8 +46,8 @@ export default function OrdersUI({ orders }: ordersProps) {
                     />
                   </p>
                 </div>
-                <p className="text-sm whitespace-nowrap sm:text-xl self-end flex-1 text-right text-blue-500">
-                  {totalItems2(order.value.items)} items
+                <p className="text-sm whitespace-nowrap sm:text-xl self-end flex-1 text-right">
+                  {totalItems(order.value.items)} items
                 </p>
                 <p className="uppercase absolute top-2 right-2 w-40 lg:w-96 truncate text-xs whitespace-nowrap">
                   order id #{order.value.id}

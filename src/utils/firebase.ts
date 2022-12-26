@@ -15,3 +15,4 @@ const firebaseApp = initializeApp({
 // Init FB
 const db = getFirestore(firebaseApp);
 export default db;
+// if request.time < timestamp.date(2022, 12, 2);

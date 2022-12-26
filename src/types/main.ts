@@ -40,6 +40,14 @@ export interface Order {
   timestamp: number;
 }
 
+export interface ordersProps {
+  noOrders?: boolean;
+  orders: {
+    status: string;
+    value: Order;
+  }[];
+}
+
 export interface Session {
   id: string;
   object: string;

@@ -4,8 +4,9 @@ import { buffer } from 'micro';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 // Secure a connection to Firebase from the backend
-const app = !admin?.apps?.length
-  ? admin.initializeApp({
+const app = admin.apps.length
+  ? admin.app()
+  : admin.initializeApp({
       credential: admin.credential.cert({
         projectId: process.env.FIREBASE_PROJECT_ID,
         privateKey: process.env.FIREBASE_PRIVATE_KEY
@@ -15,8 +16,7 @@ const app = !admin?.apps?.length
       }),
       // credential: admin.credential.cert(serviceAccount),
       databaseURL: `https://e-shoppee-a2938.firebaseio.com`,
-    })
-  : admin.app();
+    });
 
 // Establish connection to Stripe
 const stripe = require(`stripe`)(process.env.STRIPE_SECRET_KEY);
@@ -45,7 +45,9 @@ const fulfillOrder = async (session: Session) => {
     })
     .then(() => {
       console.log(`SUCCESS: Order ${session.id} has been added to DB`);
-    });
+      return true;
+    })
+    .catch((err) => console.error(`webhook error ${err.message}`));
 };
 
 const webhook = async (req: NextApiRequest, res: NextApiResponse) => {

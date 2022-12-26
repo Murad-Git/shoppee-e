@@ -84,7 +84,7 @@ const Product: NextPage<Props> = ({ product, products }) => {
             <title>{product.name}</title>
             <meta name="description" content={product.description} />
           </Head>
-          <div className="container mt-32">
+          <div className="container py-20">
             <div className="product  md:px-8 lg:px-12">
               <div className="product_main my-12 grid grid-cols-1 md:grid-cols-2 md:gap-4">
                 <div
@@ -164,7 +164,7 @@ const Product: NextPage<Props> = ({ product, products }) => {
             <div className="my-10">
               <p className="font-bold">You may also like:</p>
             </div>
-            <div className="h-[40rem] md:h-[35rem] my-12 mx-auto flex">
+            <div className="mx-auto flex">
               <Slider>
                 {products.map((product) => (
                   <SwiperSlide key={product.id}>

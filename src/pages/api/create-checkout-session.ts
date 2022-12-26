@@ -12,7 +12,6 @@ const checkoutSession = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === `POST`) {
     try {
       const { products, email }: Props = req.body;
-
       const transformedProducts = products.map((product) => ({
         quantity: product.quantity,
         price_data: {
