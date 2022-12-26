@@ -3,8 +3,8 @@
 https://user-images.githubusercontent.com/45511700/203849872-6b739620-da3a-43ab-9edf-c85098bc8dd4.mp4
 
 > E-commerce web shop platform.
-> 
-> [Live demo](https://shoppee-e-wnsg-git-master-murad-git.vercel.app/).
+>
+> [Live demo](https://shoppee-e-wnsg.vercel.app/).
 
 ## Table of Contents
 
@@ -46,8 +46,6 @@ https://user-images.githubusercontent.com/45511700/203849872-6b739620-da3a-43ab-
 - Sanity content management page preview
 
 https://user-images.githubusercontent.com/45511700/203850225-2afee71c-7944-47f8-8cbd-84d5665932cd.mp4
-
-
 
 ## Quick Setup
 
