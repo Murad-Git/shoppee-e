@@ -14,12 +14,13 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
+    "types": ["cypress", "node"],
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
       "@/public/*": ["./public/*"]
     }
   },
-  "include": ["src/types/*.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["src/types/*.ts", "**/*.ts", "**/*.tsx", "cypress.config.js"],
   "exclude": ["node_modules"]
 }

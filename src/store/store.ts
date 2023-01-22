@@ -25,14 +25,6 @@ const storage =
     ? createWebStorage(`local`)
     : createNoopStorage();
 
-const getDarkMode = () => {
-  if (typeof window !== `undefined`) {
-    return window.matchMedia(`(prefers-color-scheme: dark)`).matches;
-  } else {
-    return false;
-  }
-};
-
 const migrations: any = {
   0: (state: RootState) => {
     return {
@@ -56,7 +48,7 @@ const migrations: any = {
       ...state,
       productsSlice: {
         ...state.productsSlice,
-        darkMode: getDarkMode(),
+        darkMode: false,
       },
     };
   },

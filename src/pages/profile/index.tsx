@@ -121,7 +121,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         },
       };
     }
-
     // Firebase db
     const ordersCol = collection(
       db,
@@ -132,9 +131,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         ) +
         `/orders/`,
     );
+
     const ordersSnapshot = await getDocs(ordersCol);
     // const stripeOrders = ordersSnapshot.docs.map((doc) => doc.data());
-
     // Stripe orders
     const orders = await Promise.allSettled(
       ordersSnapshot.docs.map(async (order) => ({

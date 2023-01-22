@@ -42,7 +42,7 @@ export default function useSnackBar({
       (typeof product === `string` && type === `addLike`) ||
       type === `removeLike`
     )
-      return `${product} was ${type === `addLike` ? `add` : `remove`}ed ${
+      return `${product} was ${type === `addLike` ? `add` : `remov`}ed ${
         type === `addLike` ? `to` : `from`
       } liked products`;
     // default

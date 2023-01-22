@@ -11,7 +11,7 @@ import HeaderItems from './HeaderItems';
 const Header = () => {
   const router = useRouter();
   const { data: session } = useSession();
-  const [hamMenuToggle, setHamMenuToggle] = useState<boolean>(false);
+  const [hamMenuToggle, setHamMenuToggle] = useState(false);
   const darkState = useAppSelector((state) => state.productsSlice.darkMode);
   const notLogged = useSnackBar({
     snacktype: {
@@ -76,7 +76,7 @@ const Header = () => {
               </div>
             )}
             {/* Links */}
-            <ul className="leading-10 hidden md:inline-block space-x-9 navbar-item">
+            <ul className="leading-10 hidden md:inline-block space-x-3  lg:space-x-9 navbar-item">
               <li className="relative inline-block">
                 <Link href="/">Home</Link>
               </li>

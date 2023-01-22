@@ -31,7 +31,7 @@ const FunctionalLinks = ({
         <button
           onClick={() => dispatch(darkMode())}
           aria-label="dark mode"
-          className="box-border p-4 cursor-pointer transition-all duration-700"
+          className="box-border p-2 px-3 lg:p-4 cursor-pointer transition-all duration-700"
         >
           <FontAwesomeIcon
             className={`h-4 ${
@@ -47,7 +47,8 @@ const FunctionalLinks = ({
         <button
           onClick={handleGoProfile}
           aria-label="profile page"
-          className="box-border p-4 cursor-pointer  hover:text-accent-color"
+          data-cy="go-profile"
+          className="box-border p-2 px-3 lg:p-4 cursor-pointer  hover:text-accent-color"
         >
           <FontAwesomeIcon
             className="h-4 "
@@ -55,15 +56,15 @@ const FunctionalLinks = ({
           />
         </button>
       </li>
-      <li className="hidden lg:block">
+      <li>
         <button
-          className="box-border md:p-4 flex items-center  hover:text-accent-color"
+          data-cy="logging"
+          className="box-border md p-2 px-3:lg:p-4 flex items-center  hover:text-accent-color"
           onClick={() => (session ? signOut() : signIn())}
         >
           {session ? (
             <>
-              Log Out
-              {/* <p className="mx-2">Log Out</p> */}
+              <span className="hidden lg:block">Log Out</span>
               <FontAwesomeIcon
                 className="h-4 mx-2"
                 icon={faArrowRightFromBracket}
@@ -75,8 +76,7 @@ const FunctionalLinks = ({
                 className="h-4 mx-2"
                 icon={faArrowRightFromBracket}
               />
-              Log In
-              {/* <p className="mx-2">Log In</p> */}
+              <span className="hidden lg:block">Log In</span>
             </>
           )}
         </button>
@@ -85,9 +85,13 @@ const FunctionalLinks = ({
         <Link href="/cart">
           <a
             aria-label="cart page"
-            className="box-border p-4 relative text-gray-800 group"
+            className="box-border p-2 px-3 lg:p-4 relative text-gray-800 group"
+            data-cy="go-cart"
           >
-            <p className="absolute text-[9px] inline-block font-bold text-gray-800 mb-0 ml-2 top-0 group-hover:text-accent-color">
+            <p
+              className="absolute text-[9px] inline-block font-bold text-gray-800 mb-0 ml-2 top-[-5px] lg:top-0 group-hover:text-accent-color"
+              data-cy="items-number"
+            >
               {productsList && productsList?.length > 0
                 ? productsList.length
                 : ``}

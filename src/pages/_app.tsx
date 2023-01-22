@@ -15,7 +15,7 @@ export default function MyApp({
   session: Session;
 }>) {
   return (
-    <SessionProvider session={pageProps.session}>
+    <SessionProvider session={pageProps.session} refetchInterval={5 * 60}>
       <Provider store={store}>
         <PersistGate loading={<div>loading</div>} persistor={persistor}>
           <SnackbarProvider maxSnack={3}>

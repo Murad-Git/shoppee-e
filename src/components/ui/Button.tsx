@@ -14,10 +14,10 @@ const Button = ({ children, variant, ...rest }: Props) => {
   let buttonClass = ``;
   switch (variant) {
     case `primary`:
-      buttonClass = `btn btn-primary w-1/2 md:w-1/3 md:p-3`;
+      buttonClass = `btn btn-primary md:w-1/3 md:p-3`;
       break;
     case `primary small`:
-      buttonClass = `btn btn-primary w-1/2 md:w-1/4 md:p-3`;
+      buttonClass = `btn btn-primary md:w-1/4 md:p-3`;
       break;
     case `outline`:
       buttonClass = `btn btn-outline-primary w-1/2 md:w-1/3 md:p-3 mr-2`;

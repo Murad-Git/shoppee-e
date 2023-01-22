@@ -65,7 +65,7 @@ const Shop: NextPage<Props> = ({ products }) => {
               {currentFilter.name || `Sort`}
             </button>
           </div>
-          <hr className="md:hidden" />
+          <hr className="md:hidden mb-8" />
           <Filter
             className="filters-desktop"
             onConfirm={setShowFilter}

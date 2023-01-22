@@ -109,7 +109,7 @@ const ShopItem = ({ product }: { product: Product }) => {
         </div>
 
         <div className="absolute h-full top-0 right-10 lg:right-6 xl:right-8 translate-x-[35%] flex flex-col justify-center text-[#555] space-y-9 md:space-y-3 lg:space-y-7  xl:space-y-9">
-          <button onClick={handleLikedProduct}>
+          <button onClick={handleLikedProduct} data-cy="add-liked">
             <a className="cursor-pointer">
               <FontAwesomeIcon
                 className="h-6 lg:h-5 xl:h-6"
@@ -125,7 +125,7 @@ const ShopItem = ({ product }: { product: Product }) => {
               />
             </a>
           </button>
-          <button onClick={handleAdd}>
+          <button onClick={handleAdd} data-cy="add-items">
             <a
               className="
             mb-3 cursor-pointer"

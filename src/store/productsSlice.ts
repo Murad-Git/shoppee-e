@@ -3,14 +3,6 @@ import { createSlice } from '@reduxjs/toolkit';
 import { PayloadAction } from '@reduxjs/toolkit/dist/createAction';
 import { RootState } from './store';
 
-const getDarkMode = () => {
-  if (typeof window !== `undefined`) {
-    return window.matchMedia(`(prefers-color-scheme: dark)`).matches;
-  } else {
-    return false;
-  }
-};
-
 type IState = {
   productsList: Product[];
   likedProducts: Product[];
@@ -20,7 +12,7 @@ type IState = {
 const initialState: IState = {
   productsList: [],
   likedProducts: [],
-  darkMode: getDarkMode(),
+  darkMode: false,
 };
 
 export const productsSlice = createSlice({
