@@ -36,7 +36,7 @@ export const buttonVariants = (variant: string, size: string) => {
       buttonClass = `btn btn-primary`;
       break;
     default:
-      buttonClass = `btn`;
+      buttonClass = `btn `;
   }
   switch (size) {
     case `normal`:

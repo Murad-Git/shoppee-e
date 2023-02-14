@@ -41,7 +41,7 @@ export const ProfilePage = ({ orders, noOrders }: ordersProps) => {
         <div className="flex items-center justify-evenly ">
           <Button
             variant={toggleRender.liked ? `outline` : `primary`}
-            size="small"
+            size="normal"
             onClick={() =>
               setToggleRender((prev) => ({ ...prev, liked: false }))
             }
@@ -50,7 +50,7 @@ export const ProfilePage = ({ orders, noOrders }: ordersProps) => {
           </Button>
           <Button
             variant={toggleRender.liked ? `primary` : `outline`}
-            size="small"
+            size="normal"
             onClick={() =>
               setToggleRender((prev) => ({ ...prev, liked: true }))
             }
