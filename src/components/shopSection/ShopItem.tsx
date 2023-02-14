@@ -1,7 +1,7 @@
-import useSnackBar from '@/hooks/use-snackBar';
+import { useAppDispatch, useAppSelector } from '@/hooks/hooks';
+import { useSnackBar } from '@/hooks/use-snackBar';
 import { addProduct, toggleLikedProduct } from '@/store/productsSlice';
-import { useAppDispatch, useAppSelector } from '@/types/hooks';
-import { Product } from '@/types/main';
+import type { Product } from '@/types/main';
 import { faHeart } from '@fortawesome/free-regular-svg-icons';
 import {
   faCartShopping,
@@ -13,7 +13,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { useCallback } from 'react';
 
-const ShopItem = ({ product }: { product: Product }) => {
+export const ShopItem = ({ product }: { product: Product }) => {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const { image, category, name, slug, price } = product;
@@ -155,4 +155,3 @@ const ShopItem = ({ product }: { product: Product }) => {
     </div>
   );
 };
-export default ShopItem;

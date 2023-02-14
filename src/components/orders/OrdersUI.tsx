@@ -1,9 +1,9 @@
-import { ordersProps } from '@/types/main';
+import type { ordersProps } from '@/types/main';
 import moment from 'moment';
 import Image from 'next/dist/client/image';
 import Currency from 'react-currency-formatter';
 
-export default function OrdersUI({ orders }: ordersProps) {
+export const OrdersUI = ({ orders }: ordersProps) => {
   const deliveryText = (amountShipping: number) =>
     amountShipping === 0 ? ` - Free Shipping ` : ` - Next Day Delivery `;
 
@@ -84,4 +84,4 @@ export default function OrdersUI({ orders }: ordersProps) {
       </div>
     </>
   );
-}
+};

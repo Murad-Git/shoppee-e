@@ -1,14 +1,14 @@
-import { useAppSelector } from '@/types/hooks';
+import { useAppSelector } from '@/hooks/hooks';
 import { useRouter } from 'next/dist/client/router';
 import Image from 'next/image';
-import Button from '../ui/Button';
+import { Button } from '../ui/Button';
 
 interface Props {
   item: string;
   index: number;
 }
 
-const CarouselItem = ({ item, index }: Props) => {
+export const CarouselItem = ({ item, index }: Props) => {
   const router = useRouter();
   const darkState = useAppSelector((state) => state.productsSlice.darkMode);
   return (
@@ -34,7 +34,8 @@ const CarouselItem = ({ item, index }: Props) => {
                 the good stuff
               </h1>
               <Button
-                variant="primary small"
+                variant="primary"
+                size="small"
                 onClick={() => router.push(`/shop`)}
               >
                 view more
@@ -46,4 +47,3 @@ const CarouselItem = ({ item, index }: Props) => {
     </div>
   );
 };
-export default CarouselItem;

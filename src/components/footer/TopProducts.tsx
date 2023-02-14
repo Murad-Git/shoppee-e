@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-const TopProducts = () => {
+export const TopProducts = () => {
   return (
     <div className="border-b border-slate-200">
       <section className="container section">
@@ -116,4 +116,3 @@ const TopProducts = () => {
     </div>
   );
 };
-export default TopProducts;

@@ -1,7 +1,7 @@
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-const Comments = () => {
+export const Comments = () => {
   return (
     <div className="reviews my-10">
       <div className="flex justify-between items-center">
@@ -77,4 +77,3 @@ const Comments = () => {
     </div>
   );
 };
-export default Comments;

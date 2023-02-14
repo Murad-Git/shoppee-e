@@ -1,6 +1,6 @@
-import { useAppSelector } from '@/types/hooks';
+import { useAppSelector } from '@/hooks/hooks';
 
-const DiscountSection = () => {
+export const DiscountSection = () => {
   const darkState = useAppSelector((state) => state.productsSlice.darkMode);
   return (
     <section className="bg-no-repeat h-[500px] border-y border-slate-200">
@@ -54,4 +54,3 @@ const DiscountSection = () => {
     </section>
   );
 };
-export default DiscountSection;

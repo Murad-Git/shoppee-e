@@ -1,11 +1,15 @@
-import { useAppSelector } from '@/types/hooks';
+import { useAppSelector } from '@/hooks/hooks';
 
-const ButtonCarousel = ({ left }: { left?: boolean }) => {
+interface Props {
+  left?: boolean;
+}
+
+export const ButtonCarousel = ({ left }: Props) => {
   const darkState = useAppSelector((state) => state.productsSlice.darkMode);
   return (
     <p
       className={`${darkState ? `bg-gray-800` : `bg-neutral-50`}  opacity-50 ${
-        !!left && `rotate-180`
+        Boolean(left) && `rotate-180`
       }  hover:opacity-75 focus:ring-4 focus:outline-none font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center mr-2`}
     >
       <svg
@@ -25,5 +29,3 @@ const ButtonCarousel = ({ left }: { left?: boolean }) => {
     </p>
   );
 };
-
-export default ButtonCarousel;

@@ -1,8 +1,8 @@
-import DiscountSection from '@/components/footer/DiscountSection';
-import TopProducts from '@/components/footer/TopProducts';
-import HeroCarousel from '@/components/hero/HeroCarousel';
-import ShopSection from '@/components/shopSection/ShopSection';
-import { Product } from '@/types/main';
+import { DiscountSection } from '@/components/footer/DiscountSection';
+import { TopProducts } from '@/components/footer/TopProducts';
+import { HeroCarousel } from '@/components/hero/HeroCarousel';
+import { ShopSection } from '@/components/shopSection/ShopSection';
+import type { Product } from '@/types/main';
 import { sanityRequest } from '@/utils/requests';
 import { GetStaticProps, NextPage } from 'next';
 import Head from 'next/head';

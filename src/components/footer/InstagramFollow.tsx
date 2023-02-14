@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-const InstagramFollow = () => {
+export const InstagramFollow = () => {
   const images = Array.from(Array(6), (x, index) => (
     <Image
       key={index + 1}
@@ -20,4 +20,3 @@ const InstagramFollow = () => {
     </section>
   );
 };
-export default InstagramFollow;

@@ -14,7 +14,7 @@ export const Backdrop: React.FC<Props> = ({ onConfirm }) => {
   );
 };
 
-const Overlay = ({ onConfirm }: Props) => {
+export const Overlay = ({ onConfirm }: Props) => {
   return (
     <>
       {ReactDOM.createPortal(
@@ -24,4 +24,3 @@ const Overlay = ({ onConfirm }: Props) => {
     </>
   );
 };
-export default Overlay;

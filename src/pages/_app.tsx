@@ -1,4 +1,4 @@
-import Layout from '@/components/ui/Layout';
+import { Layout } from '@/components/ui/Layout';
 import { persistor, store } from '@/store/store';
 import '@/styles/globals.scss';
 import { Session } from 'next-auth/core/types';

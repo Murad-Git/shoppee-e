@@ -2,7 +2,7 @@ import { faClose } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import InputCheck from './InputCheck';
+import { InputCheck } from './InputCheck';
 import { Backdrop } from './Overlay';
 
 interface Props {
@@ -11,7 +11,11 @@ interface Props {
   className?: string;
 }
 
-const Filter: React.FC<Props> = ({ onConfirm, categories, className }) => {
+export const Filter: React.FC<Props> = ({
+  onConfirm,
+  categories,
+  className,
+}) => {
   return (
     <div className={className}>
       <div className="filter_categories mb-8">
@@ -48,7 +52,6 @@ const Filter: React.FC<Props> = ({ onConfirm, categories, className }) => {
     </div>
   );
 };
-export default Filter;
 
 export const FilterPanel = ({ onConfirm, categories, className }: Props) => {
   return (

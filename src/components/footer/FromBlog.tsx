@@ -1,7 +1,7 @@
-import Button from '../ui/Button';
-import BlogItems from './BlogItems';
+import { Button } from '../ui/Button';
+import { BlogItems } from './BlogItems';
 
-const FromBlog = () => {
+export const FromBlog = () => {
   return (
     <div className="container section">
       <h3 className="text-center font-bold mb-6">From Our Blogs</h3>
@@ -15,9 +15,10 @@ const FromBlog = () => {
         <BlogItems />
       </div>
       <div className="flex justify-center">
-        <Button variant="outline">view more</Button>
+        <Button variant="outline" size="normal">
+          view more
+        </Button>
       </div>
     </div>
   );
 };
-export default FromBlog;

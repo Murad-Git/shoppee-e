@@ -5,7 +5,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-const InfoBlock = () => {
+export const InfoBlock = () => {
   return (
     <div className="border-y border-slate-200 py-2">
       <div className="h-full grid grid-cols-1 md:grid-cols-3 justify-items-center w-[60%] md:w-full mx-auto md:divide-solid md:divide-x container">
@@ -49,4 +49,3 @@ const InfoBlock = () => {
     </div>
   );
 };
-export default InfoBlock;

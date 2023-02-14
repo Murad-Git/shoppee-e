@@ -1,7 +1,7 @@
 import { blogData } from '@/utils/database';
 import Image from 'next/image';
 
-const BlogItems = () => {
+export const BlogItems = () => {
   return (
     <>
       {blogData.map((item) => (
@@ -14,15 +14,12 @@ const BlogItems = () => {
             alt="blog"
           />
           <div className="flex flex-col justify-center items-center">
-            <p className="text-[#555] mb-0 mt-4">{item.date}</p>
+            <p className="text-grey-text mb-0 mt-4">{item.date}</p>
             <h6 className="font-bold mt-1 text-base">{item.title}</h6>
-            <h6 className="text-base font-bold">
-              <a>Read More</a>
-            </h6>
+            <h6 className="text-base font-bold">Read more</h6>
           </div>
         </div>
       ))}
     </>
   );
 };
-export default BlogItems;

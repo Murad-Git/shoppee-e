@@ -1,10 +1,10 @@
 import { faHouse } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Button from '../ui/Button';
-import InfoBlock from './InfoBlock';
-import InstagramFollow from './InstagramFollow';
+import { Button } from '../ui/Button';
+import { InfoBlock } from './InfoBlock';
+import { InstagramFollow } from './InstagramFollow';
 
-const Footer = ({ className }: { className: string }) => {
+export const Footer = ({ className }: { className: string }) => {
   return (
     <div className={className}>
       <InfoBlock />
@@ -32,7 +32,9 @@ const Footer = ({ className }: { className: string }) => {
                 id="email"
                 placeholder="Enter your email"
               />
-              <Button variant="primary">Subscribe</Button>
+              <Button variant="primary" size="normal">
+                Subscribe
+              </Button>
             </div>
           </div>
           <div className="my-10 flex flex-col justify-between border-y border-slate-200 py-3">
@@ -135,4 +137,3 @@ const Footer = ({ className }: { className: string }) => {
     </div>
   );
 };
-export default Footer;

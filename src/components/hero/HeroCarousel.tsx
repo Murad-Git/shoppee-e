@@ -1,10 +1,9 @@
-import CarouselItems from './CarouselItems';
+import { CarouselItems } from './CarouselItems';
 
-const HeroCarousel = () => {
+export const HeroCarousel = () => {
   return (
     <div className="h-[33rem]">
       <CarouselItems />
     </div>
   );
 };
-export default HeroCarousel;

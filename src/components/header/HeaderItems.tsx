@@ -1,11 +1,11 @@
 import { hamMenuItems } from '@/utils/database';
 import { signIn, signOut, useSession } from 'next-auth/react';
-import HeaderItem from './HeaderItem';
+import { HeaderItem } from './HeaderItem';
 
 interface Props {
   toggleMenu: (prev: any) => void;
 }
-const HeaderItems = ({ toggleMenu }: Props) => {
+export const HeaderItems = ({ toggleMenu }: Props) => {
   const { data: session } = useSession();
   return (
     <ul className="pt-8 pb-3 px-0 overflow-y-auto overflow-x-hidden">
@@ -22,4 +22,3 @@ const HeaderItems = ({ toggleMenu }: Props) => {
     </ul>
   );
 };
-export default HeaderItems;

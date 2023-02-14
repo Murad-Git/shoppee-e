@@ -1,10 +1,10 @@
+import { useAppSelector } from '@/hooks/hooks';
 import { productsValue } from '@/store/productsSlice';
-import { useAppSelector } from '@/types/hooks';
 import { useRouter } from 'next/router';
-import Button from '../ui/Button';
-import TableItem from './TableItem';
+import { Button } from '../ui/Button';
+import { TableItem } from './TableItem';
 
-const CartTable = () => {
+export const CartTable = () => {
   const products = useAppSelector(productsValue);
   const router = useRouter();
   const darkState = useAppSelector((state) => state.productsSlice.darkMode);
@@ -19,24 +19,25 @@ const CartTable = () => {
         </tr>
       </thead>
       <tbody className={`${darkState ? `dark-bg2` : ``}`}>
-        <>
-          {products && products?.length && products?.length > 0 ? (
-            products.map((product) => (
-              <TableItem product={product} key={product.id} />
-            ))
-          ) : (
-            <tr className="p-10 border">
-              <td>
-                <h2 className="my-8 ">Your shopping cart is empty</h2>
-                <Button variant="primary" onClick={() => router.push(`/shop`)}>
-                  Go Shop
-                </Button>
-              </td>
-            </tr>
-          )}
-        </>
+        {products && products?.length && products?.length > 0 ? (
+          products.map((product) => (
+            <TableItem product={product} key={product.id} />
+          ))
+        ) : (
+          <tr className="p-10 border">
+            <td>
+              <h2 className="my-8 ">Your shopping cart is empty</h2>
+              <Button
+                variant="primary"
+                size="normal"
+                onClick={() => router.push(`/shop`)}
+              >
+                Go Shop
+              </Button>
+            </td>
+          </tr>
+        )}
       </tbody>
     </table>
   );
 };
-export default CartTable;

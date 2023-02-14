@@ -1,5 +1,5 @@
+import { useAppDispatch, useAppSelector } from '@/hooks/hooks';
 import { filterCategory } from '@/store/filterSlice';
-import { useAppDispatch, useAppSelector } from '@/types/hooks';
 import React from 'react';
 
 interface Props {
@@ -8,7 +8,7 @@ interface Props {
   props?: any;
 }
 
-const InputCheck = ({ item, ...props }: Props) => {
+export const InputCheck = ({ item, ...props }: Props) => {
   const dispatch = useAppDispatch();
   const categories = useAppSelector((state) => state.filterSlice.categories);
   const onstock = useAppSelector((state) => state.filterSlice.onstock);
@@ -36,4 +36,3 @@ const InputCheck = ({ item, ...props }: Props) => {
     </>
   );
 };
-export default InputCheck;

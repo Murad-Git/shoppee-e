@@ -6,7 +6,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { Swiper } from 'swiper/react';
 
-const Slider = ({ children }: Main) => {
+export const Slider = ({ children }: Main) => {
   return (
     <Swiper
       slidesPerView={1}
@@ -39,4 +39,3 @@ const Slider = ({ children }: Main) => {
     </Swiper>
   );
 };
-export default Slider;

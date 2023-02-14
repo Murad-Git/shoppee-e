@@ -1,6 +1,6 @@
-import { Product } from '@/types/main';
-import Button from '../ui/Button';
-import ShopItems from './ShopItems';
+import type { Product } from '@/types/main';
+import { Button } from '../ui/Button';
+import { ShopItems } from './ShopItems';
 
 export interface Props {
   products: Product[];
@@ -8,7 +8,7 @@ export interface Props {
   [key: string]: any;
 }
 
-const ShopSection = ({ products }: Props) => {
+export const ShopSection = ({ products }: Props) => {
   return (
     <div className="py-24 container">
       <h3 className="font-bold text-center mb-6">New Arrivals</h3>
@@ -23,9 +23,10 @@ const ShopSection = ({ products }: Props) => {
       </div>
       <ShopItems products={products} />
       <div className="flex justify-center">
-        <Button variant="outline">view more</Button>
+        <Button variant="outline" size="normal">
+          view more
+        </Button>
       </div>
     </div>
   );
 };
-export default ShopSection;

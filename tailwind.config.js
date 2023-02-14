@@ -17,6 +17,8 @@ module.exports = {
         'accent-color': '#bd744c',
         'unlogged-color': '#cdbdb5',
         dark: '#3c484f',
+        'black-text': '#262626',
+        'grey-text': '#555',
       },
     },
   },

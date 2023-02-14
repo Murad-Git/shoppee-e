@@ -22,13 +22,13 @@ interface Props {
   variant: VariantType;
 }
 
-export default function useSnackBar({
+export const useSnackBar = ({
   amount,
   product,
   snacktype,
   username,
   variant,
-}: Props) {
+}: Props) => {
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
   const productMessage = (product: string, type: string, amount?: number) => {
@@ -49,7 +49,10 @@ export default function useSnackBar({
     else return `default product snackback info`;
   };
 
-  const loginMessage = (username: string, type: string) => {
+  const loginMessage = (
+    username: string,
+    type: 'success' | 'logout' | 'error',
+  ) => {
     if (type === `success` && username) {
       return `Welcome ${username}`;
     }
@@ -78,4 +81,4 @@ export default function useSnackBar({
     );
   if (snacktype.type === `message`) return handler(snacktype.message, variant);
   else return handler(`error in snackbar hook`, `info`);
-}
+};

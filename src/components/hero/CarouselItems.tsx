@@ -1,9 +1,9 @@
 import { carouselData } from '@/utils/database';
 import { Carousel } from 'flowbite-react';
-import ButtonCarousel from '../ui/ButtonCarousel';
-import CarouselItem from './CarouselItem';
+import { ButtonCarousel } from '../ui/ButtonCarousel';
+import { CarouselItem } from './CarouselItem';
 
-const CarouselItems = () => {
+export const CarouselItems = () => {
   return (
     <Carousel
       leftControl={<ButtonCarousel left={true} />}
@@ -15,4 +15,3 @@ const CarouselItems = () => {
     </Carousel>
   );
 };
-export default CarouselItems;

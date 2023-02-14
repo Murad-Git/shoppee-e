@@ -1,6 +1,6 @@
 import Link from 'next/dist/client/link';
 import { useState } from 'react';
-import HeaderToggleItem from './HeaderToggleItem';
+import { HeaderToggleItem } from './HeaderToggleItem';
 
 interface Props {
   title: string;
@@ -13,7 +13,7 @@ interface Props {
   }[];
 }
 
-const HeaderItem = ({ title, href, subMenu, toggleMenu }: Props) => {
+export const HeaderItem = ({ title, href, subMenu, toggleMenu }: Props) => {
   const [toggleHeaderItem, setToggleHeaderItem] = useState(false);
   return (
     <li
@@ -39,4 +39,3 @@ const HeaderItem = ({ title, href, subMenu, toggleMenu }: Props) => {
     </li>
   );
 };
-export default HeaderItem;

@@ -1,7 +1,7 @@
 context(`Navigation`, () => {
   it(`should navigate to the about page`, () => {
     // start from the index page
-    cy.visit(`http://localhost:3000/`, { timeout: 5000 });
+    cy.visit(Cypress.env(`siteName`), { timeout: 5000 });
 
     // find the link with a href attribute containing shop and click it
     cy.get(`a[href*="shop"]`).click();

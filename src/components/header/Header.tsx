@@ -1,14 +1,14 @@
-import useSnackBar from '@/hooks/use-snackBar';
-import { useAppSelector } from '@/types/hooks';
+import { useAppSelector } from '@/hooks/hooks';
+import { useSnackBar } from '@/hooks/use-snackBar';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/dist/client/router';
 import Link from 'next/link';
 import { useState } from 'react';
-import Overlay from '../ui/Overlay';
-import FunctionalLinks from './FunctionalLinks';
-import HeaderItems from './HeaderItems';
+import { Overlay } from '../ui/Overlay';
+import { FunctionalLinks } from './FunctionalLinks';
+import { HeaderItems } from './HeaderItems';
 
-const Header = () => {
+export const Header = () => {
   const router = useRouter();
   const { data: session } = useSession();
   const [hamMenuToggle, setHamMenuToggle] = useState(false);
@@ -33,7 +33,9 @@ const Header = () => {
       >
         <div className="container flex flex-wrap justify-between items-center">
           <button
-            className={`menuToggle md:hidden ${darkState ? `dark-bg` : ``}`}
+            className={`menuToggle md:hidden ${
+              darkState ? `dark-hamb-menu` : ``
+            }`}
           >
             <input
               type="checkbox"
@@ -99,7 +101,5 @@ const Header = () => {
     </>
   );
 };
-
-export default Header;
 
 // request.time < timestamp.date(2022, 12, 2);

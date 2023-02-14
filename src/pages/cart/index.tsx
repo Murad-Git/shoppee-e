@@ -1,21 +1,22 @@
-import CartTable from '@/components/cart/CartTable';
-import CartTotal from '@/components/cart/CartTotal';
+import { CartPage } from '@/components/pages/CartPage';
+import { useAppSelector } from '@/hooks/hooks';
+import { productsValue } from '@/store/productsSlice';
 import Head from 'next/head';
 
 export default function Cart() {
+  const productsList = useAppSelector(productsValue);
+
   return (
     <>
       <Head>
-        <title>Your cart</title>
+        <title>
+          {productsList && productsList?.length > 0 ? productsList.length : ``}
+          {` `}
+          items in your cart
+        </title>
         <meta name="description" content="Your cart" key="desc" />
       </Head>
-      <div className="container pt-32 lg:grid lg:grid-cols-3 lg:gap-4 xl:gap-12 pb-6">
-        <div className="lg:col-span-2">
-          <h2 className="font-bold mb-12 mt-6">Shopping Cart</h2>
-          <CartTable />
-        </div>
-        <CartTotal />
-      </div>
+      <CartPage />
     </>
   );
 }

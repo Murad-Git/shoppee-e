@@ -1,21 +1,21 @@
-import useSnackBar from '@/hooks/use-snackBar';
+import { useAppDispatch, useAppSelector } from '@/hooks/hooks';
+import { useSnackBar } from '@/hooks/use-snackBar';
 import {
   productsValue,
   removeAllProducts,
   selectTotalPrice,
 } from '@/store/productsSlice';
-import { useAppDispatch, useAppSelector } from '@/types/hooks';
 import { loadStripe } from '@stripe/stripe-js';
 import axios from 'axios';
 import { useSession } from 'next-auth/react';
 import { useState } from 'react';
 import Card from 'react-credit-cards';
 import 'react-credit-cards/es/styles-compiled.css';
-import Button from '../ui/Button';
+import { Button } from '../ui/Button';
 
 const stripePromise = loadStripe(process.env.stripe_public_key as string);
 
-const CartTotal = () => {
+export const CartTotal = () => {
   const [isFrontOfCardVisible, setIsFrontOfCardVisible] = useState(true);
   const { data: session } = useSession();
   const totalPrice = useAppSelector(selectTotalPrice);
@@ -91,11 +91,12 @@ const CartTotal = () => {
           aria-disabled={!session}
           role="link"
           variant={session ? `logged` : `unlogged`}
+          size="full"
         >
           {session ? `check out` : `login to proceed`}
         </Button>
       </section>
-      <div className="cursor-pointer mt-6" onClick={(e) => toggleCardFlip(e)}>
+      <div className="cursor-pointer mt-6" onClick={toggleCardFlip}>
         <Card
           cvc="424"
           expiry="08/25"
@@ -107,5 +108,3 @@ const CartTotal = () => {
     </div>
   );
 };
-
-export default CartTotal;

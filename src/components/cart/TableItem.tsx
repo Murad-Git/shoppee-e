@@ -1,16 +1,17 @@
-import useSnackBar from '@/hooks/use-snackBar';
+import { useAppDispatch } from '@/hooks/hooks';
+import { useSnackBar } from '@/hooks/use-snackBar';
 import {
   decrementFromCart,
   incrementFromCart,
   removeProduct,
 } from '@/store/productsSlice';
-import { useAppDispatch } from '@/types/hooks';
-import { Product } from '@/types/main';
+import type { Product } from '@/types/main';
 import { faClose, faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Image from 'next/image';
+import Link from 'next/link';
 
-const TableItem = ({ product }: { product: Product }) => {
+export const TableItem = ({ product }: { product: Product }) => {
   const dispatch = useAppDispatch();
   const addProductInfo = useSnackBar({
     amount: 1,
@@ -68,8 +69,12 @@ const TableItem = ({ product }: { product: Product }) => {
             />
           </div>
           <div>
-            <h6 className="text-[#555]">{product.category}</h6>
-            <h5 className="font-bold">{product.name}</h5>
+            <h6 className="">{product.category}</h6>
+            <Link href={`shop/${product.slug}`}>
+              <a>
+                <h5 className="font-bold">{product.name}</h5>
+              </a>
+            </Link>
           </div>
         </div>
       </td>
@@ -111,4 +116,3 @@ const TableItem = ({ product }: { product: Product }) => {
     </tr>
   );
 };
-export default TableItem;

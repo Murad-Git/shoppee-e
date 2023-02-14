@@ -1,5 +1,5 @@
+import { useAppDispatch, useAppSelector } from '@/hooks/hooks';
 import { darkMode, productsValue } from '@/store/productsSlice';
-import { useAppDispatch, useAppSelector } from '@/types/hooks';
 import { faUser } from '@fortawesome/free-regular-svg-icons';
 import {
   faArrowRightFromBracket,
@@ -12,7 +12,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
 
-const FunctionalLinks = ({
+export const FunctionalLinks = ({
   handleGoProfile,
 }: {
   handleGoProfile: () => void;
@@ -24,7 +24,7 @@ const FunctionalLinks = ({
   return (
     <ul
       className={`h-full flex flex-wrap xl:space-x-4 items-center navbar-item ${
-        darkState ? `dark-bg2` : ``
+        darkState ? `dark-text` : ``
       }`}
     >
       <li>
@@ -36,8 +36,8 @@ const FunctionalLinks = ({
           <FontAwesomeIcon
             className={`h-4 ${
               darkState
-                ? `text-yellow-500 hover:[#262626]`
-                : `text-[#262626] hover:text-yellow-500`
+                ? `text-yellow-500 hover:text-black-text`
+                : `text-black-text hover:text-yellow-500`
             } `}
             icon={darkState ? faSun : faMoon}
           />
@@ -64,7 +64,7 @@ const FunctionalLinks = ({
         >
           {session ? (
             <>
-              <span className="hidden lg:block">Log Out</span>
+              <span className="hidden lg:inline">Log Out</span>
               <FontAwesomeIcon
                 className="h-4 mx-2"
                 icon={faArrowRightFromBracket}
@@ -76,7 +76,7 @@ const FunctionalLinks = ({
                 className="h-4 mx-2"
                 icon={faArrowRightFromBracket}
               />
-              <span className="hidden lg:block">Log In</span>
+              <span className="hidden lg:inline">Log In</span>
             </>
           )}
         </button>
@@ -106,5 +106,3 @@ const FunctionalLinks = ({
     </ul>
   );
 };
-
-export default FunctionalLinks;
