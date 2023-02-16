@@ -35,6 +35,7 @@ export const Button = ({ children, variant, size, ...rest }: Props) => {
       break;
     case `small`:
       buttonSize = `w-1/3 md:w-1/4 md:p-3`;
+      break;
     case `full`:
       buttonSize = `w-full`;
       break;

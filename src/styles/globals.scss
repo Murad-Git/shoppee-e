@@ -78,7 +78,7 @@
   } 
 
   .btn {
-    @apply text-sm leading-[1.5] text-center relative transition-all duration-300 ease-linear cursor-pointer uppercase font-bold py-4 px-11 whitespace-nowrap;
+    @apply text-sm leading-[1.5] text-center relative transition-all duration-300 ease-linear cursor-pointer uppercase font-bold py-4 px-2 md:px-11 whitespace-nowrap;
   }
   .btn-primary {
     @apply text-white bg-accent-color border-accent-color border;
