@@ -14,8 +14,6 @@ const app = admin.apps.length
           : undefined,
         clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
       }),
-      // credential: admin.credential.cert(serviceAccount),
-      databaseURL: `https://e-shoppee-a2938.firebaseio.com`,
     });
 
 // Establish connection to Stripe
@@ -23,8 +21,6 @@ const stripe = require(`stripe`)(process.env.STRIPE_SECRET_KEY);
 const endpointSecret = process.env.STRIPE_SIGNING_SECRET;
 const fulfillOrder = async (session: Session) => {
   console.log(`fulfilling the order`);
-  // console.log(session);
-
   return app
     .firestore()
     .collection(`users`)
