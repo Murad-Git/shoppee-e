@@ -1,7 +1,23 @@
 import { Session } from '@/types/main';
 import * as admin from 'firebase-admin';
-import { buffer } from 'micro';
+// import { buffer } from 'micro';
 import type { NextApiRequest, NextApiResponse } from 'next';
+
+const buffer = (req: NextApiRequest) => {
+  return new Promise<Buffer>((resolve, reject) => {
+    const chunks: Buffer[] = [];
+
+    req.on(`data`, (chunk: Buffer) => {
+      chunks.push(chunk);
+    });
+
+    req.on(`end`, () => {
+      resolve(Buffer.concat(chunks));
+    });
+
+    req.on(`error`, reject);
+  });
+};
 
 // Secure a connection to Firebase from the backend
 const app = admin.apps.length
@@ -45,7 +61,7 @@ const fulfillOrder = async (session: Session) => {
     .catch((err) => console.error(`webhook error ${err.message}`));
 };
 
-const webhook = async (req: NextApiRequest, res: NextApiResponse) => {
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === `POST`) {
     try {
       const body = await buffer(req);
@@ -84,4 +100,4 @@ export const config = {
   },
 };
 
-export default webhook;
+export default handler;
