@@ -1,12 +1,9 @@
 import type { ordersProps } from '@/types/main';
 import moment from 'moment';
 import Image from 'next/dist/client/image';
-import Currency from 'react-currency-formatter';
+// import Currency from 'react-currency-formatter';
 
 export const OrdersUI = ({ orders }: ordersProps) => {
-  const deliveryText = (amountShipping: number) =>
-    amountShipping === 0 ? ` - Free Shipping ` : ` - Next Day Delivery `;
-
   const totalItems = (items: { quantity: number }[]) =>
     items.reduce((acc, item) => (acc += item.quantity), 0);
 
@@ -15,7 +12,6 @@ export const OrdersUI = ({ orders }: ordersProps) => {
       return { amount: x.quantity, image: images[i] };
     });
   };
-
   return (
     <>
       <h4>
@@ -38,12 +34,13 @@ export const OrdersUI = ({ orders }: ordersProps) => {
                 <div>
                   <p className="uppercase text-xs font-bold">total</p>
                   <p>
-                    <Currency quantity={order.value.amount} currency="USD" />
+                    {order.value.amount} $
+                    {/* <Currency quantity={order.value.amount} currency="USD" />
                     {deliveryText(order.value.amountShipping)}
                     <Currency
                       quantity={order.value.amountShipping}
                       currency="USD"
-                    />
+                    /> */}
                   </p>
                 </div>
                 <p className="text-sm whitespace-nowrap sm:text-xl self-end flex-1 text-right">

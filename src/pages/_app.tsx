@@ -1,6 +1,7 @@
 import { Layout } from '@/components/ui/Layout';
 import { persistor, store } from '@/store/store';
 import '@/styles/globals.scss';
+// import 'react-credit-cards-2/dist/lib/styles.scss';
 import { Session } from 'next-auth/core/types';
 import { SessionProvider } from 'next-auth/react';
 import type { AppProps } from 'next/app';

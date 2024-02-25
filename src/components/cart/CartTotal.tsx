@@ -9,8 +9,9 @@ import { loadStripe } from '@stripe/stripe-js';
 import axios from 'axios';
 import { useSession } from 'next-auth/react';
 import { useState } from 'react';
-import Card from 'react-credit-cards';
-import 'react-credit-cards/es/styles-compiled.css';
+import Cards from 'react-credit-cards-2';
+import 'react-credit-cards-2/dist/es/styles-compiled.css';
+// import 'react-credit-cards/es/styles-compiled.css';
 import { Button } from '../ui/Button';
 
 const stripePromise = loadStripe(process.env.stripe_public_key as string);
@@ -97,7 +98,7 @@ export const CartTotal = () => {
         </Button>
       </section>
       <div className="cursor-pointer mt-6" onClick={toggleCardFlip}>
-        <Card
+        <Cards
           cvc="424"
           expiry="08/25"
           name="John Smith"
