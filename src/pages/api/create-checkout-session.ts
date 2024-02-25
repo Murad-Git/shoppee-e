@@ -29,7 +29,7 @@ const checkoutSession = async (req: NextApiRequest, res: NextApiResponse) => {
         payment_method_types: [`card`],
         shipping_options: [
           { shipping_rate: `shr_1LzS6uGs9BLa1ieT3nQqbAk2` },
-          { shipping_rate: `shr_1LzS6uGs9BLa1ieT3nQqbAk2` },
+          { shipping_rate: `shr_1LzS5uGs9BLa1ieT4yQOTApo` },
         ],
         shipping_address_collection: {
           allowed_countries: [
