@@ -27,7 +27,10 @@ const checkoutSession = async (req: NextApiRequest, res: NextApiResponse) => {
 
       const session = await stripe.checkout.sessions.create({
         payment_method_types: [`card`],
-        shipping_options: [{ shipping_rate: `shr_1Onj0SGs9BLa1ieTEKWQ8cXT` }],
+        shipping_options: [
+          { shipping_rate: `shr_1LzS6uGs9BLa1ieT3nQqbAk2` },
+          { shipping_rate: `shr_1LzS6uGs9BLa1ieT3nQqbAk2` },
+        ],
         shipping_address_collection: {
           allowed_countries: [
             `US`,
