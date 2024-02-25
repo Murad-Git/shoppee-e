@@ -58,7 +58,7 @@ const webhook = async (req: NextApiRequest, res: NextApiResponse) => {
         event = stripe.webhooks.constructEvent(payload, sig, endpointSecret);
       } catch (error) {
         if (error instanceof Error)
-          res.status(400).send(`Webhook error ${error.message}`);
+          return res.status(400).send(`Webhook error ${error.message}`);
       }
 
       // Handle the checkout.session.completed event

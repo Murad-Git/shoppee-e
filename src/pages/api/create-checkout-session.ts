@@ -61,13 +61,13 @@ const checkoutSession = async (req: NextApiRequest, res: NextApiResponse) => {
           description: `${products.length} items for ${email}`,
         },
       });
-      res.status(200).json({ id: session.id });
+      return res.status(200).json({ id: session.id });
     } catch (error) {
       if (error instanceof Error) res.status(500).json(error.message);
     }
   } else {
     res.setHeader(`Allow`, `POST`);
-    res.status(405).send(`Method Not Allowed`);
+    return res.status(405).send(`Method Not Allowed`);
   }
 };
 export default checkoutSession;
