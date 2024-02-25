@@ -48,14 +48,16 @@ const fulfillOrder = async (session: Session) => {
 const webhook = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === `POST`) {
     try {
-      const requestBuffer = await buffer(req);
-      const payload = requestBuffer.toString();
+      const body = await buffer(req);
+      // const requestBuffer = await buffer(req);
+      // const payload = requestBuffer.toString();
       const sig = req.headers[`stripe-signature`];
 
       let event;
       // Verify that the Event posted came from stripe
       try {
-        event = stripe.webhooks.constructEvent(payload, sig, endpointSecret);
+        event = stripe.webhooks.constructEvent(body, sig, endpointSecret);
+        // event = stripe.webhooks.constructEvent(payload, sig, endpointSecret);
       } catch (error) {
         if (error instanceof Error)
           return res.status(400).send(`Webhook error ${error.message}`);
